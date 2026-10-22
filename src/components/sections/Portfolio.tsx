@@ -12,7 +12,7 @@ export function Portfolio() {
       {/* Header */}
       <div className="text-center flex flex-col gap-3 items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_6px_rgba(0,240,255,0.6)]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A36] shadow-[0_0_6px_rgba(255,90,54,0.6)]" />
           {lang === "es" ? "NUESTRO TRABAJO" : "OUR WORK"}
         </div>
         <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020]">
@@ -31,12 +31,12 @@ export function Portfolio() {
           className="lt rounded-[20px] overflow-hidden flex flex-col group shadow-xs hover:shadow-xl transition-all duration-300"
         >
           <div className="h-[170px] bg-[#0B1020] p-6 box-border flex flex-col justify-start border-b border-[#2A3560]/40">
-            <div className="h-3 w-[60%] rounded-[6px] bg-[#00F0FF] mb-3 group-hover:w-[70%] transition-all shadow-[0_0_10px_rgba(0,240,255,0.4)]" />
+            <div className="h-3 w-[60%] rounded-[6px] bg-[#FF5A36] mb-3 group-hover:w-[70%] transition-all shadow-[0_0_10px_rgba(255,90,54,0.4)]" />
             <div className="h-2 w-[85%] rounded-[4px] bg-[#2A3560] mb-2" />
             <div className="h-2 w-[50%] rounded-[4px] bg-[#2A3560]" />
           </div>
           <div className="p-5">
-            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#00B4D8] transition-colors">
+            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#FF5A36] transition-colors">
               Nexus Corporate
             </div>
             <div className="text-[14px] text-[#4A5373] mt-1">
@@ -45,19 +45,19 @@ export function Portfolio() {
           </div>
         </Link>
 
-        {/* Project 2: Cyan Bento UI */}
+        {/* Project 2: Coral Bento UI */}
         <Link
           href="#contacto"
           className="lt rounded-[20px] overflow-hidden flex flex-col group shadow-xs hover:shadow-xl transition-all duration-300"
         >
-          <div className="h-[170px] bg-gradient-to-br from-[#00F0FF] to-[#38BDF8] p-6 box-border grid grid-cols-2 gap-2.5">
+          <div className="h-[170px] bg-gradient-to-br from-[#FF6B4A] to-[#FF4520] p-6 box-border grid grid-cols-2 gap-2.5">
             <div className="rounded-xl bg-[#0B1020] group-hover:scale-95 transition-transform" />
             <div className="rounded-xl bg-white group-hover:scale-105 transition-transform" />
             <div className="rounded-xl bg-white group-hover:scale-105 transition-transform" />
             <div className="rounded-xl bg-[#0B1020] group-hover:scale-95 transition-transform" />
           </div>
           <div className="p-5">
-            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#00B4D8] transition-colors">
+            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#FF5A36] transition-colors">
               Aura Fashion Store
             </div>
             <div className="text-[14px] text-[#4A5373] mt-1">
@@ -79,7 +79,7 @@ export function Portfolio() {
             <div className="h-[30px] w-[90px] rounded-full bg-[#0B1020]" />
           </div>
           <div className="p-5">
-            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#00B4D8] transition-colors">
+            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#FF5A36] transition-colors">
               Vanguard Living
             </div>
             <div className="text-[14px] text-[#4A5373] mt-1">
@@ -97,10 +97,10 @@ export function Portfolio() {
             <div className="w-[18%] h-[40%] rounded-[6px] bg-[#2A3560]" />
             <div className="w-[18%] h-[60%] rounded-[6px] bg-[#8FA2FF]" />
             <div className="w-[18%] h-[50%] rounded-[6px] bg-[#2A3560]" />
-            <div className="w-[18%] h-[85%] rounded-[6px] bg-[#00F0FF] shadow-[0_0_12px_rgba(0,240,255,0.6)]" />
+            <div className="w-[18%] h-[85%] rounded-[6px] bg-[#FF5A36] shadow-[0_0_12px_rgba(255,90,54,0.6)]" />
           </div>
           <div className="p-5">
-            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#00B4D8] transition-colors">
+            <div className="hd text-[18px] font-medium text-[#0B1020] group-hover:text-[#FF5A36] transition-colors">
               Kroma Analytics
             </div>
             <div className="text-[14px] text-[#4A5373] mt-1">

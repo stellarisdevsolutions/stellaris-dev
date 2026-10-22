@@ -45,10 +45,10 @@ export function Navbar() {
               height="28"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#00F0FF"
+              stroke="#FF5A36"
               strokeWidth="1.8"
               strokeLinejoin="round"
-              className="shrink-0 transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]"
+              className="shrink-0 transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,90,54,0.5)]"
               aria-hidden="true"
             >
               <path d="M12 2l2.6 6.4L21 9.3l-5 4.4 1.5 6.6L12 16.8 6.5 20.3 8 13.7 3 9.3l6.4-.9z" />
@@ -62,7 +62,7 @@ export function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-[#E8ECF8] hover:text-[#00F0FF] transition-colors"
+                className="text-[#E8ECF8] hover:text-[#FF5A36] transition-colors"
               >
                 {link.label}
               </Link>
@@ -78,7 +78,7 @@ export function Navbar() {
                 onClick={() => setLang("en")}
                 className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                   lang === "en"
-                    ? "bg-[#00F0FF] text-[#0B1020] shadow-[0_0_10px_rgba(0,240,255,0.4)]"
+                    ? "bg-[#FF5A36] text-white shadow-[0_0_10px_rgba(255,90,54,0.4)]"
                     : "text-[#A9B3CF] hover:text-white"
                 }`}
                 title="Switch to English"
@@ -90,7 +90,7 @@ export function Navbar() {
                 onClick={() => setLang("es")}
                 className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                   lang === "es"
-                    ? "bg-[#00F0FF] text-[#0B1020] shadow-[0_0_10px_rgba(0,240,255,0.4)]"
+                    ? "bg-[#FF5A36] text-white shadow-[0_0_10px_rgba(255,90,54,0.4)]"
                     : "text-[#A9B3CF] hover:text-white"
                 }`}
                 title="Cambiar a Español"
@@ -110,11 +110,11 @@ export function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-[#E8ECF8] hover:text-[#00F0FF] rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+              className="lg:hidden p-2 text-[#E8ECF8] hover:text-[#FF5A36] rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
               aria-label="Abrir menú"
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6 text-[#00F0FF]" />
+                <X className="h-6 w-6 text-[#FF5A36]" />
               ) : (
                 <Menu className="h-6 w-6" />
               )}
@@ -139,7 +139,7 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-base font-medium text-[#E8ECF8] hover:text-[#00F0FF] py-1 transition-colors"
+                  className="text-base font-medium text-[#E8ECF8] hover:text-[#FF5A36] py-1 transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -147,7 +147,7 @@ export function Navbar() {
 
               <div className="pt-3 border-t border-[#2A3560] flex items-center justify-between">
                 <span className="text-xs text-[#A9B3CF] flex items-center gap-1.5 font-medium">
-                  <Globe className="h-3.5 w-3.5 text-[#00F0FF]" />
+                  <Globe className="h-3.5 w-3.5 text-[#FF5A36]" />
                   Idioma / Language:
                 </span>
                 <div className="flex items-center rounded-full bg-[#121A33] border border-[#2A3560] p-0.5 text-xs font-mono">
@@ -156,7 +156,7 @@ export function Navbar() {
                     onClick={() => setLang("en")}
                     className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
                       lang === "en"
-                        ? "bg-[#00F0FF] text-[#0B1020]"
+                        ? "bg-[#FF5A36] text-white"
                         : "text-[#A9B3CF] hover:text-white"
                     }`}
                   >
@@ -167,7 +167,7 @@ export function Navbar() {
                     onClick={() => setLang("es")}
                     className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
                       lang === "es"
-                        ? "bg-[#00F0FF] text-[#0B1020]"
+                        ? "bg-[#FF5A36] text-white"
                         : "text-[#A9B3CF] hover:text-white"
                     }`}
                   >
