@@ -64,7 +64,7 @@ export function FAQ() {
             </div>
             <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
               {lang === "es" ? "Preguntas " : "Frequently "}
-              <span className="text-[#FFC857]">
+              <span className="text-[#00F0FF] drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
                 {lang === "es" ? "frecuentes" : "asked questions"}
               </span>
             </h2>
@@ -81,11 +81,11 @@ export function FAQ() {
               <details
                 key={idx}
                 open={idx === 0}
-                className="dk rounded-[16px] p-5 sm:p-6 transition-all duration-200 group"
+                className="dk rounded-[16px] p-5 sm:p-6 transition-all duration-200 group border border-[#2A3560] hover:border-[#00F0FF]/40"
               >
-                <summary className="hd cursor-pointer text-base sm:text-[18px] font-medium text-[#E8ECF8] select-none hover:text-[#FFC857] transition-colors list-none flex items-center justify-between">
+                <summary className="hd cursor-pointer text-base sm:text-[18px] font-medium text-[#E8ECF8] select-none hover:text-[#00F0FF] transition-colors list-none flex items-center justify-between">
                   <span>{faq.q}</span>
-                  <span className="text-[#FFC857] text-lg font-mono ml-3 shrink-0">✦</span>
+                  <span className="text-[#00F0FF] text-lg font-mono ml-3 shrink-0">✦</span>
                 </summary>
                 <p className="mt-3.5 mb-0 text-[#A9B3CF] text-[15px] leading-[1.6]">
                   {faq.a}
