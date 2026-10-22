@@ -35,7 +35,7 @@ export function Hero() {
               className="hd font-bold text-4xl sm:text-5xl lg:text-[62px] leading-[1.05] tracking-[-1.5px] text-[#E8ECF8]"
             >
               {t.hero.titlePart1}
-              <span className="text-[#FF5A36] drop-shadow-[0_0_20px_rgba(255,90,54,0.4)]">{t.hero.titleHighlight}</span>
+              <span className="text-[#A78BFA] drop-shadow-[0_0_20px_rgba(167,139,250,0.45)]">{t.hero.titleHighlight}</span>
               {t.hero.titlePart2}
             </motion.h1>
 
@@ -84,7 +84,7 @@ export function Hero() {
                 <path d="M30 60L150 20L270 60L400 15L460 90" />
                 <path d="M40 360L180 385L320 350L450 380" />
               </g>
-              <g fill="#FF5A36">
+              <g fill="#A78BFA">
                 <circle cx="30" cy="60" r="4" />
                 <circle cx="150" cy="20" r="3" />
                 <circle cx="270" cy="60" r="5" />
@@ -104,7 +104,7 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="dk relative mr-10 mt-10 rounded-[20px] p-[18px] w-full max-w-[360px] sm:max-w-[390px] shadow-[0_30px_60px_rgba(0,0,0,0.45)] border border-[#2A3560] hover:border-[#FF5A36]/40 transition-colors"
+              className="dk relative mr-10 mt-10 rounded-[20px] p-[18px] w-full max-w-[360px] sm:max-w-[390px] shadow-[0_30px_60px_rgba(0,0,0,0.45)] border border-[#2A3560] hover:border-[#8B5CF6]/40 transition-colors"
             >
               {/* Window dots */}
               <div className="flex gap-[7px] mb-4">
@@ -113,7 +113,7 @@ export function Hero() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#3A4678]" />
               </div>
               {/* Accent Banner Bar */}
-              <div className="h-3.5 w-[70%] rounded-[7px] bg-gradient-to-r from-[#FF6B4A] to-[#FF4520] mb-3 shadow-[0_0_12px_rgba(255,90,54,0.4)]" />
+              <div className="h-3.5 w-[70%] rounded-[7px] bg-gradient-to-r from-[#A78BFA] to-[#7C3AED] mb-3 shadow-[0_0_12px_rgba(139,92,246,0.4)]" />
               <div className="h-2.5 w-[90%] rounded-[5px] bg-[#2A3560] mb-2" />
               <div className="h-2.5 w-[60%] rounded-[5px] bg-[#2A3560] mb-4" />
               {/* Purple/Blue Pill Button */}
@@ -132,7 +132,7 @@ export function Hero() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute right-0 sm:right-2 -bottom-8 w-[120px] h-[210px] rounded-[26px] bg-[#0B1020] border-2 border-[#3A4678] p-3.5 box-border shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
             >
-              <div className="h-2.5 w-[60%] rounded-[5px] bg-[#FF5A36] my-2.5 shadow-[0_0_8px_rgba(255,90,54,0.4)]" />
+              <div className="h-2.5 w-[60%] rounded-[5px] bg-[#8B5CF6] my-2.5 shadow-[0_0_8px_rgba(139,92,246,0.4)]" />
               <div className="h-[7px] rounded-[4px] bg-[#2A3560] mb-[7px]" />
               <div className="h-[7px] w-[70%] rounded-[4px] bg-[#2A3560] mb-4" />
               <div className="h-[60px] rounded-[10px] bg-[#1B2547]" />

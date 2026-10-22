@@ -18,7 +18,7 @@ export function FeatureTech() {
 
             <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
               {lang === "es" ? "Tecnología de punta, " : "Cutting-edge tech, "}
-              <span className="text-[#FF5A36] drop-shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+              <span className="text-[#A78BFA] drop-shadow-[0_0_15px_rgba(167,139,250,0.4)]">
                 {lang === "es" ? "siempre actualizada" : "always up to date"}
               </span>
             </h2>
@@ -31,15 +31,15 @@ export function FeatureTech() {
 
             <div className="flex flex-col gap-3 text-base text-[#E8ECF8]">
               <div className="flex items-center gap-2.5">
-                <span className="text-[#FF5A36] text-lg font-bold">✦</span>
+                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
                 <span>{lang === "es" ? "Prototipos y entregas más rápidas" : "Faster delivery and prototype turnaround"}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="text-[#FF5A36] text-lg font-bold">✦</span>
+                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
                 <span>{lang === "es" ? "Código revisado y optimizado" : "Verified, optimized, high-performance code"}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="text-[#FF5A36] text-lg font-bold">✦</span>
+                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
                 <span>{lang === "es" ? "Herramientas y estándares siempre al día" : "Modern standards and libraries always current"}</span>
               </div>
             </div>
@@ -72,9 +72,9 @@ export function FeatureTech() {
               </g>
 
               {/* Central AI Card */}
-              <rect x="150" y="100" width="140" height="140" rx="28" fill="#121A33" stroke="#FF5A36" strokeWidth="3" className="filter drop-shadow-[0_0_12px_rgba(255,90,54,0.4)]" />
+              <rect x="150" y="100" width="140" height="140" rx="28" fill="#121A33" stroke="#8B5CF6" strokeWidth="3" className="filter drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]" />
               <rect x="172" y="122" width="96" height="96" rx="18" fill="#1B2547" />
-              <text x="220" y="190" textAnchor="middle" fontFamily="Space Grotesk, sans-serif" fontWeight="700" fontSize="46" fill="#FF5A36">
+              <text x="220" y="190" textAnchor="middle" fontFamily="Space Grotesk, sans-serif" fontWeight="700" fontSize="46" fill="#A78BFA">
                 AI
               </text>
 

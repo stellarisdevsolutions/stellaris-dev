@@ -25,7 +25,7 @@ export function Contact() {
       {/* Left Column */}
       <div className="flex flex-col gap-6 text-left">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE] self-start">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A36] shadow-[0_0_6px_rgba(255,90,54,0.6)]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] shadow-[0_0_6px_rgba(139,92,246,0.6)]" />
           {lang === "es" ? "CONTACTO" : "GET IN TOUCH"}
         </div>
 
@@ -46,7 +46,7 @@ export function Contact() {
         <div className="flex flex-col gap-3.5 mt-2">
           {/* Card 1: Email */}
           <div className="lt rounded-[16px] p-5 flex items-center gap-4">
-            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
+            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect width="20" height="16" x="2" y="4" rx="2" />
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -56,7 +56,7 @@ export function Contact() {
               <div className="text-[13px] text-[#4A5373]">{lang === "es" ? "Correo" : "Email"}</div>
               <a
                 href="mailto:stellarisdev.us@gmail.com"
-                className="font-medium text-[#0B1020] hover:text-[#FF5A36] transition-colors mt-0.5 block text-[15px]"
+                className="font-medium text-[#0B1020] hover:text-[#8B5CF6] transition-colors mt-0.5 block text-[15px]"
               >
                 stellarisdev.us@gmail.com
               </a>
@@ -65,7 +65,7 @@ export function Contact() {
 
           {/* Card 2: WhatsApp */}
           <div className="lt rounded-[16px] p-5 flex items-center gap-4">
-            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
+            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
@@ -76,7 +76,7 @@ export function Contact() {
                 href="https://wa.me/59169991245"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-[#0B1020] hover:text-[#FF5A36] transition-colors mt-0.5 block text-[15px]"
+                className="font-medium text-[#0B1020] hover:text-[#8B5CF6] transition-colors mt-0.5 block text-[15px]"
               >
                 +591 69991245
               </a>
@@ -85,7 +85,7 @@ export function Contact() {
 
           {/* Card 3: Hours */}
           <div className="lt rounded-[16px] p-5 flex items-center gap-4">
-            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
+            <div className="w-11 h-11 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center shrink-0 border border-[#2A3560] shadow-sm">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
@@ -102,7 +102,7 @@ export function Contact() {
       </div>
 
       {/* Right Column: Dark Form Card exactly matching reference */}
-      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[28px] p-8 sm:p-9 flex flex-col gap-5 shadow-2xl border border-[#2A3560] hover:border-[#FF5A36]/40 transition-colors">
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[28px] p-8 sm:p-9 flex flex-col gap-5 shadow-2xl border border-[#2A3560] hover:border-[#8B5CF6]/40 transition-colors">
         <h3 className="hd text-2xl font-bold text-white m-0">
           {lang === "es" ? "Envíanos un mensaje" : "Send us a message"}
         </h3>
@@ -120,7 +120,7 @@ export function Contact() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={lang === "es" ? "Tu nombre" : "Your name"}
-              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FF5A36] focus:outline-hidden transition-colors"
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#8B5CF6] focus:outline-hidden transition-colors"
             />
           </div>
 
@@ -136,7 +136,7 @@ export function Contact() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@correo.com o +591..."
-              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FF5A36] focus:outline-hidden transition-colors"
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#8B5CF6] focus:outline-hidden transition-colors"
             />
           </div>
 
@@ -149,7 +149,7 @@ export function Contact() {
               id="t"
               value={projectType}
               onChange={(e) => setProjectType(e.target.value)}
-              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FF5A36] focus:outline-hidden transition-colors"
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#8B5CF6] focus:outline-hidden transition-colors"
             >
               <option value="Landing page">Landing page</option>
               <option value="Sitio web">Sitio web / Multi-página</option>
@@ -170,7 +170,7 @@ export function Contact() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={lang === "es" ? "Describe brevemente lo que necesitas" : "Briefly describe what you're looking to build"}
-              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FF5A36] focus:outline-hidden transition-colors resize-vertical"
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#8B5CF6] focus:outline-hidden transition-colors resize-vertical"
             />
           </div>
 

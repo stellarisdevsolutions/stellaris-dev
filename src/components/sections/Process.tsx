@@ -17,18 +17,18 @@ export function Process() {
             </div>
             <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
               {lang === "es" ? "Cómo " : "How we "}
-              <span className="text-[#FF5A36] drop-shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+              <span className="text-[#A78BFA] drop-shadow-[0_0_15px_rgba(167,139,250,0.4)]">
                 {lang === "es" ? "trabajamos" : "work"}
               </span>
             </h2>
           </div>
 
-          {/* 4 Steps with Connector Lines and #FF5A36 Badges */}
+          {/* 4 Steps with Connector Lines and Violet Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
             {/* Step 1 */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#FF6B4A] to-[#FF4520] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                   1
                 </div>
                 <div className="flex-1 h-[2px] bg-[#2A3560] hidden sm:block" />
@@ -46,7 +46,7 @@ export function Process() {
             {/* Step 2 */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#FF6B4A] to-[#FF4520] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                   2
                 </div>
                 <div className="flex-1 h-[2px] bg-[#2A3560] hidden sm:block" />
@@ -64,7 +64,7 @@ export function Process() {
             {/* Step 3 */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#FF6B4A] to-[#FF4520] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                   3
                 </div>
                 <div className="flex-1 h-[2px] bg-[#2A3560] hidden sm:block" />
@@ -82,7 +82,7 @@ export function Process() {
             {/* Step 4 */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#FF6B4A] to-[#FF4520] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,90,54,0.4)]">
+                <div className="hd w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] text-white font-bold text-[22px] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
                   4
                 </div>
               </div>

@@ -12,7 +12,7 @@ export function Pricing() {
       {/* Header */}
       <div className="text-center flex flex-col gap-3 items-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A36] shadow-[0_0_6px_rgba(255,90,54,0.6)]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] shadow-[0_0_6px_rgba(139,92,246,0.6)]" />
           {lang === "es" ? "PRECIOS" : "PRICING"}
         </div>
         <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
@@ -36,19 +36,19 @@ export function Pricing() {
           </div>
           <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Una página enfocada en convertir" : "Single high-conversion page"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Formulario de contacto" : "Direct inquiry form"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
@@ -61,36 +61,36 @@ export function Pricing() {
         </div>
 
         {/* Card 2: Sitio Web (Highlighted in Dark #0B1020) */}
-        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl relative border border-[#FF5A36]/40 hover:border-[#FF5A36] transition-all shadow-[0_0_30px_rgba(255,90,54,0.12)]">
+        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl relative border border-[#8B5CF6]/40 hover:border-[#8B5CF6] transition-all shadow-[0_0_30px_rgba(139,92,246,0.15)]">
           <div className="flex items-center justify-between">
             <h3 className="hd text-[22px] font-bold text-white m-0">
               {lang === "es" ? "Sitio web" : "Multi-Page Website"}
             </h3>
-            <span className="bg-gradient-to-r from-[#FF6B4A] to-[#FF4520] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_10px_rgba(255,90,54,0.4)]">
+            <span className="bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_10px_rgba(139,92,246,0.5)]">
               {lang === "es" ? "Popular" : "Popular"}
             </span>
           </div>
           <div>
             <span className="text-[15px] text-[#A9B3CF]">{lang === "es" ? "Desde" : "From"}</span>
-            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#FF5A36] drop-shadow-[0_0_12px_rgba(255,90,54,0.35)]">
+            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#A78BFA] drop-shadow-[0_0_12px_rgba(167,139,250,0.4)]">
               $150 <span className="text-[18px] font-medium text-[#A9B3CF]">USD</span>
             </div>
           </div>
           <div className="flex flex-col gap-3 text-[15px] text-[#A9B3CF] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF5A36] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(255,90,54,0.5)]">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.5)]">✓</span>
               <span>{lang === "es" ? "Varias páginas" : "Up to 5 custom pages"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF5A36] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(255,90,54,0.5)]">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.5)]">✓</span>
               <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF5A36] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(255,90,54,0.5)]">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.5)]">✓</span>
               <span>{lang === "es" ? "Optimización SEO básica" : "Essential Google SEO"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF5A36] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(255,90,54,0.5)]">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#8B5CF6] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.5)]">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
@@ -113,19 +113,19 @@ export function Pricing() {
           </div>
           <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Carrito y pagos en línea" : "Cart & secure payments"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Panel de administración" : "Admin dashboard"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FF5A36] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#8B5CF6] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
@@ -138,8 +138,8 @@ export function Pricing() {
         </div>
       </div>
 
-      {/* Coral-Tech Dark Banner */}
-      <div className="bg-gradient-to-r from-[#0B152B] via-[#122347] to-[#0B152B] border border-[#FF5A36]/40 rounded-[28px] p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-2xl shadow-[#FF5A36]/10">
+      {/* Cosmic-Tech Dark Banner */}
+      <div className="bg-gradient-to-r from-[#0B152B] via-[#151733] to-[#0B152B] border border-[#8B5CF6]/40 rounded-[28px] p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-2xl shadow-[#8B5CF6]/10">
         <div className="max-w-[620px] text-left">
           <h3 className="hd text-2xl sm:text-[28px] font-bold leading-[1.2] text-[#E8ECF8] m-0 mb-2">
             {lang === "es" ? "¿Tienes requerimientos especiales o una idea única?" : "Have custom requirements or a unique vision?"}
@@ -152,7 +152,7 @@ export function Pricing() {
         </div>
         <Link
           href="#contacto"
-          className="btn-accent px-7 py-4 rounded-full text-[15px] font-semibold shrink-0 transition-all shadow-lg shadow-[#FF5A36]/30 active:scale-95"
+          className="btn-accent px-7 py-4 rounded-full text-[15px] font-semibold shrink-0 transition-all shadow-lg shadow-[#8B5CF6]/30 active:scale-95"
         >
           {lang === "es" ? "Escríbenos" : "Message Us"}
         </Link>
