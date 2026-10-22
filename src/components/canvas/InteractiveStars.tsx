@@ -108,7 +108,7 @@ export function InteractiveStars() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
+        ctx.fillStyle = `rgba(251, 191, 36, ${p.alpha})`;
         ctx.fill();
 
         // Connect nearby particles
@@ -116,11 +116,11 @@ export function InteractiveStars() {
           const p2 = particles[j];
           const dist2 = Math.hypot(p.x - p2.x, p.y - p2.y);
           if (dist2 < 110) {
-            const lineAlpha = (1 - dist2 / 110) * 0.15;
+            const lineAlpha = (1 - dist2 / 110) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 240, 255, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(245, 158, 11, ${lineAlpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }

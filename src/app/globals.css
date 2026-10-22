@@ -2,12 +2,10 @@
 
 @layer base {
   :root {
-    --background: #07090e;
+    --background: #0a0f1d;
     --foreground: #f8fafc;
-    --card: #0e131f;
-    --card-border: #1e293b;
-    --accent-cyan: #00f0ff;
-    --accent-indigo: #6366f1;
+    --accent-amber: #f59e0b;
+    --accent-amber-light: #fbbf24;
   }
 
   html {
@@ -23,8 +21,8 @@
     font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     overflow-x: hidden;
-    selection-background-color: #00f0ff33;
-    selection-color: #00f0ff;
+    selection-background-color: #f59e0b44;
+    selection-color: #f59e0b;
   }
 
   /* Custom scrollbar */
@@ -32,7 +30,7 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #07090e;
+    background: #0a0f1d;
   }
   ::-webkit-scrollbar-thumb {
     background: #1e293b;
@@ -43,83 +41,74 @@
   }
 }
 
-/* Glowing text, typography, and backdrop blur helpers */
+/* Typography & Display helpers */
 .font-michroma {
   font-family: "Michroma", sans-serif;
   letter-spacing: 0.03em;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Highlight badge matching reference (yellow pill behind keyword) */
+.highlight-pill {
+  display: inline-block;
+  background-color: #fbbf24;
+  color: #090d16;
+  padding: 0.15rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Primary Amber Button with glow */
+.btn-amber-glow {
+  background-color: #fbbf24;
+  color: #0a0f1d;
+  font-weight: 700;
+  box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.4);
+  transition: all 0.25s ease;
 }
 
-.text-gradient-purple {
-  background: linear-gradient(135deg, #f472b6 0%, #d946ef 40%, #c084fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.btn-amber-glow:hover {
+  background-color: #f59e0b;
+  box-shadow: 0 6px 28px 0px rgba(245, 158, 11, 0.65);
+  transform: translateY(-1px);
 }
 
-.btn-cyan-glow {
-  background: linear-gradient(135deg, #00f0ff 0%, #0284c7 100%);
-  color: #050811;
-  box-shadow: 0 0 25px -2px rgba(0, 240, 255, 0.55);
+.btn-amber-glow:active {
+  transform: scale(0.97);
 }
 
-.btn-cyan-glow:hover {
-  background: linear-gradient(135deg, #38bdf8 0%, #00f0ff 100%);
-  box-shadow: 0 0 35px 0px rgba(0, 240, 255, 0.85);
+/* Infinite Marquee Animation for Yellow Ribbon */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 22s linear infinite;
 }
 
-.bg-dots-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-.glass-panel {
-  background: rgba(14, 19, 31, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 0 30px -10px rgba(0, 240, 255, 0.15);
-}
-
+/* Subtle pulse */
 @keyframes pulse-slow {
   0%, 100% {
     opacity: 0.4;
     transform: scale(1);
   }
   50% {
-    opacity: 0.7;
-    transform: scale(1.05);
+    opacity: 0.8;
+    transform: scale(1.04);
   }
 }
 
 .animate-pulse-slow {
-  animation: pulse-slow 8s infinite ease-in-out;
+  animation: pulse-slow 6s infinite ease-in-out;
 }
