@@ -2,143 +2,147 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Star, Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Hero() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   return (
     <section
       id="inicio"
-      className="relative w-full bg-[#0D0B1C] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(139,92,246,0.22),rgba(13,11,28,0))] text-[#F3E8FF] rounded-b-[48px] sm:rounded-b-[64px] pt-32 sm:pt-36 pb-24 sm:pb-28 overflow-hidden shadow-2xl shadow-[#0D0B1C]/40 border-b border-[#2E2356]/50"
+      className="relative w-full bg-white text-[#171717] pt-28 sm:pt-36 pb-20 sm:pb-24 overflow-hidden"
     >
-      <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Column: Heading, Subtitle & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left gap-7">
-            {/* Tag capsule */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 border border-[#2E2356] bg-[#141026]/80 rounded-full px-4 py-2 text-[13px] text-[#D8B4FE]"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#EC4899] animate-pulse" />
-              Desarrollo web a medida
-            </motion.div>
+      <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 flex flex-col items-center text-center">
+        {/* Top "Hello!" Speech Bubble with little rays */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="relative inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-neutral-200 bg-white shadow-xs text-xs sm:text-[13px] font-semibold text-neutral-800 mb-4"
+        >
+          <span>{lang === "es" ? "¡Hola!" : "Hello!"}</span>
+          <span className="text-sm">👋</span>
+          {/* Subtle hand-drawn sparkle */}
+          <span className="absolute -top-2.5 -right-2 text-[#FF532A] text-xs font-bold select-none">
+            ✦
+          </span>
+        </motion.div>
 
-            {/* Main Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="hd font-bold text-4xl sm:text-5xl lg:text-[62px] leading-[1.05] tracking-[-1.5px] text-[#F3E8FF]"
-            >
-              {t.hero.titlePart1}
-              <span className="bg-gradient-to-r from-[#A78BFA] via-[#F472B6] to-[#EC4899] bg-clip-text text-transparent font-extrabold drop-shadow-sm">
-                {t.hero.titleHighlight}
-              </span>
-              {t.hero.titlePart2}
-            </motion.h1>
+        {/* Main Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="hd font-bold text-4xl sm:text-6xl lg:text-[70px] leading-[1.08] tracking-[-1.5px] max-w-[850px] text-[#171717]"
+        >
+          {lang === "es" ? "Somos " : "We are "}
+          <span className="text-[#FF532A]">Stellaris,</span>
+          <br className="hidden sm:inline" />
+          <span className="font-extrabold">
+            {lang === "es" ? "Desarrollo Web & Software" : "Product & Web Studio"}
+          </span>
+        </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg text-[#C4B5FD]/80 leading-[1.6] max-w-[520px] font-normal"
-            >
-              {t.hero.subtitle}
-            </motion.p>
+        {/* Hero Visual Area with Big Orange Arch & Floating Cards */}
+        <div className="relative mt-8 sm:mt-12 w-full max-w-[880px] flex justify-center items-end">
+          {/* Left Floating Card: Client Quote */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="hidden lg:flex flex-col gap-2 absolute left-0 top-12 z-20 max-w-[220px] text-left bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-neutral-100 shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
+          >
+            <div className="text-[#FF532A]">
+              <Quote className="w-5 h-5 fill-[#FF532A]" />
+            </div>
+            <p className="text-xs text-neutral-600 leading-relaxed m-0 font-medium">
+              {lang === "es"
+                ? "El desarrollo web de Stellaris aseguró el éxito y la velocidad de nuestra tienda online."
+                : "Stellaris' modern web development ensured our online store scaled smoothly."}
+            </p>
+          </motion.div>
 
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3.5 pt-2"
-            >
-              <Link
-                href="#contacto"
-                className="bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#EC4899] hover:opacity-95 text-white font-semibold rounded-full px-7 py-4 text-[15px] shadow-xl shadow-[#EC4899]/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          {/* Left Floating Card: Project Count */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="hidden sm:flex flex-col text-left absolute left-2 lg:left-6 bottom-10 z-20 bg-white p-3.5 sm:p-4 rounded-2xl border border-neutral-100 shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
+          >
+            <div className="hd text-2xl sm:text-3xl font-bold text-[#171717] tracking-tight">
+              450+
+            </div>
+            <div className="text-[12px] sm:text-[13px] text-neutral-500 font-medium">
+              {lang === "es" ? "Clientes Atendidos" : "Clients Served"}
+            </div>
+          </motion.div>
+
+          {/* Right Floating Card: Rating & Experience */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="hidden sm:flex flex-col items-end text-right absolute right-2 lg:right-6 top-14 z-20 bg-white p-3.5 sm:p-4 rounded-2xl border border-neutral-100 shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
+          >
+            <div className="flex items-center gap-1 text-[#FF532A] mb-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-[#FF532A]" />
+              ))}
+            </div>
+            <div className="hd text-xl sm:text-2xl font-bold text-[#171717] tracking-tight">
+              10 {lang === "es" ? "Años" : "Years"}
+            </div>
+            <div className="text-[12px] sm:text-[13px] text-neutral-500 font-medium">
+              {lang === "es" ? "De Experiencia" : "Experts"}
+            </div>
+          </motion.div>
+
+          {/* Center Orange Semicircle Arch Backdrop */}
+          <div className="relative flex flex-col items-center justify-end">
+            <div className="w-[300px] sm:w-[420px] lg:w-[460px] h-[240px] sm:h-[310px] lg:h-[340px] bg-[#FF532A] rounded-t-full relative flex items-end justify-center overflow-hidden shadow-2xl shadow-[#FF532A]/30">
+              {/* Inner ambient glow */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent pointer-events-none" />
+
+              {/* Robot / Character Illustration Cutout emerging from arch */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative z-10 w-[240px] sm:w-[320px] lg:w-[360px] h-[260px] sm:h-[340px] lg:h-[380px] -mb-2"
               >
-                {t.hero.ctaPrimary}
-              </Link>
+                <Image
+                  src="/robot.png"
+                  alt="Stellaris Dev Robot"
+                  fill
+                  className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)]"
+                  priority
+                />
+              </motion.div>
+            </div>
+
+            {/* Overlapping Dual Action Buttons pinned at bottom center */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="relative z-30 -mt-6 sm:-mt-7 flex items-center gap-2.5 sm:gap-3 bg-white/95 backdrop-blur-md p-1.5 sm:p-2 rounded-full border border-neutral-200/80 shadow-[0_16px_36px_rgba(0,0,0,0.12)]"
+            >
               <Link
                 href="#proyectos"
-                className="border border-[#3D2E70] text-[#E9D5FF] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 px-7 py-4 rounded-full text-[15px] font-medium transition-all"
+                className="flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-xs sm:text-[14px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md shadow-[#FF532A]/30 transition-all hover:scale-105 active:scale-95"
               >
-                {t.hero.ctaSecondary}
+                <span>{lang === "es" ? "Portafolio" : "Portfolio"}</span>
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Exact Visual Mockup from Design Reference */}
-          <div className="lg:col-span-5 relative min-h-[380px] w-full flex items-center justify-center">
-            {/* Background Constellation Lines & Stars SVG */}
-            <svg
-              viewBox="0 0 480 400"
-              width="100%"
-              className="max-w-[480px] absolute inset-0 m-auto select-none pointer-events-none"
-              aria-hidden="true"
-            >
-              <g stroke="#2E2356" strokeWidth="1.2" fill="none">
-                <path d="M30 60L150 20L270 60L400 15L460 90" />
-                <path d="M40 360L180 385L320 350L450 380" />
-              </g>
-              <g fill="#EC4899">
-                <circle cx="30" cy="60" r="4" />
-                <circle cx="150" cy="20" r="3" />
-                <circle cx="270" cy="60" r="5" />
-                <circle cx="400" cy="15" r="3" />
-                <circle cx="460" cy="90" r="4" />
-              </g>
-              <g fill="#8B5CF6">
-                <circle cx="40" cy="360" r="3" />
-                <circle cx="180" cy="385" r="4" />
-                <circle cx="320" cy="350" r="3" />
-                <circle cx="450" cy="380" r="5" />
-              </g>
-            </svg>
-
-            {/* Desktop Dashboard Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative mr-10 mt-10 rounded-[20px] p-[18px] w-full max-w-[360px] sm:max-w-[390px] bg-[#141026] border border-[#2E2356] shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
-            >
-              {/* Window dots */}
-              <div className="flex gap-[7px] mb-4">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3D2E70]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3D2E70]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3D2E70]" />
-              </div>
-              {/* Accent Banner Bar */}
-              <div className="h-3.5 w-[70%] rounded-[7px] bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] mb-3" />
-              <div className="h-2.5 w-[90%] rounded-[5px] bg-[#2E2356] mb-2" />
-              <div className="h-2.5 w-[60%] rounded-[5px] bg-[#2E2356] mb-4" />
-              {/* Purple/Blue Pill Button */}
-              <div className="h-7 w-[100px] rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] mb-5" />
-              {/* 3 Grid Mini Cards */}
-              <div className="grid grid-cols-3 gap-2.5">
-                <div className="h-[70px] rounded-xl bg-[#1C1638]" />
-                <div className="h-[70px] rounded-xl bg-[#1C1638]" />
-                <div className="h-[70px] rounded-xl bg-[#1C1638]" />
-              </div>
-            </motion.div>
-
-            {/* Overlapping Mobile Phone Screen */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-0 sm:right-2 -bottom-8 w-[120px] h-[210px] rounded-[26px] bg-[#0D0B1C] border-2 border-[#3D2E70] p-3.5 box-border shadow-[0_20px_40px_rgba(0,0,0,0.6)]"
-            >
-              <div className="h-2.5 w-[60%] rounded-[5px] bg-[#EC4899] my-2.5" />
-              <div className="h-[7px] rounded-[4px] bg-[#2E2356] mb-[7px]" />
-              <div className="h-[7px] w-[70%] rounded-[4px] bg-[#2E2356] mb-4" />
-              <div className="h-[60px] rounded-[10px] bg-[#1C1638]" />
+              <Link
+                href="#contacto"
+                className="flex items-center gap-1.5 bg-white hover:bg-neutral-50 text-[#171717] font-semibold text-xs sm:text-[14px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-neutral-200 shadow-xs transition-all hover:scale-105 active:scale-95"
+              >
+                <span>{lang === "es" ? "Cotizar" : "Hire Us"}</span>
+              </Link>
             </motion.div>
           </div>
         </div>

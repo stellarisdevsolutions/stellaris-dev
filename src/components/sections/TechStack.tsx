@@ -9,29 +9,29 @@ const TECHS = [
   "Tailwind CSS",
   "TypeScript",
   "Node.js",
-  "HTML & CSS",
-  "JavaScript",
-  "WordPress",
   "Shopify",
+  "WordPress",
   "Figma",
+  "Google Cloud",
+  "Vercel",
 ];
 
 export function TechStack() {
   const { lang } = useLanguage();
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-16 pb-4 flex flex-col items-center gap-6 text-center">
-      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#F5F3FF] text-[#6D28D9] border border-[#DDD6FE]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#EC4899] animate-pulse" />
-        {lang === "es" ? "TECNOLOGÍAS QUE USAMOS" : "TECHNOLOGIES WE USE"}
+    <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 py-10 flex flex-col items-center gap-5 text-center bg-white">
+      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-neutral-100 text-neutral-700">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
+        {lang === "es" ? "TECNOLOGÍAS QUE DOMINAMOS" : "TECHNOLOGIES WE MASTER"}
       </div>
       <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
         {TECHS.map((tech) => (
           <span
             key={tech}
-            className="lt rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-[14px] sm:text-[15px] font-medium text-[#0D0B1C] flex items-center gap-2 cursor-default hover:border-[#8B5CF6]/60 hover:shadow-md hover:shadow-[#8B5CF6]/15 transition-all"
+            className="rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-[13px] sm:text-[14px] font-medium text-[#171717] bg-neutral-50 border border-neutral-200/80 flex items-center gap-2 cursor-default hover:border-[#FF532A] hover:bg-white hover:shadow-sm transition-all"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
             {tech}
           </span>
         ))}

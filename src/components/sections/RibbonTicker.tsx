@@ -8,25 +8,38 @@ export function RibbonTicker() {
 
   const words =
     lang === "es"
-      ? ["Diseñar", "Desarrollar", "Lanzar", "Crecer"]
-      : ["Design", "Develop", "Launch", "Scale"];
+      ? [
+          "Diseño Web",
+          "Next.js 16",
+          "Tiendas Online",
+          "Landing Pages",
+          "UI/UX Design",
+          "E-Commerce",
+          "Optimización SEO",
+        ]
+      : [
+          "Web Design",
+          "Next.js 16",
+          "Online Stores",
+          "Landing Pages",
+          "UI/UX Design",
+          "E-Commerce",
+          "SEO Optimization",
+        ];
 
-  // Duplicate for smooth continuous marquee
-  const loop = [...words, ...words, ...words, ...words, ...words, ...words];
+  const loop = [...words, ...words, ...words, ...words];
 
   return (
-    <div className="relative w-full overflow-hidden mb-24 select-none">
-      <div
-        className="hd bg-[#FFC857] text-[#0B1020] py-4.5 sm:py-5 flex items-center justify-center -rotate-[1.5deg] -mx-10 scale-105 shadow-md"
-      >
-        <div className="animate-ribbon flex items-center gap-7">
+    <div className="relative w-full overflow-hidden my-12 sm:my-16 select-none bg-white">
+      <div className="hd bg-[#FF532A] text-white py-4 sm:py-4.5 flex items-center justify-center shadow-md">
+        <div className="animate-ribbon flex items-center gap-8 sm:gap-10">
           {loop.map((w, idx) => (
             <React.Fragment key={idx}>
-              <span className="text-2xl sm:text-[28px] font-bold tracking-tight">
+              <span className="text-lg sm:text-xl font-bold tracking-tight uppercase">
                 {w}
               </span>
-              <span className="text-2xl sm:text-[28px] font-normal opacity-80">
-                ✦
+              <span className="text-lg sm:text-xl font-bold text-white/70">
+                +
               </span>
             </React.Fragment>
           ))}
