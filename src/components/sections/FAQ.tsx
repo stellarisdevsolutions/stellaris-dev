@@ -74,17 +74,17 @@ export function FAQ() {
     <div className="w-full px-4 sm:px-6 py-6 bg-white">
       <section
         id="faq"
-        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-[36px] sm:rounded-[48px] p-8 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
+        className="w-full max-w-[1240px] mx-auto bg-[#0F172A] text-white rounded-[36px] sm:rounded-[48px] p-8 sm:p-14 lg:p-16 shadow-2xl overflow-hidden border border-slate-800"
       >
-        {/* Testimonials Header matching exact reference */}
+        {/* Testimonials Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] uppercase font-bold tracking-widest mb-3">
+          <div className="inline-flex items-center gap-1.5 text-xs text-[#10B981] uppercase font-bold tracking-widest mb-3">
             <span>✦</span>
             <span>{lang === "es" ? "PRUEBA SOCIAL" : "SOCIAL PROOF"}</span>
           </div>
           <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white m-0">
             {lang === "es" ? "Testimonios que hablan de " : "Testimonials that Speak to "}
-            <span className="text-[#FF532A]">
+            <span className="text-[#2563EB]">
               {lang === "es" ? "Nuestros Resultados" : "My Results"}
             </span>
           </h2>
@@ -95,31 +95,31 @@ export function FAQ() {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="rounded-3xl bg-[#242427] border border-neutral-800 p-6 sm:p-8 flex flex-col justify-between"
+              className="rounded-3xl bg-[#1E293B] border border-slate-700/80 p-6 sm:p-8 flex flex-col justify-between"
             >
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-1 text-[#FF532A]">
+                <div className="flex items-center gap-1 text-[#10B981]">
                   {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FF532A]" />
+                    <Star key={i} className="w-4 h-4 fill-[#10B981]" />
                   ))}
                 </div>
-                <p className="text-sm sm:text-base text-neutral-300 italic leading-relaxed m-0">
+                <p className="text-sm sm:text-base text-slate-300 italic leading-relaxed m-0">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-slate-700/80 flex items-center justify-between">
                 <div>
                   <div className="font-semibold text-white text-sm">{t.name}</div>
-                  <div className="text-xs text-neutral-400">{t.role}</div>
+                  <div className="text-xs text-slate-400">{t.role}</div>
                 </div>
-                <Quote className="w-6 h-6 text-neutral-700" />
+                <Quote className="w-6 h-6 text-slate-600" />
               </div>
             </div>
           ))}
         </div>
 
         {/* FAQ Accordions Area */}
-        <div className="pt-10 border-t border-neutral-800/80 flex flex-col items-center">
+        <div className="pt-10 border-t border-slate-800 flex flex-col items-center">
           <div className="text-center mb-8">
             <h3 className="hd text-2xl sm:text-3xl font-bold text-white m-0">
               {lang === "es" ? "Preguntas Frecuentes" : "Frequently Asked Questions"}
@@ -132,7 +132,7 @@ export function FAQ() {
               return (
                 <div
                   key={faq.q}
-                  className="rounded-2xl bg-[#242427] border border-neutral-800 overflow-hidden transition-all"
+                  className="rounded-2xl bg-[#1E293B] border border-slate-700/80 overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
@@ -142,13 +142,13 @@ export function FAQ() {
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 text-[#FF532A] shrink-0 transition-transform duration-200 ${
+                      className={`w-5 h-5 text-[#10B981] shrink-0 transition-transform duration-200 ${
                         isOpen ? "rotate-180" : ""
                       }`}
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 text-neutral-400 text-sm sm:text-[15px] leading-relaxed">
+                    <div className="px-5 sm:px-6 pb-6 text-slate-400 text-sm sm:text-[15px] leading-relaxed">
                       {faq.a}
                     </div>
                   )}
