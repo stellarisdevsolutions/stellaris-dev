@@ -17,7 +17,7 @@ export function RibbonTicker() {
   return (
     <div className="relative w-full overflow-hidden mb-24 select-none">
       <div
-        className="hd bg-gradient-to-r from-[#FF6A00] via-[#FF8C00] to-[#FFC928] text-[#171717] py-4.5 sm:py-5 flex items-center justify-center -rotate-[1.5deg] -mx-10 scale-105 shadow-xl shadow-[#FF6A00]/20"
+        className="hd bg-[#FFC857] text-[#0B1020] py-4.5 sm:py-5 flex items-center justify-center -rotate-[1.5deg] -mx-10 scale-105 shadow-md"
       >
         <div className="animate-ribbon flex items-center gap-7">
           {loop.map((w, idx) => (

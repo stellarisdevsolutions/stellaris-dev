@@ -2,24 +2,18 @@
 
 @layer base {
   :root {
-    --accent-orange: #FF6A00;
-    --accent-orange-hover: #E55F00;
-    --accent-yellow: #FFC928;
-    --accent-red: #EF3340;
-    
-    --bg-dark: #171717;
-    --card-dark: #212121;
-    --border-dark: #2E2E2E;
-    --border-dark-hover: #404040;
-    
-    --bg-light: #F6F6F8;
+    --accent: #FFC857;
+    --accent-hover: #F0B840;
+    --bg-dark: #0B1020;
+    --bg-light: #F4F6FB;
+    --card-dark: #121A33;
+    --border-dark: #2A3560;
     --card-light: #FFFFFF;
-    --border-light: #E5E5EA;
-    
-    --text-dark: #F5F5F7;
-    --text-dark-muted: #A3A3A3;
-    --text-light: #171717;
-    --text-light-muted: #666666;
+    --border-light: #E3E7F3;
+    --text-dark: #E8ECF8;
+    --text-dark-muted: #A9B3CF;
+    --text-light: #0B1020;
+    --text-light-muted: #4A5373;
   }
 
   html {
@@ -34,8 +28,8 @@
     color: var(--text-light);
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
-    selection-background-color: #FF6A0033;
-    selection-color: #171717;
+    selection-background-color: #FFC85744;
+    selection-color: #0B1020;
   }
 
   /* Custom scrollbar */
@@ -43,14 +37,14 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #171717;
+    background: #0B1020;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2E2E2E;
+    background: #2A3560;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #FF6A00;
+    background: #3A4678;
   }
 }
 
@@ -59,41 +53,41 @@
   font-family: "Space Grotesk", sans-serif;
 }
 
-/* Card utilities */
+/* Card utilities directly from design reference */
 .dk {
-  background: #212121;
-  border: 1px solid #2E2E2E;
+  background: #121A33;
+  border: 1px solid #2A3560;
 }
 
 .lt {
   background: #FFFFFF;
-  border: 1px solid #E5E5EA;
-  box-shadow: 0 4px 20px -2px rgba(23, 23, 23, 0.04), 0 2px 6px -1px rgba(23, 23, 23, 0.02);
+  border: 1px solid #E2E7F3;
+  box-shadow: 0 4px 20px -2px rgba(11, 16, 32, 0.04), 0 2px 6px -1px rgba(11, 16, 32, 0.02);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lt:hover {
-  border-color: rgba(255, 106, 0, 0.5);
-  box-shadow: 0 16px 32px -4px rgba(23, 23, 23, 0.08), 0 4px 12px -2px rgba(255, 106, 0, 0.15);
+  border-color: rgba(255, 200, 87, 0.6);
+  box-shadow: 0 16px 32px -4px rgba(11, 16, 32, 0.08), 0 4px 12px -2px rgba(255, 200, 87, 0.12);
   transform: translateY(-2px);
 }
 
 /* Pill badge highlight */
 .highlight-badge {
-  background: linear-gradient(135deg, #FF6A00, #FFC928);
-  color: #171717;
+  background: #FFC857;
+  color: #0B1020;
   padding: 2px 14px;
   border-radius: 12px;
   display: inline-block;
   font-weight: 700;
-  box-shadow: 0 2px 12px -2px rgba(255, 106, 0, 0.35);
+  box-shadow: 0 2px 12px -2px rgba(255, 200, 87, 0.35);
 }
 
-/* Primary Accent Button (Orange with high contrast white text) */
+/* Primary Accent Button */
 .btn-accent {
-  background: #FF6A00;
-  color: #FFFFFF;
-  font-weight: 600;
+  background: #FFC857;
+  color: #0B1020;
+  font-weight: 500;
   border-radius: 999px;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -102,9 +96,9 @@
 }
 
 .btn-accent:hover {
-  background: #E55F00;
+  background: #F0B840;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px -3px rgba(255, 106, 0, 0.45);
+  box-shadow: 0 6px 20px -3px rgba(255, 200, 87, 0.4);
 }
 
 .btn-accent:active {
@@ -113,8 +107,8 @@
 
 /* Outline Dark Button */
 .btn-outline-dark {
-  border: 1px solid #383838;
-  color: #F5F5F7;
+  border: 1px solid #3A4678;
+  color: #E8ECF8;
   font-weight: 500;
   border-radius: 999px;
   background: transparent;
@@ -125,15 +119,15 @@
 }
 
 .btn-outline-dark:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: #555555;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #556699;
 }
 
 /* Outline Light Button */
 .btn-outline-light {
-  border: 1.5px solid #171717;
-  color: #171717;
-  font-weight: 600;
+  border: 1px solid #0B1020;
+  color: #0B1020;
+  font-weight: 500;
   border-radius: 999px;
   background: transparent;
   transition: all 0.2s ease;
@@ -143,9 +137,8 @@
 }
 
 .btn-outline-light:hover {
-  background: #171717;
+  background: #0B1020;
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(23, 23, 23, 0.15);
 }
 
 /* Marquee ribbon movement */
@@ -161,7 +154,7 @@
 .animate-ribbon {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 22s linear infinite;
+  animation: marquee-scroll 24s linear infinite;
 }
 
 .animate-ribbon:hover {

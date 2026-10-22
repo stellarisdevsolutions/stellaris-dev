@@ -55,20 +55,20 @@ export function FAQ() {
 
   return (
     <div id="faq" className="w-full px-4 sm:px-6">
-      <div className="bg-[#171717] text-[#F5F5F7] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24 shadow-2xl shadow-black/40 border border-[#2E2E2E]">
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24 shadow-2xl shadow-[#0B1020]/25 border border-[#2A3560]/40">
         <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col gap-4 text-left">
-            <div className="text-[14px] font-medium tracking-[2px] text-[#A3A3A3] uppercase">
+            <div className="text-[14px] font-medium tracking-[2px] text-[#A9B3CF] uppercase">
               FAQ
             </div>
-            <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#F5F5F7] m-0">
+            <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
               {lang === "es" ? "Preguntas " : "Frequently "}
-              <span className="bg-gradient-to-r from-[#FF6A00] to-[#FFC928] bg-clip-text text-transparent">
+              <span className="text-[#FFC857]">
                 {lang === "es" ? "frecuentes" : "asked questions"}
               </span>
             </h2>
-            <p className="m-0 text-[#A3A3A3] text-base leading-[1.6]">
+            <p className="m-0 text-[#A9B3CF] text-base leading-[1.6]">
               {lang === "es"
                 ? "¿No ves tu duda? Escríbenos y te respondemos de inmediato."
                 : "Have another question? Reach out and we'll reply right away."}
@@ -83,11 +83,11 @@ export function FAQ() {
                 open={idx === 0}
                 className="dk rounded-[16px] p-5 sm:p-6 transition-all duration-200 group"
               >
-                <summary className="hd cursor-pointer text-base sm:text-[18px] font-medium text-[#F5F5F7] select-none hover:text-[#FF6A00] transition-colors list-none flex items-center justify-between">
+                <summary className="hd cursor-pointer text-base sm:text-[18px] font-medium text-[#E8ECF8] select-none hover:text-[#FFC857] transition-colors list-none flex items-center justify-between">
                   <span>{faq.q}</span>
-                  <span className="text-[#FFC928] text-lg font-mono ml-3 shrink-0">✦</span>
+                  <span className="text-[#FFC857] text-lg font-mono ml-3 shrink-0">✦</span>
                 </summary>
-                <p className="mt-3.5 mb-0 text-[#A3A3A3] text-[15px] leading-[1.6]">
+                <p className="mt-3.5 mb-0 text-[#A9B3CF] text-[15px] leading-[1.6]">
                   {faq.a}
                 </p>
               </details>

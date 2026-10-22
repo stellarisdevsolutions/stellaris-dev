@@ -11,11 +11,11 @@ export function Pricing() {
     <section id="precios" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-24 sm:pt-28 pb-24 flex flex-col gap-10">
       {/* Header */}
       <div className="text-center flex flex-col gap-3 items-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#EBEBEF] text-[#171717] border border-[#DDDDE2]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A00]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
           {lang === "es" ? "PRECIOS" : "PRICING"}
         </div>
-        <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#171717] m-0">
+        <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
           {lang === "es" ? "Planes " : "Plans "}
           <span className="highlight-badge">
             {lang === "es" ? "para cada etapa" : "for every stage"}
@@ -27,28 +27,28 @@ export function Pricing() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
         {/* Card 1: Landing Page */}
         <div className="lt rounded-[24px] p-8 flex flex-col gap-5">
-          <h3 className="hd text-[22px] font-bold text-[#171717] m-0">Landing page</h3>
+          <h3 className="hd text-[22px] font-bold text-[#0B1020] m-0">Landing page</h3>
           <div>
-            <span className="text-[15px] text-[#666666]">{lang === "es" ? "Desde" : "From"}</span>
-            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#171717]">
-              $100 <span className="text-[18px] font-medium text-[#666666]">USD</span>
+            <span className="text-[15px] text-[#4A5373]">{lang === "es" ? "Desde" : "From"}</span>
+            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#0B1020]">
+              $100 <span className="text-[18px] font-medium text-[#4A5373]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-3 text-[15px] text-[#666666] flex-1">
+          <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Una página enfocada en convertir" : "Single high-conversion page"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Formulario de contacto" : "Direct inquiry form"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
@@ -60,43 +60,43 @@ export function Pricing() {
           </Link>
         </div>
 
-        {/* Card 2: Sitio Web (Highlighted in Dark #171717 with Solar Accent) */}
-        <div className="bg-[#171717] text-[#F5F5F7] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl relative border-2 border-[#FF6A00] hover:shadow-[#FF6A00]/20 transition-all">
+        {/* Card 2: Sitio Web (Highlighted in Dark #0B1020) */}
+        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl relative border border-[#2A3560] hover:border-[#FFC857]/60 transition-all">
           <div className="flex items-center justify-between">
             <h3 className="hd text-[22px] font-bold text-white m-0">
               {lang === "es" ? "Sitio web" : "Multi-Page Website"}
             </h3>
-            <span className="bg-[#FF6A00] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            <span className="bg-[#FFC857] text-[#0B1020] text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
               {lang === "es" ? "Popular" : "Popular"}
             </span>
           </div>
           <div>
-            <span className="text-[15px] text-[#A3A3A3]">{lang === "es" ? "Desde" : "From"}</span>
-            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#FFC928]">
-              $150 <span className="text-[18px] font-medium text-[#A3A3A3]">USD</span>
+            <span className="text-[15px] text-[#A9B3CF]">{lang === "es" ? "Desde" : "From"}</span>
+            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#FFC857]">
+              $150 <span className="text-[18px] font-medium text-[#A9B3CF]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-3 text-[15px] text-[#A3A3A3] flex-1">
+          <div className="flex flex-col gap-3 text-[15px] text-[#A9B3CF] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF6A00] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Varias páginas" : "Up to 5 custom pages"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF6A00] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF6A00] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Optimización SEO básica" : "Essential Google SEO"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#FF6A00] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
           <Link
             href="#contacto"
-            className="btn-accent text-center py-3.5 text-[15px] font-medium mt-2 shadow-lg shadow-[#FF6A00]/25"
+            className="btn-accent text-center py-3.5 text-[15px] font-medium mt-2 shadow-lg shadow-[#FFC857]/20"
           >
             {lang === "es" ? "Cotizar" : "Get Quote"}
           </Link>
@@ -104,28 +104,28 @@ export function Pricing() {
 
         {/* Card 3: E-commerce */}
         <div className="lt rounded-[24px] p-8 flex flex-col gap-5">
-          <h3 className="hd text-[22px] font-bold text-[#171717] m-0">E-commerce</h3>
+          <h3 className="hd text-[22px] font-bold text-[#0B1020] m-0">E-commerce</h3>
           <div>
-            <span className="text-[15px] text-[#666666]">{lang === "es" ? "Desde" : "From"}</span>
-            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#171717]">
-              $500 <span className="text-[18px] font-medium text-[#666666]">USD</span>
+            <span className="text-[15px] text-[#4A5373]">{lang === "es" ? "Desde" : "From"}</span>
+            <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#0B1020]">
+              $500 <span className="text-[18px] font-medium text-[#4A5373]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-3 text-[15px] text-[#666666] flex-1">
+          <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Carrito y pagos en línea" : "Cart & secure payments"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Panel de administración" : "Admin dashboard"}</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#171717] text-[#FFC928] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
               <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
             </div>
           </div>
@@ -138,13 +138,13 @@ export function Pricing() {
         </div>
       </div>
 
-      {/* Solar Warm Banner */}
-      <div className="bg-gradient-to-r from-[#FF6A00] via-[#FF8C00] to-[#FFC928] rounded-[28px] p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl shadow-[#FF6A00]/20">
+      {/* Yellow Banner exactly matching reference */}
+      <div className="bg-[#FFC857] rounded-[28px] p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-md">
         <div className="max-w-[620px] text-left">
-          <h3 className="hd text-2xl sm:text-[28px] font-bold leading-[1.2] text-[#171717] m-0 mb-2">
+          <h3 className="hd text-2xl sm:text-[28px] font-bold leading-[1.2] text-[#0B1020] m-0 mb-2">
             {lang === "es" ? "¿Tienes requerimientos especiales o una idea única?" : "Have custom requirements or a unique vision?"}
           </h3>
-          <p className="text-[#171717]/90 text-base leading-[1.6] m-0 font-medium">
+          <p className="text-[#0B1020] text-base leading-[1.6] m-0 font-normal">
             {lang === "es"
               ? "Escríbenos y te armamos una cotización a medida para tu proyecto."
               : "Message us and we'll craft a tailor-made proposal for your exact needs."}
@@ -152,7 +152,7 @@ export function Pricing() {
         </div>
         <Link
           href="#contacto"
-          className="bg-[#171717] text-white hover:bg-[#262626] px-7 py-4 rounded-full text-[15px] font-medium shrink-0 transition-all shadow-md active:scale-95"
+          className="bg-[#0B1020] text-white hover:bg-slate-900 px-7 py-4 rounded-full text-[15px] font-medium shrink-0 transition-all shadow-md active:scale-95"
         >
           {lang === "es" ? "Escríbenos" : "Message Us"}
         </Link>
