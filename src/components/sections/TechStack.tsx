@@ -20,16 +20,18 @@ export function TechStack() {
   const { lang } = useLanguage();
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-14 pb-4 flex flex-col items-center gap-5 text-center">
-      <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+    <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-16 pb-4 flex flex-col items-center gap-6 text-center">
+      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
         {lang === "es" ? "TECNOLOGÍAS QUE USAMOS" : "TECHNOLOGIES WE USE"}
       </div>
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
         {TECHS.map((tech) => (
           <span
             key={tech}
-            className="lt rounded-full px-5 py-2.5 text-[15px] font-normal text-[#0B1020] shadow-xs hover:border-[#FFC857] transition-colors"
+            className="lt rounded-full px-4 sm:px-5 py-2 sm:py-2.5 text-[14px] sm:text-[15px] font-medium text-[#0B1020] flex items-center gap-2 cursor-default"
           >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
             {tech}
           </span>
         ))}

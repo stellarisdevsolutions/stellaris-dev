@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative w-full bg-[#0B1020] text-[#E8ECF8] rounded-b-[48px] sm:rounded-b-[64px] pt-32 sm:pt-36 pb-24 sm:pb-28 overflow-hidden"
+      className="relative w-full bg-[#0B1020] text-[#E8ECF8] rounded-b-[48px] sm:rounded-b-[64px] pt-32 sm:pt-36 pb-24 sm:pb-28 overflow-hidden shadow-2xl shadow-[#0B1020]/25"
     >
       <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">

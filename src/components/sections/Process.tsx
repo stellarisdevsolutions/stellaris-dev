@@ -8,7 +8,7 @@ export function Process() {
 
   return (
     <div id="proceso" className="w-full px-4 sm:px-6">
-      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24">
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24 shadow-2xl shadow-[#0B1020]/25 border border-[#2A3560]/40">
         <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 flex flex-col gap-14">
           {/* Header */}
           <div className="text-center flex flex-col gap-3 items-center">

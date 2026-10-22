@@ -55,7 +55,7 @@ export function FAQ() {
 
   return (
     <div id="faq" className="w-full px-4 sm:px-6">
-      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24">
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24 shadow-2xl shadow-[#0B1020]/25 border border-[#2A3560]/40">
         <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col gap-4 text-left">

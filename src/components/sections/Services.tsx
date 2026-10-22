@@ -11,7 +11,8 @@ export function Services() {
       {/* SERVICIOS CLARO */}
       <section id="servicios" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-24 sm:pt-28 pb-24 flex flex-col gap-12">
         <div className="text-center flex flex-col gap-3 items-center">
-          <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
             {lang === "es" ? "LO QUE HACEMOS" : "WHAT WE DO"}
           </div>
           <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020]">
@@ -25,8 +26,8 @@ export function Services() {
         {/* 3 White Service Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {/* Card 1 */}
-          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
-            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 group">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" />
               </svg>
@@ -40,15 +41,24 @@ export function Services() {
                 : "Corporate websites and landing pages designed from scratch for your brand."}
             </p>
             <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
-              <div>✓ {lang === "es" ? "Diseño responsive" : "Responsive design"}</div>
-              <div>✓ {lang === "es" ? "Optimizado para SEO" : "Optimized for SEO"}</div>
-              <div>✓ {lang === "es" ? "Carga ultrarrápida" : "Ultra-fast loading speed"}</div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Diseño responsive" : "Responsive design"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Optimizado para SEO" : "Optimized for SEO"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Carga ultrarrápida" : "Ultra-fast loading speed"}</span>
+              </div>
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
-            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 group">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 6h15l-2 9H8zM6 6L5 3H2M9 20h.01M18 20h.01" />
               </svg>
@@ -62,15 +72,24 @@ export function Services() {
                 : "E-commerce platforms with catalog, cart, and automated checkout."}
             </p>
             <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
-              <div>✓ {lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</div>
-              <div>✓ {lang === "es" ? "Pagos seguros" : "Secure payments"}</div>
-              <div>✓ {lang === "es" ? "Panel de administración" : "Admin dashboard"}</div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Pagos seguros" : "Secure payments"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Panel de administración" : "Admin dashboard"}</span>
+              </div>
             </div>
           </div>
 
           {/* Card 3 */}
-          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
-            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 group">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="14" rx="2" />
                 <path d="M8 21h8M12 18v3" />
@@ -85,9 +104,18 @@ export function Services() {
                 : "Portals, dashboards, and internal tools to automate your workflows."}
             </p>
             <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
-              <div>✓ {lang === "es" ? "Sistemas a medida" : "Bespoke systems"}</div>
-              <div>✓ {lang === "es" ? "Paneles y reportes" : "Dashboards & reports"}</div>
-              <div>✓ {lang === "es" ? "Mantenimiento continuo" : "Continuous support"}</div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Sistemas a medida" : "Bespoke systems"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Paneles y reportes" : "Dashboards & reports"}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+                <span>{lang === "es" ? "Mantenimiento continuo" : "Continuous support"}</span>
+              </div>
             </div>
           </div>
         </div>

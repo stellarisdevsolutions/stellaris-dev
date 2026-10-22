@@ -11,7 +11,8 @@ export function Portfolio() {
     <section id="proyectos" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pb-24 flex flex-col gap-12">
       {/* Header */}
       <div className="text-center flex flex-col gap-3 items-center">
-        <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
           {lang === "es" ? "NUESTRO TRABAJO" : "OUR WORK"}
         </div>
         <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020]">

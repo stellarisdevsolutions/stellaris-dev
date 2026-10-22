@@ -50,7 +50,8 @@ export function FeatureMobile() {
 
       {/* Right Text */}
       <div className="flex flex-col gap-6 items-start text-left order-1 lg:order-2">
-        <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
           100% RESPONSIVE
         </div>
         <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
@@ -65,9 +66,18 @@ export function FeatureMobile() {
             : "Your website looks and performs flawlessly on any screen: smartphone, tablet, or desktop."}
         </p>
         <div className="flex flex-col gap-3 text-base text-[#4A5373]">
-          <div>✓ {lang === "es" ? "Adaptado a cualquier tamaño de pantalla" : "Smooth adaptation across any viewport"}</div>
-          <div>✓ {lang === "es" ? "Botones y textos fáciles de usar con el dedo" : "Thumb-friendly tap targets and typography"}</div>
-          <div>✓ {lang === "es" ? "Carga rápida incluso con datos móviles" : "Ultra-fast load times even on mobile data"}</div>
+          <div className="flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+            <span>{lang === "es" ? "Adaptado a cualquier tamaño de pantalla" : "Smooth adaptation across any viewport"}</span>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+            <span>{lang === "es" ? "Botones y textos fáciles de usar con el dedo" : "Thumb-friendly tap targets and typography"}</span>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+            <span>{lang === "es" ? "Carga rápida incluso con datos móviles" : "Ultra-fast load times even on mobile data"}</span>
+          </div>
         </div>
       </div>
     </section>

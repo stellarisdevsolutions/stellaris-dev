@@ -8,7 +8,7 @@ export function Footer() {
   const { lang, t } = useLanguage();
 
   return (
-    <footer className="w-full bg-[#0B1020] text-[#E8ECF8] rounded-t-[48px] sm:rounded-t-[56px] overflow-hidden mt-8">
+    <footer className="w-full bg-[#0B1020] text-[#E8ECF8] rounded-t-[48px] sm:rounded-t-[56px] overflow-hidden mt-8 shadow-[0_-20px_50px_rgba(11,16,32,0.25)] border-t border-[#2A3560]/40">
       <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-14 pb-10 flex flex-col gap-8">
         {/* Top row */}
         <div className="flex justify-between items-center flex-wrap gap-5">

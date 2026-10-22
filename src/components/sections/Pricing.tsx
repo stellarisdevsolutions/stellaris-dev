@@ -11,7 +11,8 @@ export function Pricing() {
     <section id="precios" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-24 sm:pt-28 pb-24 flex flex-col gap-10">
       {/* Header */}
       <div className="text-center flex flex-col gap-3 items-center">
-        <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-[#E8EEF9] text-[#222E54] border border-[#D5DFEE]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FFC857]" />
           {lang === "es" ? "PRECIOS" : "PRICING"}
         </div>
         <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
@@ -25,7 +26,7 @@ export function Pricing() {
       {/* 3 Pricing Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
         {/* Card 1: Landing Page */}
-        <div className="lt rounded-[24px] p-8 flex flex-col gap-5 shadow-xs">
+        <div className="lt rounded-[24px] p-8 flex flex-col gap-5">
           <h3 className="hd text-[22px] font-bold text-[#0B1020] m-0">Landing page</h3>
           <div>
             <span className="text-[15px] text-[#4A5373]">{lang === "es" ? "Desde" : "From"}</span>
@@ -33,11 +34,23 @@ export function Pricing() {
               $100 <span className="text-[18px] font-medium text-[#4A5373]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] flex-1">
-            <div>✓ {lang === "es" ? "Una página enfocada en convertir" : "Single high-conversion page"}</div>
-            <div>✓ {lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</div>
-            <div>✓ {lang === "es" ? "Formulario de contacto" : "Direct inquiry form"}</div>
-            <div>✓ {lang === "es" ? "Despliegue incluido" : "Deployment included"}</div>
+          <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Una página enfocada en convertir" : "Single high-conversion page"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Formulario de contacto" : "Direct inquiry form"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
+            </div>
           </div>
           <Link
             href="#contacto"
@@ -48,21 +61,38 @@ export function Pricing() {
         </div>
 
         {/* Card 2: Sitio Web (Highlighted in Dark #0B1020) */}
-        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl">
-          <h3 className="hd text-[22px] font-bold text-white m-0">
-            {lang === "es" ? "Sitio web" : "Multi-Page Website"}
-          </h3>
+        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[24px] p-8 flex flex-col gap-5 shadow-2xl relative border border-[#2A3560] hover:border-[#FFC857]/60 transition-all">
+          <div className="flex items-center justify-between">
+            <h3 className="hd text-[22px] font-bold text-white m-0">
+              {lang === "es" ? "Sitio web" : "Multi-Page Website"}
+            </h3>
+            <span className="bg-[#FFC857] text-[#0B1020] text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              {lang === "es" ? "Popular" : "Popular"}
+            </span>
+          </div>
           <div>
             <span className="text-[15px] text-[#A9B3CF]">{lang === "es" ? "Desde" : "From"}</span>
             <div className="hd text-[46px] sm:text-[52px] font-bold leading-[1.1] text-[#FFC857]">
               $150 <span className="text-[18px] font-medium text-[#A9B3CF]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-2.5 text-[15px] text-[#A9B3CF] flex-1">
-            <div>✓ {lang === "es" ? "Varias páginas" : "Up to 5 custom pages"}</div>
-            <div>✓ {lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</div>
-            <div>✓ {lang === "es" ? "Optimización SEO básica" : "Essential Google SEO"}</div>
-            <div>✓ {lang === "es" ? "Despliegue incluido" : "Deployment included"}</div>
+          <div className="flex flex-col gap-3 text-[15px] text-[#A9B3CF] flex-1">
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Varias páginas" : "Up to 5 custom pages"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Diseño responsive" : "Responsive mobile design"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Optimización SEO básica" : "Essential Google SEO"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#FFC857] text-[#0B1020] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
+            </div>
           </div>
           <Link
             href="#contacto"
@@ -73,7 +103,7 @@ export function Pricing() {
         </div>
 
         {/* Card 3: E-commerce */}
-        <div className="lt rounded-[24px] p-8 flex flex-col gap-5 shadow-xs">
+        <div className="lt rounded-[24px] p-8 flex flex-col gap-5">
           <h3 className="hd text-[22px] font-bold text-[#0B1020] m-0">E-commerce</h3>
           <div>
             <span className="text-[15px] text-[#4A5373]">{lang === "es" ? "Desde" : "From"}</span>
@@ -81,11 +111,23 @@ export function Pricing() {
               $500 <span className="text-[18px] font-medium text-[#4A5373]">USD</span>
             </div>
           </div>
-          <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] flex-1">
-            <div>✓ {lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</div>
-            <div>✓ {lang === "es" ? "Carrito y pagos en línea" : "Cart & secure payments"}</div>
-            <div>✓ {lang === "es" ? "Panel de administración" : "Admin dashboard"}</div>
-            <div>✓ {lang === "es" ? "Despliegue incluido" : "Deployment included"}</div>
+          <div className="flex flex-col gap-3 text-[15px] text-[#4A5373] flex-1">
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Carrito y pagos en línea" : "Cart & secure payments"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Panel de administración" : "Admin dashboard"}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-5 h-5 rounded-full bg-[#0B1020] text-[#FFC857] flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+              <span>{lang === "es" ? "Despliegue incluido" : "Deployment included"}</span>
+            </div>
           </div>
           <Link
             href="#contacto"
