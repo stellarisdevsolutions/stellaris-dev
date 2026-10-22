@@ -2,18 +2,24 @@
 
 @layer base {
   :root {
-    --accent: #8B5CF6;
-    --accent-hover: #7C3AED;
-    --bg-dark: #0B1020;
-    --bg-light: #F4F6FB;
-    --card-dark: #121A33;
-    --border-dark: #2A3560;
+    --accent-orange: #FF6A00;
+    --accent-orange-hover: #E55F00;
+    --accent-yellow: #FFC928;
+    --accent-red: #EF3340;
+    
+    --bg-dark: #171717;
+    --card-dark: #212121;
+    --border-dark: #2E2E2E;
+    --border-dark-hover: #404040;
+    
+    --bg-light: #F6F6F8;
     --card-light: #FFFFFF;
-    --border-light: #E3E7F3;
-    --text-dark: #E8ECF8;
-    --text-dark-muted: #A9B3CF;
-    --text-light: #0B1020;
-    --text-light-muted: #4A5373;
+    --border-light: #E5E5EA;
+    
+    --text-dark: #F5F5F7;
+    --text-dark-muted: #A3A3A3;
+    --text-light: #171717;
+    --text-light-muted: #666666;
   }
 
   html {
@@ -28,8 +34,8 @@
     color: var(--text-light);
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
-    selection-background-color: rgba(139, 92, 246, 0.25);
-    selection-color: #0B1020;
+    selection-background-color: #FF6A0033;
+    selection-color: #171717;
   }
 
   /* Custom scrollbar */
@@ -37,14 +43,14 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B1020;
+    background: #171717;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2A3560;
+    background: #2E2E2E;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #8B5CF6;
+    background: #FF6A00;
   }
 }
 
@@ -53,53 +59,52 @@
   font-family: "Space Grotesk", sans-serif;
 }
 
-/* Card utilities directly from design reference */
+/* Card utilities */
 .dk {
-  background: #121A33;
-  border: 1px solid #2A3560;
+  background: #212121;
+  border: 1px solid #2E2E2E;
 }
 
 .lt {
   background: #FFFFFF;
-  border: 1px solid #E2E7F3;
-  box-shadow: 0 4px 20px -2px rgba(11, 16, 32, 0.04), 0 2px 6px -1px rgba(11, 16, 32, 0.02);
+  border: 1px solid #E5E5EA;
+  box-shadow: 0 4px 20px -2px rgba(23, 23, 23, 0.04), 0 2px 6px -1px rgba(23, 23, 23, 0.02);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lt:hover {
-  border-color: rgba(139, 92, 246, 0.5);
-  box-shadow: 0 16px 32px -4px rgba(11, 16, 32, 0.08), 0 4px 16px -2px rgba(139, 92, 246, 0.18);
+  border-color: rgba(255, 106, 0, 0.5);
+  box-shadow: 0 16px 32px -4px rgba(23, 23, 23, 0.08), 0 4px 12px -2px rgba(255, 106, 0, 0.15);
   transform: translateY(-2px);
 }
 
 /* Pill badge highlight */
 .highlight-badge {
-  background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #FF6A00, #FFC928);
+  color: #171717;
   padding: 2px 14px;
   border-radius: 12px;
   display: inline-block;
   font-weight: 700;
-  box-shadow: 0 2px 14px -2px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 2px 12px -2px rgba(255, 106, 0, 0.35);
 }
 
-/* Primary Accent Button */
+/* Primary Accent Button (Orange with high contrast white text) */
 .btn-accent {
-  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  background: #FF6A00;
   color: #FFFFFF;
   font-weight: 600;
   border-radius: 999px;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px -2px rgba(139, 92, 246, 0.45);
 }
 
 .btn-accent:hover {
-  background: linear-gradient(135deg, #A78BFA 0%, #6D28D9 100%);
+  background: #E55F00;
   transform: translateY(-1px);
-  box-shadow: 0 8px 25px -2px rgba(139, 92, 246, 0.65);
+  box-shadow: 0 6px 20px -3px rgba(255, 106, 0, 0.45);
 }
 
 .btn-accent:active {
@@ -108,8 +113,8 @@
 
 /* Outline Dark Button */
 .btn-outline-dark {
-  border: 1px solid #3A4678;
-  color: #E8ECF8;
+  border: 1px solid #383838;
+  color: #F5F5F7;
   font-weight: 500;
   border-radius: 999px;
   background: transparent;
@@ -120,15 +125,15 @@
 }
 
 .btn-outline-dark:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: #556699;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #555555;
 }
 
 /* Outline Light Button */
 .btn-outline-light {
-  border: 1px solid #0B1020;
-  color: #0B1020;
-  font-weight: 500;
+  border: 1.5px solid #171717;
+  color: #171717;
+  font-weight: 600;
   border-radius: 999px;
   background: transparent;
   transition: all 0.2s ease;
@@ -138,8 +143,9 @@
 }
 
 .btn-outline-light:hover {
-  background: #0B1020;
+  background: #171717;
   color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(23, 23, 23, 0.15);
 }
 
 /* Marquee ribbon movement */
@@ -155,7 +161,7 @@
 .animate-ribbon {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 24s linear infinite;
+  animation: marquee-scroll 22s linear infinite;
 }
 
 .animate-ribbon:hover {

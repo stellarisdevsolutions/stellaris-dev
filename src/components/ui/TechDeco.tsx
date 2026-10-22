@@ -17,11 +17,11 @@ export function TechDeco({
 }: TechDecoProps) {
   const isLight = theme === "light";
 
-  const primaryColor = isLight ? "#0c325c" : "#8B5CF6";
-  const secondaryColor = isLight ? "#1e6091" : "#A78BFA";
+  const primaryColor = isLight ? "#0c325c" : "#00F0FF";
+  const secondaryColor = isLight ? "#1e6091" : "#38BDF8";
   const darkNavy = isLight ? "#071c35" : "#0c1b30";
-  const slashColor = isLight ? "#52796f" : "#8B5CF6";
-  const dotColor = isLight ? "bg-slate-400/40" : "bg-violet-500/30";
+  const slashColor = isLight ? "#52796f" : "#00F0FF";
+  const dotColor = isLight ? "bg-slate-400/40" : "bg-cyan-400/30";
 
   return (
     <div

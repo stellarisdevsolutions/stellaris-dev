@@ -14,7 +14,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#F4F6FB] bg-[radial-gradient(ellipse_90%_70%_at_50%_-10%,rgba(143,162,255,0.06),rgba(244,246,251,0))] text-[#0B1020] overflow-hidden">
+    <main className="flex min-h-screen flex-col bg-[#F6F6F8] bg-[radial-gradient(ellipse_90%_70%_at_50%_-10%,rgba(255,106,0,0.05),rgba(246,246,248,0))] text-[#171717] overflow-hidden">
       <Navbar />
       <Hero />
       <TechStack />

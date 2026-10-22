@@ -8,38 +8,38 @@ export function FeatureTech() {
 
   return (
     <div className="w-full px-4 sm:px-6 mb-6">
-      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-16 sm:py-20 lg:py-24 shadow-2xl shadow-[#0B1020]/25 border border-[#2A3560]/40">
+      <div className="bg-[#171717] text-[#F5F5F7] rounded-[48px] sm:rounded-[56px] py-16 sm:py-20 lg:py-24 shadow-2xl shadow-black/40 border border-[#2E2E2E]">
         <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
           {/* Left Text */}
           <div className="flex flex-col gap-6 items-start text-left">
-            <div className="border border-[#2A3560] rounded-full px-4 py-2 text-[13px] text-[#A9B3CF]">
+            <div className="border border-[#2E2E2E] bg-[#212121]/60 rounded-full px-4 py-2 text-[13px] text-[#A3A3A3]">
               {lang === "es" ? "Impulsados por IA" : "AI-Powered"}
             </div>
 
-            <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
+            <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#F5F5F7] m-0">
               {lang === "es" ? "Tecnología de punta, " : "Cutting-edge tech, "}
-              <span className="text-[#A78BFA] drop-shadow-[0_0_15px_rgba(167,139,250,0.4)]">
+              <span className="bg-gradient-to-r from-[#FF6A00] to-[#FFC928] bg-clip-text text-transparent">
                 {lang === "es" ? "siempre actualizada" : "always up to date"}
               </span>
             </h2>
 
-            <p className="m-0 text-[#A9B3CF] text-base sm:text-[17px] leading-[1.6]">
+            <p className="m-0 text-[#A3A3A3] text-base sm:text-[17px] leading-[1.6]">
               {lang === "es"
                 ? "Usamos inteligencia artificial para prototipar más rápido, escribir código más limpio y mantener tu sitio al día con lo último en desarrollo web."
                 : "We leverage artificial intelligence to prototype faster, write cleaner code, and keep your website aligned with the latest web standards."}
             </p>
 
-            <div className="flex flex-col gap-3 text-base text-[#E8ECF8]">
+            <div className="flex flex-col gap-3 text-base text-[#F5F5F7]">
               <div className="flex items-center gap-2.5">
-                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
+                <span className="text-[#FFC928] text-lg">✦</span>
                 <span>{lang === "es" ? "Prototipos y entregas más rápidas" : "Faster delivery and prototype turnaround"}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
+                <span className="text-[#FFC928] text-lg">✦</span>
                 <span>{lang === "es" ? "Código revisado y optimizado" : "Verified, optimized, high-performance code"}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <span className="text-[#8B5CF6] text-lg font-bold">✦</span>
+                <span className="text-[#FFC928] text-lg">✦</span>
                 <span>{lang === "es" ? "Herramientas y estándares siempre al día" : "Modern standards and libraries always current"}</span>
               </div>
             </div>
@@ -55,12 +55,12 @@ export function FeatureTech() {
               aria-label="Ilustración de un chip de inteligencia artificial conectado"
             >
               {/* Lines */}
-              <g stroke="#2A3560" strokeWidth="2" fill="none">
+              <g stroke="#2E2E2E" strokeWidth="2" fill="none">
                 <path d="M150 170H40M290 170h110M220 100V30M220 240v70M170 120L90 50M270 120l80-70M170 220l-80 70M270 220l80 70" />
               </g>
 
               {/* Outer Circles */}
-              <g fill="#121A33" stroke="#3A4678" strokeWidth="2">
+              <g fill="#212121" stroke="#383838" strokeWidth="2">
                 <circle cx="40" cy="170" r="12" />
                 <circle cx="400" cy="170" r="12" />
                 <circle cx="220" cy="30" r="12" />
@@ -72,15 +72,17 @@ export function FeatureTech() {
               </g>
 
               {/* Central AI Card */}
-              <rect x="150" y="100" width="140" height="140" rx="28" fill="#121A33" stroke="#8B5CF6" strokeWidth="3" className="filter drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]" />
-              <rect x="172" y="122" width="96" height="96" rx="18" fill="#1B2547" />
-              <text x="220" y="190" textAnchor="middle" fontFamily="Space Grotesk, sans-serif" fontWeight="700" fontSize="46" fill="#A78BFA">
+              <rect x="150" y="100" width="140" height="140" rx="28" fill="#212121" stroke="#FF6A00" strokeWidth="3" />
+              <rect x="172" y="122" width="96" height="96" rx="18" fill="#2A2A2A" />
+              <text x="220" y="190" textAnchor="middle" fontFamily="Space Grotesk, sans-serif" fontWeight="700" fontSize="46" fill="#FFC928">
                 AI
               </text>
 
-              {/* Stars */}
-              <g fill="#8FA2FF">
+              {/* Sparkles (Orange & Surgical Red) */}
+              <g fill="#FF6A00">
                 <path d="M400 90l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" />
+              </g>
+              <g fill="#EF3340">
                 <path d="M50 250l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" />
               </g>
             </svg>

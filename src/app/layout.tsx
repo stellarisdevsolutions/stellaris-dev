@@ -43,7 +43,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-[#F4F6FB] text-[#0B1020] relative">
+      <body className="min-h-full flex flex-col font-sans bg-[#F6F6F8] text-[#171717] relative">
         <LanguageProvider>
           <SmoothScrollProvider>
             <div className="relative z-10 flex flex-col min-h-screen">
