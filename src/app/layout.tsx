@@ -2,25 +2,24 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { InteractiveStars } from "@/components/canvas/InteractiveStars";
 
 export const metadata: Metadata = {
-  title: "Stellaris Dev | Modern Web Design & Development",
+  title: "Stellaris Dev | Desarrollo Web a Medida",
   description:
-    "Professional web design and high-performance development powered by Artificial Intelligence. Fast, responsive, and high-converting websites.",
+    "Diseñamos y desarrollamos páginas web rápidas, modernas y listas para convertir visitas en clientes.",
   keywords: [
-    "Web design agency",
-    "Next.js development",
-    "AI powered websites",
-    "Custom web design",
-    "E-commerce development",
+    "Desarrollo web a medida",
+    "Páginas web",
+    "Tiendas online",
+    "Next.js",
     "Landing pages",
+    "Stellaris Dev",
   ],
   authors: [{ name: "Stellaris Dev" }],
   openGraph: {
-    title: "Stellaris Dev | Modern Web Design & Development",
+    title: "Stellaris Dev | Sitios web que brillan en tu propio universo digital",
     description:
-      "We build websites that attract clients and grow your business.",
+      "Diseñamos y desarrollamos páginas rápidas, modernas y listas para convertir visitas en clientes.",
     type: "website",
   },
 };
@@ -31,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased dark">
+    <html lang="es" className="h-full antialiased">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -40,14 +39,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Michroma&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-[#07090e] text-slate-100 relative">
+      <body className="min-h-full flex flex-col font-sans bg-[#F4F6FB] text-[#0B1020] relative">
         <LanguageProvider>
           <SmoothScrollProvider>
-            <InteractiveStars />
             <div className="relative z-10 flex flex-col min-h-screen">
               {children}
             </div>

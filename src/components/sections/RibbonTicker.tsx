@@ -1,27 +1,36 @@
 "use client";
 
 import React from "react";
-import { Sparkles } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function RibbonTicker() {
-  const { t } = useLanguage();
-  const words = t.ribbon;
+  const { lang } = useLanguage();
 
-  // Repeat for continuous marquee
-  const repeatedWords = [...words, ...words, ...words, ...words];
+  const words =
+    lang === "es"
+      ? ["Diseñar", "Desarrollar", "Lanzar", "Crecer"]
+      : ["Design", "Develop", "Launch", "Scale"];
+
+  // Duplicate for smooth continuous marquee
+  const loop = [...words, ...words, ...words, ...words, ...words, ...words];
 
   return (
-    <div className="relative w-full bg-amber-400 text-slate-950 py-3.5 sm:py-4 overflow-hidden border-y border-amber-500 shadow-md select-none">
-      <div className="flex w-max animate-marquee">
-        {repeatedWords.map((word, idx) => (
-          <div key={idx} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
-            <span className="font-michroma text-xs sm:text-sm font-black tracking-widest uppercase">
-              {word}
-            </span>
-            <Sparkles className="h-3.5 w-3.5 fill-slate-950 text-slate-950 shrink-0" />
-          </div>
-        ))}
+    <div className="relative w-full overflow-hidden mb-24 select-none">
+      <div
+        className="hd bg-[#FFC857] text-[#0B1020] py-4.5 sm:py-5 flex items-center justify-center -rotate-[1.5deg] -mx-10 scale-105 shadow-md"
+      >
+        <div className="animate-ribbon flex items-center gap-7">
+          {loop.map((w, idx) => (
+            <React.Fragment key={idx}>
+              <span className="text-2xl sm:text-[28px] font-bold tracking-tight">
+                {w}
+              </span>
+              <span className="text-2xl sm:text-[28px] font-normal opacity-80">
+                ✦
+              </span>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </div>
   );

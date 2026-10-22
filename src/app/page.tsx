@@ -14,7 +14,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#0a0f1d]">
+    <main className="flex min-h-screen flex-col bg-[#F4F6FB] text-[#0B1020] overflow-hidden">
       <Navbar />
       <Hero />
       <TechStack />

@@ -1,95 +1,75 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/components/ui/Container";
-import { CheckCircle2, Smartphone, Laptop, Tablet, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function FeatureMobile() {
-  const { t } = useLanguage();
+  const { lang } = useLanguage();
 
   return (
-    <section className="relative w-full py-20 md:py-28 bg-[#f8fafc] text-slate-900 overflow-hidden border-b border-slate-200/80">
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left: Responsive Devices Mockup (Laptop + Tablet + Smartphone) */}
-          <div className="lg:col-span-6 relative flex justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full max-w-[460px]"
-            >
-              {/* Laptop Shell */}
-              <div className="rounded-2xl border border-slate-300 bg-[#0a0f1d] p-3 shadow-xl">
-                {/* Screen Top Bar */}
-                <div className="flex items-center gap-1.5 pb-2 mb-2 border-b border-slate-800">
-                  <div className="h-2 w-2 rounded-full bg-slate-700" />
-                  <div className="h-2 w-2 rounded-full bg-slate-700" />
-                  <div className="h-2 w-2 rounded-full bg-slate-700" />
-                </div>
-                {/* Screen Content */}
-                <div className="space-y-2">
-                  <div className="h-5 w-full rounded bg-amber-400 flex items-center px-2">
-                    <span className="text-[8px] font-bold text-slate-950">RESPONSIVE WORKSPACE</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="h-16 rounded bg-[#11192e] border border-slate-800" />
-                    <div className="h-16 rounded bg-[#11192e] border border-slate-800 col-span-2" />
-                  </div>
-                </div>
-              </div>
-              {/* Laptop Base Stand */}
-              <div className="mx-auto h-2 w-48 rounded-b-lg bg-slate-400 shadow-md" />
+    <section className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 py-20 sm:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+      {/* Left Devices SVG Illustration exactly from reference */}
+      <div className="flex justify-center order-2 lg:order-1">
+        <svg
+          viewBox="0 0 520 340"
+          width="100%"
+          className="max-w-[540px] select-none"
+          role="img"
+          aria-label="Ilustración de un sitio web en computadora, tablet y celular"
+        >
+          {/* Laptop Base & Screen */}
+          <rect x="20" y="20" width="360" height="226" rx="14" fill="#0B1020" />
+          <rect x="34" y="34" width="332" height="198" rx="8" fill="#121A33" />
+          <rect x="52" y="56" width="150" height="16" rx="8" fill="#FFC857" />
+          <rect x="52" y="86" width="210" height="9" rx="4" fill="#2A3560" />
+          <rect x="52" y="104" width="160" height="9" rx="4" fill="#2A3560" />
+          <rect x="52" y="130" width="84" height="26" rx="13" fill="#8FA2FF" />
+          <rect x="52" y="172" width="92" height="46" rx="8" fill="#1B2547" />
+          <rect x="154" y="172" width="92" height="46" rx="8" fill="#1B2547" />
+          <rect x="256" y="172" width="92" height="46" rx="8" fill="#1B2547" />
+          <path d="M4 262h392l-14 16H18z" fill="#C9D0EA" />
 
-              {/* Overlapping Smartphone on Right */}
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 -right-2 sm:-right-4 w-28 sm:w-32 rounded-2xl border-2 border-slate-700 bg-[#0a0f1d] p-1.5 shadow-2xl shadow-black/60"
-              >
-                <div className="h-2 w-8 mx-auto rounded-full bg-slate-800 mb-1.5" />
-                <div className="rounded-xl bg-[#11192e] p-1.5 space-y-1.5">
-                  <div className="h-3 w-full rounded bg-amber-400" />
-                  <div className="h-8 rounded bg-slate-800" />
-                  <div className="h-4 w-full rounded bg-emerald-500/20 text-[7px] text-emerald-400 font-bold flex items-center justify-center">
-                    Touch Ready
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
+          {/* Tablet in Center */}
+          <rect x="300" y="110" width="130" height="190" rx="16" fill="#0B1020" />
+          <rect x="310" y="122" width="110" height="166" rx="8" fill="#FFFFFF" />
+          <rect x="322" y="136" width="64" height="10" rx="5" fill="#0B1020" />
+          <rect x="322" y="154" width="86" height="6" rx="3" fill="#C9D0EA" />
+          <rect x="322" y="168" width="40" height="18" rx="9" fill="#FFC857" />
+          <rect x="322" y="200" width="86" height="34" rx="6" fill="#DDE3FF" />
+          <rect x="322" y="244" width="86" height="34" rx="6" fill="#DDE3FF" />
 
-          {/* Right Content */}
-          <div className="lg:col-span-6 flex flex-col items-start text-left">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600 mb-3">
-              {t.featureMobile.eyebrow}
-            </span>
+          {/* Smartphone on Right */}
+          <rect x="400" y="150" width="104" height="170" rx="18" fill="#0B1020" stroke="#F4F6FB" strokeWidth="5" />
+          <rect x="412" y="172" width="80" height="126" rx="6" fill="#121A33" />
+          <rect x="422" y="184" width="46" height="8" rx="4" fill="#FFC857" />
+          <rect x="422" y="200" width="60" height="5" rx="3" fill="#2A3560" />
+          <rect x="422" y="212" width="30" height="14" rx="7" fill="#8FA2FF" />
+          <rect x="422" y="238" width="60" height="22" rx="5" fill="#1B2547" />
+        </svg>
+      </div>
 
-            <h2 className="font-michroma text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-950 uppercase leading-tight">
-              {t.featureMobile.titlePart1}
-              <span className="highlight-pill ml-1">
-                {t.featureMobile.titleHighlight}
-              </span>
-            </h2>
-
-            <p className="mt-5 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              {t.featureMobile.description}
-            </p>
-
-            <div className="mt-8 space-y-3 w-full">
-              {t.featureMobile.bullets.map((bullet) => (
-                <div key={bullet} className="flex items-start gap-3 text-xs sm:text-sm text-slate-800 font-medium">
-                  <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                  <span>{bullet}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Right Text */}
+      <div className="flex flex-col gap-6 items-start text-left order-1 lg:order-2">
+        <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+          100% RESPONSIVE
         </div>
-      </Container>
+        <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
+          {lang === "es" ? "Diseños aptos para " : "Mobile-first "}
+          <span className="highlight-badge">
+            {lang === "es" ? "celulares" : "experience"}
+          </span>
+        </h2>
+        <p className="m-0 text-[#4A5373] text-base sm:text-[17px] leading-[1.6]">
+          {lang === "es"
+            ? "Tu sitio se ve y funciona perfecto en cualquier pantalla: celular, tablet o computadora."
+            : "Your website looks and performs flawlessly on any screen: smartphone, tablet, or desktop."}
+        </p>
+        <div className="flex flex-col gap-3 text-base text-[#4A5373]">
+          <div>✓ {lang === "es" ? "Adaptado a cualquier tamaño de pantalla" : "Smooth adaptation across any viewport"}</div>
+          <div>✓ {lang === "es" ? "Botones y textos fáciles de usar con el dedo" : "Thumb-friendly tap targets and typography"}</div>
+          <div>✓ {lang === "es" ? "Carga rápida incluso con datos móviles" : "Ultra-fast load times even on mobile data"}</div>
+        </div>
+      </div>
     </section>
   );
 }

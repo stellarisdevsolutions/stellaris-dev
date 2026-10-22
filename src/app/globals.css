@@ -2,27 +2,34 @@
 
 @layer base {
   :root {
-    --background: #0a0f1d;
-    --foreground: #f8fafc;
-    --accent-amber: #f59e0b;
-    --accent-amber-light: #fbbf24;
+    --accent: #FFC857;
+    --accent-hover: #F0B840;
+    --bg-dark: #0B1020;
+    --bg-light: #F4F6FB;
+    --card-dark: #121A33;
+    --border-dark: #2A3560;
+    --card-light: #FFFFFF;
+    --border-light: #E3E7F3;
+    --text-dark: #E8ECF8;
+    --text-dark-muted: #A9B3CF;
+    --text-light: #0B1020;
+    --text-light-muted: #4A5373;
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
-    background-color: var(--background);
-    font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
-    selection-background-color: #f59e0b44;
-    selection-color: #f59e0b;
+    selection-background-color: #FFC85744;
+    selection-color: #0B1020;
   }
 
   /* Custom scrollbar */
@@ -30,55 +37,103 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0f1d;
+    background: #0B1020;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #2A3560;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #3A4678;
   }
 }
 
-/* Typography & Display helpers */
-.font-michroma {
-  font-family: "Michroma", sans-serif;
-  letter-spacing: 0.03em;
+/* Typography matching exact design */
+.hd {
+  font-family: "Space Grotesk", sans-serif;
 }
 
-/* Highlight badge matching reference (yellow pill behind keyword) */
-.highlight-pill {
+/* Card utilities directly from design reference */
+.dk {
+  background: #121A33;
+  border: 1px solid #2A3560;
+}
+
+.lt {
+  background: #FFFFFF;
+  border: 1px solid #E3E7F3;
+}
+
+/* Pill badge highlight */
+.highlight-badge {
+  background: #FFC857;
+  color: #0B1020;
+  padding: 0 12px;
+  border-radius: 10px;
   display: inline-block;
-  background-color: #fbbf24;
-  color: #090d16;
-  padding: 0.15rem 0.75rem;
-  border-radius: 0.5rem;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-/* Primary Amber Button with glow */
-.btn-amber-glow {
-  background-color: #fbbf24;
-  color: #0a0f1d;
   font-weight: 700;
-  box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.4);
-  transition: all 0.25s ease;
 }
 
-.btn-amber-glow:hover {
-  background-color: #f59e0b;
-  box-shadow: 0 6px 28px 0px rgba(245, 158, 11, 0.65);
+/* Primary Accent Button */
+.btn-accent {
+  background: #FFC857;
+  color: #0B1020;
+  font-weight: 500;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-accent:hover {
+  background: #F0B840;
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px -3px rgba(255, 200, 87, 0.4);
 }
 
-.btn-amber-glow:active {
-  transform: scale(0.97);
+.btn-accent:active {
+  transform: scale(0.98);
 }
 
-/* Infinite Marquee Animation for Yellow Ribbon */
-@keyframes marquee {
+/* Outline Dark Button */
+.btn-outline-dark {
+  border: 1px solid #3A4678;
+  color: #E8ECF8;
+  font-weight: 500;
+  border-radius: 999px;
+  background: transparent;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-dark:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #556699;
+}
+
+/* Outline Light Button */
+.btn-outline-light {
+  border: 1px solid #0B1020;
+  color: #0B1020;
+  font-weight: 500;
+  border-radius: 999px;
+  background: transparent;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-light:hover {
+  background: #0B1020;
+  color: #FFFFFF;
+}
+
+/* Marquee ribbon movement */
+@keyframes marquee-scroll {
   0% {
     transform: translateX(0%);
   }
@@ -87,28 +142,12 @@
   }
 }
 
-.animate-marquee {
+.animate-ribbon {
   display: flex;
-  width: 200%;
-  animation: marquee 22s linear infinite;
+  width: max-content;
+  animation: marquee-scroll 24s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-ribbon:hover {
   animation-play-state: paused;
-}
-
-/* Subtle pulse */
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.04);
-  }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 6s infinite ease-in-out;
 }

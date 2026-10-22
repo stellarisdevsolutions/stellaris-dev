@@ -1,138 +1,164 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/components/ui/Container";
-import { Layout, Globe, ShoppingBag, CheckCircle2, Clock, Sparkles, TrendingUp, Headphones, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
-
-const SERVICE_ICONS = [
-  <Layout key="layout" className="h-6 w-6 text-amber-400" />,
-  <Globe key="globe" className="h-6 w-6 text-amber-400" />,
-  <ShoppingBag key="shop" className="h-6 w-6 text-amber-400" />,
-];
-
-const WHY_US_ICONS = [
-  <Clock key="clock" className="h-5 w-5 text-amber-400" />,
-  <Sparkles key="sparkles" className="h-5 w-5 text-amber-400" />,
-  <TrendingUp key="trending" className="h-5 w-5 text-amber-400" />,
-  <Headphones key="support" className="h-5 w-5 text-amber-400" />,
-];
 
 export function Services() {
-  const { t } = useLanguage();
+  const { lang } = useLanguage();
 
   return (
-    <section id="servicios" className="relative w-full py-20 md:py-28 bg-[#f8fafc] text-slate-900 overflow-hidden">
-      <Container>
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600 mb-3">
-            {t.services.eyebrow}
-          </span>
-          <h2 className="font-michroma text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-950 uppercase leading-tight">
-            {t.services.titlePart1}
-            <span className="highlight-pill ml-1">
-              {t.services.titleHighlight}
+    <>
+      {/* SERVICIOS CLARO */}
+      <section id="servicios" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pt-24 sm:pt-28 pb-24 flex flex-col gap-12">
+        <div className="text-center flex flex-col gap-3 items-center">
+          <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+            {lang === "es" ? "LO QUE HACEMOS" : "WHAT WE DO"}
+          </div>
+          <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#0B1020]">
+            {lang === "es" ? "Nuestros " : "Our "}
+            <span className="highlight-badge">
+              {lang === "es" ? "servicios" : "services"}
             </span>
           </h2>
-          <p className="mt-4 text-base text-slate-600 leading-relaxed font-normal">
-            {t.services.subtitle}
-          </p>
         </div>
 
         {/* 3 White Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mb-16">
-          {t.services.items.map((service, idx) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="group flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-8 shadow-xs hover:shadow-xl hover:border-amber-400/60 transition-all duration-300"
-            >
-              <div>
-                {/* Dark Circle Icon Container */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0a0f1d] border border-slate-800 shadow-md mb-6 group-hover:scale-105 transition-transform">
-                  {SERVICE_ICONS[idx]}
-                </div>
-
-                <h3 className="font-michroma text-lg sm:text-xl font-bold text-slate-950 mb-3 leading-snug">
-                  {service.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                  {service.description}
-                </p>
-
-                {/* Features Checklist */}
-                <div className="space-y-2.5 pt-4 border-t border-slate-100">
-                  {service.features.map((feat) => (
-                    <div key={feat} className="flex items-start gap-2 text-xs text-slate-700 font-medium">
-                      <CheckCircle2 className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Action */}
-              <div className="pt-6 mt-6 border-t border-slate-100">
-                <Link
-                  href="#contacto"
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900 group-hover:text-amber-600 transition-colors"
-                >
-                  <span>Cotizar este servicio</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Big Dark Card: "Por qué elegir Stellaris Dev" */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative rounded-3xl border border-slate-800 bg-[#0a0f1d] p-8 sm:p-12 shadow-2xl text-white overflow-hidden"
-        >
-          {/* Subtle Ambient Light Glow inside the card */}
-          <div className="pointer-events-none absolute -top-24 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 left-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl" />
-
-          <div className="relative z-10 mb-10 text-left">
-            <h3 className="font-michroma text-2xl sm:text-3xl font-bold tracking-tight uppercase">
-              {t.whyUs.titlePart1}
-              <span className="text-amber-400">{t.whyUs.titleHighlight}</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+          {/* Card 1 */}
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" />
+              </svg>
+            </div>
+            <h3 className="hd text-2xl font-bold text-[#0B1020] mt-1">
+              {lang === "es" ? "Sitios a medida" : "Custom Websites"}
             </h3>
-            <p className="mt-2 text-sm text-slate-400 max-w-xl">
-              {t.whyUs.subtitle}
+            <p className="text-[#4A5373] leading-[1.6] text-[15px] m-0">
+              {lang === "es"
+                ? "Páginas corporativas y landing pages diseñadas desde cero para tu marca."
+                : "Corporate websites and landing pages designed from scratch for your brand."}
             </p>
+            <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
+              <div>✓ {lang === "es" ? "Diseño responsive" : "Responsive design"}</div>
+              <div>✓ {lang === "es" ? "Optimizado para SEO" : "Optimized for SEO"}</div>
+              <div>✓ {lang === "es" ? "Carga ultrarrápida" : "Ultra-fast loading speed"}</div>
+            </div>
           </div>
 
-          {/* 4 Pillars Grid */}
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {t.whyUs.pillars.map((pillar, idx) => (
-              <div key={pillar.title} className="flex flex-col items-start text-left">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-400/10 border border-amber-400/30 mb-4">
-                  {WHY_US_ICONS[idx]}
-                </div>
-                <h4 className="font-michroma text-sm font-bold text-white mb-2">
-                  {pillar.title}
-                </h4>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-            ))}
+          {/* Card 2 */}
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 6h15l-2 9H8zM6 6L5 3H2M9 20h.01M18 20h.01" />
+              </svg>
+            </div>
+            <h3 className="hd text-2xl font-bold text-[#0B1020] mt-1">
+              {lang === "es" ? "Tiendas online" : "Online Stores"}
+            </h3>
+            <p className="text-[#4A5373] leading-[1.6] text-[15px] m-0">
+              {lang === "es"
+                ? "E-commerce con catálogo, carrito y pagos para vender las 24 horas."
+                : "E-commerce platforms with catalog, cart, and automated checkout."}
+            </p>
+            <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
+              <div>✓ {lang === "es" ? "Catálogo de productos" : "Interactive catalog"}</div>
+              <div>✓ {lang === "es" ? "Pagos seguros" : "Secure payments"}</div>
+              <div>✓ {lang === "es" ? "Panel de administración" : "Admin dashboard"}</div>
+            </div>
           </div>
-        </motion.div>
-      </Container>
-    </section>
+
+          {/* Card 3 */}
+          <div className="lt rounded-[24px] p-8 flex flex-col gap-4 shadow-xs hover:shadow-lg transition-all duration-300">
+            <div className="w-[52px] h-[52px] rounded-full bg-[#0B1020] flex items-center justify-center shrink-0">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="14" rx="2" />
+                <path d="M8 21h8M12 18v3" />
+              </svg>
+            </div>
+            <h3 className="hd text-2xl font-bold text-[#0B1020] mt-1">
+              {lang === "es" ? "Apps web" : "Web Apps"}
+            </h3>
+            <p className="text-[#4A5373] leading-[1.6] text-[15px] m-0">
+              {lang === "es"
+                ? "Paneles, sistemas y herramientas internas para automatizar tu negocio."
+                : "Portals, dashboards, and internal tools to automate your workflows."}
+            </p>
+            <div className="flex flex-col gap-2.5 text-[15px] text-[#4A5373] pt-2">
+              <div>✓ {lang === "es" ? "Sistemas a medida" : "Bespoke systems"}</div>
+              <div>✓ {lang === "es" ? "Paneles y reportes" : "Dashboards & reports"}</div>
+              <div>✓ {lang === "es" ? "Mantenimiento continuo" : "Continuous support"}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* POR QUÉ NOSOTROS: OSCURO REDONDEADO */}
+      <section className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 pb-24">
+        <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[36px] p-8 sm:p-14 lg:p-16 flex flex-col gap-12 shadow-2xl">
+          <h2 className="hd text-3xl sm:text-4xl font-bold leading-[1.1] tracking-[-1px] max-w-[520px]">
+            {lang === "es" ? "Por qué elegir " : "Why choose "}
+            <span className="text-[#FFC857]">Stellaris Dev</span>
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Pillar 1 */}
+            <div className="flex flex-col gap-3">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+              <h3 className="hd text-xl font-bold text-white m-0">
+                {lang === "es" ? "Entrega puntual" : "On-Time Delivery"}
+              </h3>
+              <p className="text-[#A9B3CF] leading-[1.6] text-[15px] m-0">
+                {lang === "es" ? "Cumplimos los plazos que acordamos contigo." : "Strict schedules with firm launch dates."}
+              </p>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className="flex flex-col gap-3">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M6 3h12l4 6-10 12L2 9z" />
+              </svg>
+              <h3 className="hd text-xl font-bold text-white m-0">
+                {lang === "es" ? "Diseño moderno" : "Modern Design"}
+              </h3>
+              <p className="text-[#A9B3CF] leading-[1.6] text-[15px] m-0">
+                {lang === "es" ? "Interfaces limpias y fáciles de usar." : "Clean, thumb-friendly interfaces."}
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="flex flex-col gap-3">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="12" cy="12" r="1" />
+              </svg>
+              <h3 className="hd text-xl font-bold text-white m-0">
+                {lang === "es" ? "Enfocado en resultados" : "Results-Driven"}
+              </h3>
+              <p className="text-[#A9B3CF] leading-[1.6] text-[15px] m-0">
+                {lang === "es" ? "Cada decisión busca que tu web genere clientes." : "Engineered to convert visitors into clients."}
+              </p>
+            </div>
+
+            {/* Pillar 4 */}
+            <div className="flex flex-col gap-3">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFC857" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5a1 1 0 0 1-1-1zM20 14h-3v5h2a1 1 0 0 0 1-1z" />
+              </svg>
+              <h3 className="hd text-xl font-bold text-white m-0">
+                {lang === "es" ? "Soporte continuo" : "Continuous Support"}
+              </h3>
+              <p className="text-[#A9B3CF] leading-[1.6] text-[15px] m-0">
+                {lang === "es" ? "Te acompañamos incluso después del lanzamiento." : "Dedicated guidance before and after launch."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

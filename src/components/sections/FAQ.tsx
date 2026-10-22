@@ -1,92 +1,100 @@
 "use client";
 
-import React, { useState } from "react";
-import { Container } from "@/components/ui/Container";
-import { ChevronDown, HelpCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function FAQ() {
-  const { t } = useLanguage();
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First open by default
+  const { lang } = useLanguage();
 
-  const toggle = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  const faqs =
+    lang === "es"
+      ? [
+          {
+            q: "¿Cuánto tarda en estar listo mi sitio?",
+            a: "Depende del tipo de proyecto. Te damos un plazo estimado junto con la cotización (usualmente entre 3 y 10 días).",
+          },
+          {
+            q: "¿Mi sitio se verá bien en el celular?",
+            a: "Sí. Todos nuestros diseños son responsive y los probamos exhaustivamente en distintos dispositivos.",
+          },
+          {
+            q: "¿Puedo pedir cambios durante el proceso?",
+            a: "Sí. Revisas y apruebas el prototipo antes de que empecemos a programar.",
+          },
+          {
+            q: "¿Ofrecen mantenimiento después del lanzamiento?",
+            a: "Sí, ofrecemos soporte y mejoras continuas para que tu web siempre rinda al máximo.",
+          },
+          {
+            q: "¿Los precios son finales?",
+            a: "Son precios “desde”. El valor final depende de los requerimientos específicos y te armamos una propuesta a medida sin sorpresas.",
+          },
+        ]
+      : [
+          {
+            q: "How long does it take to launch my website?",
+            a: "It depends on the project scope. We provide a firm deadline with your quote (usually 3 to 10 business days).",
+          },
+          {
+            q: "Will my website look great on mobile phones?",
+            a: "Yes. All our designs are responsive and rigorously tested on smartphones, tablets, and desktops.",
+          },
+          {
+            q: "Can I request changes during development?",
+            a: "Yes. You review and approve the visual prototype before coding begins.",
+          },
+          {
+            q: "Do you offer post-launch support and updates?",
+            a: "Yes, we provide ongoing maintenance and performance enhancements.",
+          },
+          {
+            q: "Are the prices fixed?",
+            a: "Prices start from the listed amounts. Final investment depends on your specific needs, with zero hidden fees.",
+          },
+        ];
 
   return (
-    <section id="faq" className="relative w-full py-20 md:py-28 bg-[#0a0f1d] text-white overflow-hidden">
-      {/* Background Soft Glow */}
-      <div className="pointer-events-none absolute top-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-[140px]" />
-
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Heading & Info */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left">
-            <div className="flex items-center gap-2 text-amber-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
-              <HelpCircle className="h-4 w-4" />
-              <span>{t.faq.eyebrow}</span>
+    <div id="faq" className="w-full px-4 sm:px-6">
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[48px] sm:rounded-[56px] py-20 sm:py-24">
+        <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+          {/* Left Column */}
+          <div className="lg:col-span-5 flex flex-col gap-4 text-left">
+            <div className="text-[14px] font-medium tracking-[2px] text-[#A9B3CF] uppercase">
+              FAQ
             </div>
-
-            <h2 className="font-michroma text-3xl sm:text-4xl font-bold tracking-tight text-white uppercase leading-tight">
-              {t.faq.titlePart1}
-              <span className="text-amber-400">
-                {t.faq.titleHighlight}
+            <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#E8ECF8] m-0">
+              {lang === "es" ? "Preguntas " : "Frequently "}
+              <span className="text-[#FFC857]">
+                {lang === "es" ? "frecuentes" : "asked questions"}
               </span>
             </h2>
-
-            <p className="mt-4 text-sm sm:text-base text-slate-400 leading-relaxed font-normal">
-              {t.faq.subtitle}
+            <p className="m-0 text-[#A9B3CF] text-base leading-[1.6]">
+              {lang === "es"
+                ? "¿No ves tu duda? Escríbenos y te respondemos de inmediato."
+                : "Have another question? Reach out and we'll reply right away."}
             </p>
           </div>
 
-          {/* Right Column: Accordion */}
-          <div className="lg:col-span-7 space-y-3.5">
-            {t.faq.items.map((item, idx) => {
-              const isOpen = openIndex === idx;
-
-              return (
-                <div
-                  key={idx}
-                  className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                    isOpen
-                      ? "border-amber-400/40 bg-[#0d1324] shadow-lg shadow-black/20"
-                      : "border-slate-800 bg-[#090e1c] hover:border-slate-700"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggle(idx)}
-                    className="flex w-full items-center justify-between p-5 text-left font-michroma text-xs sm:text-sm font-bold text-white transition-colors cursor-pointer"
-                  >
-                    <span className="pr-4">{item.q}</span>
-                    <ChevronDown
-                      className={`h-4 w-4 shrink-0 text-amber-400 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                      >
-                        <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 font-normal">
-                          {item.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
+          {/* Right Column: Details/Summary Accordion directly styled from reference */}
+          <div className="lg:col-span-7 flex flex-col gap-3">
+            {faqs.map((faq, idx) => (
+              <details
+                key={idx}
+                open={idx === 0}
+                className="dk rounded-[16px] p-5 sm:p-6 transition-all duration-200 group"
+              >
+                <summary className="hd cursor-pointer text-base sm:text-[18px] font-medium text-[#E8ECF8] select-none hover:text-[#FFC857] transition-colors list-none flex items-center justify-between">
+                  <span>{faq.q}</span>
+                  <span className="text-[#FFC857] text-lg font-mono ml-3 shrink-0">✦</span>
+                </summary>
+                <p className="mt-3.5 mb-0 text-[#A9B3CF] text-[15px] leading-[1.6]">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
-      </Container>
-    </section>
+      </div>
+    </div>
   );
 }

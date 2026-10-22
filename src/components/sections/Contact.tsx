@@ -1,211 +1,163 @@
 "use client";
 
 import React, { useState } from "react";
-import { Container } from "@/components/ui/Container";
-import { Send, MessageCircle, Mail, CheckCircle2, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Contact() {
-  const { t, lang } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    plan: "Sitio Web Multi-Página",
-    message: "",
-  });
+  const { lang } = useLanguage();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [projectType, setProjectType] = useState("Landing page");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const greeting =
+    const text =
       lang === "es"
-        ? `Hola Stellaris Dev! Mi nombre es ${formData.name}. Me interesa el plan "${formData.plan}". Contacto: ${formData.contact}. Mensaje: ${formData.message}`
-        : `Hi Stellaris Dev! My name is ${formData.name}. I'm interested in "${formData.plan}". Contact: ${formData.contact}. Message: ${formData.message}`;
+        ? `Hola Stellaris Dev! Mi nombre es ${name}. Correo/Teléfono: ${email}. Me interesa: "${projectType}". Mensaje: ${message}`
+        : `Hi Stellaris Dev! My name is ${name}. Email/Phone: ${email}. Interested in: "${projectType}". Message: ${message}`;
 
-    const whatsappUrl = `https://wa.me/59169991245?text=${encodeURIComponent(greeting)}`;
-    window.open(whatsappUrl, "_blank");
+    window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
-    <section id="contacto" className="relative w-full py-20 md:py-28 bg-[#f8fafc] text-slate-900 overflow-hidden">
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Direct Info & Trust */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-amber-600 mb-3">
-              {t.contact.eyebrow}
-            </span>
+    <section id="contacto" className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 py-24 sm:py-28 grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+      {/* Left Column */}
+      <div className="flex flex-col gap-6 text-left">
+        <div className="text-[14px] font-medium tracking-[2px] text-[#4A5373] uppercase">
+          {lang === "es" ? "CONTACTO" : "GET IN TOUCH"}
+        </div>
 
-            <h2 className="font-michroma text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-950 uppercase leading-tight">
-              {t.contact.titlePart1}
-              <span className="highlight-pill ml-1">
-                {t.contact.titleHighlight}
-              </span>
-            </h2>
+        <h2 className="hd text-4xl sm:text-5xl font-bold leading-[1.1] tracking-[-1px] text-[#0B1020] m-0">
+          {lang === "es" ? "Hablemos de tu " : "Let's talk about your "}
+          <span className="highlight-badge">
+            {lang === "es" ? "proyecto" : "project"}
+          </span>
+        </h2>
 
-            <p className="mt-5 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              {t.contact.subtitle}
-            </p>
+        <p className="m-0 text-[#4A5373] text-[17px] leading-[1.6] max-w-[480px]">
+          {lang === "es"
+            ? "Cuéntanos tu idea y te enviamos una propuesta clara y sin compromiso."
+            : "Tell us about your idea and we'll send a clear, no-obligation proposal."}
+        </p>
 
-            {/* Direct Contact Cards */}
-            <div className="mt-8 space-y-3.5 w-full">
-              {/* WhatsApp Card */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-                <div className="flex items-center gap-3.5 mb-2">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200">
-                    <MessageCircle className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-michroma text-xs sm:text-sm font-bold text-slate-950">
-                      {t.contact.directWhatsapp}
-                    </h3>
-                    <p className="text-xs text-emerald-600 font-mono font-bold">
-                      {t.contact.whatsappNumber}
-                    </p>
-                  </div>
-                </div>
-                <a
-                  href={`https://wa.me/59169991245?text=${encodeURIComponent(
-                    lang === "es"
-                      ? "Hola Stellaris Dev, me gustaría cotizar un sitio web para mi proyecto"
-                      : "Hi Stellaris Dev, I would like to get a quote for a website project"
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all active:scale-95"
-                >
-                  <span>{t.contact.whatsappBtn}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-
-              {/* Email Card */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs flex items-center gap-3.5">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200">
-                  <Mail className="h-5 w-5" />
-                </div>
-                <div className="text-left">
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">
-                    {t.contact.emailLabel}
-                  </p>
-                  <a
-                    href="mailto:stellarisdev.us@gmail.com"
-                    className="text-xs font-mono font-bold text-slate-900 hover:text-amber-600 transition-colors"
-                  >
-                    {t.contact.emailAddress}
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Trust Checkmarks */}
-            <div className="mt-8 space-y-2 text-xs text-slate-600 font-medium">
-              {t.contact.guarantees.map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+        {/* 3 Contact Cards exactly like reference */}
+        <div className="flex flex-col gap-3.5 mt-2">
+          {/* Card 1: Email */}
+          <div className="lt rounded-[16px] p-5">
+            <div className="text-[13px] text-[#4A5373]">{lang === "es" ? "Correo" : "Email"}</div>
+            <a
+              href="mailto:stellarisdev.us@gmail.com"
+              className="font-medium text-[#0B1020] hover:text-[#FFC857] transition-colors mt-0.5 block text-[15px]"
+            >
+              stellarisdev.us@gmail.com
+            </a>
           </div>
 
-          {/* Right Column: Dark Form Card (Exactly as in reference) */}
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#0a0f1d] p-8 sm:p-10 shadow-2xl text-white"
+          {/* Card 2: WhatsApp */}
+          <div className="lt rounded-[16px] p-5">
+            <div className="text-[13px] text-[#4A5373]">WhatsApp</div>
+            <a
+              href="https://wa.me/59169991245"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-[#0B1020] hover:text-[#FFC857] transition-colors mt-0.5 block text-[15px]"
             >
-              {/* Card Ambient Glow */}
-              <div className="pointer-events-none absolute top-0 right-0 h-48 w-48 bg-amber-500/10 blur-3xl rounded-full" />
+              +591 69991245
+            </a>
+          </div>
 
-              <div className="relative z-10 mb-6 text-left">
-                <h3 className="font-michroma text-lg sm:text-xl font-bold text-white mb-1">
-                  {t.contact.formTitle}
-                </h3>
-                <p className="text-xs text-slate-400">
-                  {t.contact.formSubtitle}
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="relative z-10 space-y-4 text-left">
-                {/* Name */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    {t.contact.nameLabel}
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder={t.contact.namePlaceholder}
-                    className="w-full rounded-2xl border border-slate-800 bg-[#060a14] px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-400 focus:outline-hidden focus:ring-1 focus:ring-amber-400 transition-all"
-                  />
-                </div>
-
-                {/* Contact: Phone / WhatsApp */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    {t.contact.contactLabel}
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.contact}
-                    onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                    placeholder={t.contact.contactPlaceholder}
-                    className="w-full rounded-2xl border border-slate-800 bg-[#060a14] px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-400 focus:outline-hidden focus:ring-1 focus:ring-amber-400 transition-all"
-                  />
-                </div>
-
-                {/* Plan Selection */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    {t.contact.planLabel}
-                  </label>
-                  <select
-                    value={formData.plan}
-                    onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
-                    className="w-full rounded-2xl border border-slate-800 bg-[#060a14] px-4 py-3 text-sm text-white focus:border-amber-400 focus:outline-hidden focus:ring-1 focus:ring-amber-400 transition-all"
-                  >
-                    {t.contact.planOptions.map((opt) => (
-                      <option key={opt} value={opt} className="bg-[#0a0f1d] text-white">
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    {t.contact.messageLabel}
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder={t.contact.messagePlaceholder}
-                    className="w-full rounded-2xl border border-slate-800 bg-[#060a14] px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-amber-400 focus:outline-hidden focus:ring-1 focus:ring-amber-400 transition-all resize-none"
-                  />
-                </div>
-
-                {/* Submit Button (Amber Button full width) */}
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 font-bold text-xs sm:text-sm uppercase tracking-wider py-4 rounded-full btn-amber-glow shadow-lg shadow-amber-500/20 active:scale-95 transition-all cursor-pointer mt-2"
-                >
-                  <Send className="h-4 w-4" />
-                  <span>{t.contact.submitBtn}</span>
-                </button>
-              </form>
-            </motion.div>
+          {/* Card 3: Hours */}
+          <div className="lt rounded-[16px] p-5">
+            <div className="text-[13px] text-[#4A5373]">{lang === "es" ? "Horario de atención" : "Office Hours"}</div>
+            <div className="font-medium text-[#0B1020] mt-0.5 text-[15px]">
+              {lang === "es" ? "Lunes a sábado, 9:00 – 19:00" : "Monday to Saturday, 9:00 – 19:00"}
+            </div>
           </div>
         </div>
-      </Container>
+      </div>
+
+      {/* Right Column: Dark Form Card exactly matching reference */}
+      <div className="bg-[#0B1020] text-[#E8ECF8] rounded-[28px] p-8 sm:p-9 flex flex-col gap-5 shadow-2xl">
+        <h3 className="hd text-2xl font-bold text-white m-0">
+          {lang === "es" ? "Envíanos un mensaje" : "Send us a message"}
+        </h3>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
+          {/* Name */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="n" className="text-[14px] text-[#A9B3CF]">
+              {lang === "es" ? "Nombre" : "Your Name"}
+            </label>
+            <input
+              id="n"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={lang === "es" ? "Tu nombre" : "Your name"}
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FFC857] focus:outline-hidden transition-colors"
+            />
+          </div>
+
+          {/* Email or Phone */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="e" className="text-[14px] text-[#A9B3CF]">
+              {lang === "es" ? "Correo o WhatsApp" : "Email or WhatsApp"}
+            </label>
+            <input
+              id="e"
+              type="text"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="tu@correo.com o +591..."
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FFC857] focus:outline-hidden transition-colors"
+            />
+          </div>
+
+          {/* Project Type */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="t" className="text-[14px] text-[#A9B3CF]">
+              {lang === "es" ? "Tipo de proyecto" : "Project Type"}
+            </label>
+            <select
+              id="t"
+              value={projectType}
+              onChange={(e) => setProjectType(e.target.value)}
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FFC857] focus:outline-hidden transition-colors"
+            >
+              <option value="Landing page">Landing page</option>
+              <option value="Sitio web">Sitio web / Multi-página</option>
+              <option value="E-commerce">E-commerce / Tienda online</option>
+              <option value="Otro / idea especial">Otro / idea especial</option>
+            </select>
+          </div>
+
+          {/* Message */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="m" className="text-[14px] text-[#A9B3CF]">
+              {lang === "es" ? "Cuéntanos tu idea" : "Tell us your vision"}
+            </label>
+            <textarea
+              id="m"
+              rows={4}
+              required
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder={lang === "es" ? "Describe brevemente lo que necesitas" : "Briefly describe what you're looking to build"}
+              className="bg-[#121A33] border border-[#2A3560] rounded-[12px] px-4 py-3.5 text-base text-[#E8ECF8] focus:border-[#FFC857] focus:outline-hidden transition-colors resize-vertical"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn-accent border-0 py-4 px-7 text-base font-medium mt-2 cursor-pointer w-full"
+          >
+            {lang === "es" ? "Enviar mensaje" : "Send message"}
+          </button>
+        </form>
+      </div>
     </section>
   );
 }
