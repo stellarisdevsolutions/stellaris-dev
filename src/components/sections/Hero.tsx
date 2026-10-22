@@ -118,6 +118,7 @@ export function Hero() {
                   alt="Stellaris Dev Robot"
                   fill
                   className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)]"
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 360px"
                   priority
                 />
               </motion.div>
