@@ -18,6 +18,7 @@ import {
   AlertCircle,
   Sparkles,
 } from "lucide-react";
+import { ImageUploader } from "./ImageUploader";
 
 interface MarketplaceManagerProps {
   initialProducts: MarketplaceProduct[];
@@ -411,6 +412,14 @@ export function MarketplaceManager({ initialProducts }: MarketplaceManagerProps)
                     })
                   }
                   className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2 outline-none focus:border-[#FF532A]"
+                />
+              </div>
+
+              <div>
+                <ImageUploader
+                  label="Imagen / Mockup de la Solución (Vercel Blob)"
+                  value={formData.demoUrl?.startsWith("http") ? formData.demoUrl : ""}
+                  onChange={(url) => setFormData({ ...formData, demoUrl: url })}
                 />
               </div>
 

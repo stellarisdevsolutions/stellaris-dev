@@ -18,6 +18,7 @@ import {
   AlertCircle,
   Sparkles,
 } from "lucide-react";
+import { ImageUploader } from "./ImageUploader";
 
 interface ProjectsManagerProps {
   initialProjects: ProjectItem[];
@@ -445,6 +446,14 @@ export function ProjectsManager({ initialProjects }: ProjectsManagerProps) {
                   }
                   className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#FF532A]"
                   placeholder="Next.js 16, React 19, Tailwind CSS, PostgreSQL"
+                />
+              </div>
+
+              <div>
+                <ImageUploader
+                  label="Captura o Portada del Proyecto (Vercel Blob)"
+                  value={formData.bgPreview?.startsWith("http") ? formData.bgPreview : ""}
+                  onChange={(url) => setFormData({ ...formData, bgPreview: url })}
                 />
               </div>
 
