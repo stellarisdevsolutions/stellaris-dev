@@ -1,9 +1,10 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { TechStack } from "@/components/sections/TechStack";
+import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
-import { RibbonTicker } from "@/components/sections/RibbonTicker";
 import { Portfolio } from "@/components/sections/Portfolio";
+import { Marketplace } from "@/components/sections/Marketplace";
+import { RibbonTicker } from "@/components/sections/RibbonTicker";
 import { FeatureTech } from "@/components/sections/FeatureTech";
 import { FeatureMobile } from "@/components/sections/FeatureMobile";
 import { Process } from "@/components/sections/Process";
@@ -17,9 +18,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-white text-[#171717] overflow-hidden">
       <Navbar />
       <Hero />
-      <TechStack />
+      <About />
       <Services />
       <Portfolio />
+      <Marketplace />
       <RibbonTicker />
       <Process />
       <FeatureMobile />

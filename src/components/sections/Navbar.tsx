@@ -1,47 +1,49 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Globe, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Navbar() {
-  const { lang, setLang, t } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const leftNav = [
-    { label: lang === "es" ? "Inicio" : "Home", href: "#inicio" },
-    { label: t.navbar.services, href: "#servicios" },
-    { label: t.navbar.projects, href: "#proyectos" },
+    { label: lang === "es" ? "INICIO" : "HOME", href: "/#home" },
+    { label: lang === "es" ? "NOSOTROS" : "ABOUT", href: "/#about" },
+    { label: lang === "es" ? "SERVICIOS" : "SERVICES", href: "/#services" },
+    { label: lang === "es" ? "PROYECTOS" : "PROJECTS", href: "/projects" },
   ];
 
   const rightNav = [
-    { label: t.navbar.pricing, href: "#precios" },
-    { label: t.navbar.contact, href: "#contacto" },
+    { label: "MARKETPLACE", href: "/marketplace" },
+    { label: lang === "es" ? "PRECIOS" : "PRICING", href: "/#pricing" },
   ];
 
   const allNavItems = [
-    { label: lang === "es" ? "Inicio" : "Home", href: "#inicio" },
-    { label: t.navbar.services, href: "#servicios" },
-    { label: t.navbar.projects, href: "#proyectos" },
-    { label: t.navbar.process, href: "#proceso" },
-    { label: t.navbar.pricing, href: "#precios" },
-    { label: t.navbar.contact, href: "#contacto" },
+    { label: lang === "es" ? "INICIO" : "HOME", href: "/#home" },
+    { label: lang === "es" ? "NOSOTROS" : "ABOUT", href: "/#about" },
+    { label: lang === "es" ? "SERVICIOS" : "SERVICES", href: "/#services" },
+    { label: lang === "es" ? "PROYECTOS" : "PROJECTS", href: "/projects" },
+    { label: "MARKETPLACE", href: "/marketplace" },
+    { label: lang === "es" ? "PROCESO" : "PROCESS", href: "/#process" },
+    { label: lang === "es" ? "PRECIOS" : "PRICING", href: "/#pricing" },
   ];
 
   return (
     <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[880px]">
       {/* Floating Pill Container matching exact reference */}
       <div className="bg-[#171717]/95 backdrop-blur-md border border-neutral-800/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex items-center justify-between gap-2 sm:gap-4">
-        {/* Left Navigation Links */}
-        <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[13.5px] font-medium text-neutral-300">
+        {/* Left Navigation Links (Todos en mayúsculas) */}
+        <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[12.5px] font-semibold tracking-wider text-neutral-300">
           {leftNav.map((link, idx) => (
             <Link
               key={link.label}
               href={link.href}
               className={`transition-colors hover:text-[#FF532A] ${
-                idx === 0 ? "text-[#FF532A] font-semibold" : ""
+                idx === 0 ? "text-[#FF532A]" : ""
               }`}
             >
               {link.label}
@@ -49,9 +51,9 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Center Brand Logo with Circular Badge from Reference */}
+        {/* Center Brand Logo with Circular Badge */}
         <Link
-          href="#inicio"
+          href="/#home"
           className="hd flex items-center gap-2 font-bold text-[17px] sm:text-[19px] text-white tracking-tight group"
         >
           <span className="w-7 h-7 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold text-xs shadow-md shadow-[#FF532A]/30 group-hover:scale-105 transition-transform">
@@ -62,7 +64,7 @@ export function Navbar() {
 
         {/* Right Nav Links & Actions */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <nav className="hidden md:flex items-center gap-5 text-[13.5px] font-medium text-neutral-300">
+          <nav className="hidden md:flex items-center gap-5 text-[12.5px] font-semibold tracking-wider text-neutral-300">
             {rightNav.map((link) => (
               <Link
                 key={link.label}
@@ -100,12 +102,12 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Quick CTA Hire / Contact */}
+          {/* CTA: Botón de Contacto */}
           <Link
-            href="#contacto"
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white text-[13px] font-semibold px-4 py-1.5 rounded-full shadow-md shadow-[#FF532A]/25 transition-all hover:scale-105"
+            href="/#contact"
+            className="hidden sm:inline-flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white text-[12.5px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-md shadow-[#FF532A]/25 transition-all hover:scale-105"
           >
-            <span>{lang === "es" ? "Cotizar" : "Hire Us"}</span>
+            <span>{lang === "es" ? "CONTACTO" : "CONTACT"}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
 
@@ -136,15 +138,14 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-base font-medium text-neutral-200 hover:text-[#FF532A] py-1 transition-colors"
+                  className="text-sm font-semibold tracking-wider text-neutral-200 hover:text-[#FF532A] py-1 transition-colors"
                 >
                   {link.label}
                 </Link>
               ))}
 
               <div className="pt-3 border-t border-neutral-800 flex items-center justify-between">
-                <span className="text-xs text-neutral-400 flex items-center gap-1.5">
-                  <Globe className="h-3.5 w-3.5 text-[#FF532A]" />
+                <span className="text-xs text-neutral-400">
                   Idioma / Language
                 </span>
                 <div className="flex items-center rounded-full bg-neutral-900 border border-neutral-800 p-0.5 text-xs font-mono">
@@ -171,11 +172,11 @@ export function Navbar() {
 
               <div className="pt-2">
                 <Link
-                  href="#contacto"
+                  href="/#contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm rounded-full shadow-lg block"
+                  className="w-full text-center py-3 bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold tracking-wider uppercase text-sm rounded-full shadow-lg block"
                 >
-                  {lang === "es" ? "Empezar Proyecto ↗" : "Start Project ↗"}
+                  {lang === "es" ? "CONTACTO ↗" : "CONTACT ↗"}
                 </Link>
               </div>
             </div>

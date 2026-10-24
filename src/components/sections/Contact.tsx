@@ -1,71 +1,60 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Phone, Clock, ArrowUpRight, Send } from "lucide-react";
+import { Mail, Phone, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+
+import { submitContactFormAction } from "@/app/admin/actions";
 
 export function Contact() {
   const { lang } = useLanguage();
-  const [emailInput, setEmailInput] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [projectType, setProjectType] = useState("Landing Page");
   const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleQuickSubmit = (e: React.FormEvent) => {
+  const handleDetailedSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSending(true);
+
+    try {
+      await submitContactFormAction({
+        name,
+        email,
+        projectType,
+        details: message,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.warn("Contact form fallback:", err);
+    } finally {
+      setSending(false);
+    }
+
     const text =
       lang === "es"
-        ? `Hola Stellaris Dev! Tengo una idea para un proyecto web. Mi correo es: ${emailInput}`
-        : `Hi Stellaris Dev! I have a project idea. My email is: ${emailInput}`;
-    window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
-  };
-
-  const handleDetailedSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text =
-      lang === "es"
-        ? `Hola Stellaris Dev! Mi nombre es ${name}. Correo: ${emailInput}. Proyecto: ${projectType}. Mensaje: ${message}`
-        : `Hi Stellaris Dev! My name is ${name}. Email: ${emailInput}. Project: ${projectType}. Message: ${message}`;
+        ? `Hola Stellaris Dev! Mi nombre es ${name}. Correo: ${email}. Proyecto: ${projectType}. Mensaje: ${message}`
+        : `Hi Stellaris Dev! My name is ${name}. Email: ${email}. Project: ${projectType}. Message: ${message}`;
     window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
-    <section id="contacto" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
-      {/* Top Banner Callout matching "Have An Awesome Project Idea? Let's Discuss" */}
-      <div className="flex flex-col items-center text-center mb-16">
+    <section id="contact" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
+      {/* Top Banner Callout */}
+      <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
         <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#171717] m-0 max-w-[700px]">
           {lang === "es" ? "¿Tienes una idea increíble en mente? " : "Have An Awesome Project Idea? "}
-          <span className="text-[#FF532A]">
+          <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
             {lang === "es" ? "Hablemos de ella" : "Let's Discuss"}
           </span>
         </h2>
         <p className="text-neutral-500 text-sm sm:text-base mt-3 max-w-[500px]">
           {lang === "es"
-            ? "Escríbenos directamente o déjanos tu correo para armar una propuesta personalizada."
-            : "Drop us a line or enter your email to receive a tailor-made proposal."}
+            ? "Escríbenos directamente o completa el formulario para armar una propuesta personalizada."
+            : "Drop us a line or fill out the form to receive a tailor-made proposal."}
         </p>
-
-        {/* Quick Pill Input bar from Reference Image */}
-        <form
-          onSubmit={handleQuickSubmit}
-          className="mt-8 w-full max-w-[540px] flex items-center bg-white border border-neutral-300 rounded-full p-1.5 sm:p-2 shadow-lg shadow-neutral-200/50 focus-within:border-[#FF532A] transition-all"
-        >
-          <input
-            type="email"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            placeholder={lang === "es" ? "Ingresa tu correo electrónico..." : "Enter your email address..."}
-            required
-            className="flex-1 px-4 sm:px-5 py-2 text-sm sm:text-base text-[#171717] placeholder-neutral-400 bg-transparent outline-hidden"
-          />
-          <button
-            type="submit"
-            className="inline-flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs sm:text-sm font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md shadow-[#FF532A]/30 transition-all cursor-pointer hover:scale-105 active:scale-95"
-          >
-            <span>{lang === "es" ? "Enviar" : "Send"}</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
-        </form>
       </div>
 
       {/* Grid: Direct Contact Channels & Detailed Form */}
@@ -130,18 +119,34 @@ export function Contact() {
           </h3>
 
           <form onSubmit={handleDetailedSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
-                {lang === "es" ? "Nombre o Empresa" : "Name / Company"}
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder={lang === "es" ? "Tu nombre..." : "Your name..."}
-                required
-                className="w-full px-4 py-3 rounded-xl bg-[#242427] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                  {lang === "es" ? "Nombre o Empresa" : "Name / Company"}
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder={lang === "es" ? "Tu nombre..." : "Your name..."}
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-[#242427] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                  {lang === "es" ? "Correo Electrónico" : "Email Address"}
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={lang === "es" ? "tu@correo.com" : "you@email.com"}
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-[#242427] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm"
+                />
+              </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -176,11 +181,25 @@ export function Contact() {
 
             <button
               type="submit"
-              className="mt-2 w-full py-4 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-101 active:scale-98"
+              disabled={sending}
+              className="mt-2 w-full py-4 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-101 active:scale-98 disabled:opacity-50"
             >
-              <span>{lang === "es" ? "Enviar Mensaje a WhatsApp" : "Send to WhatsApp"}</span>
-              <Send className="w-4 h-4" />
+              {sending ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span>{lang === "es" ? "Enviar Mensaje a WhatsApp" : "Send to WhatsApp"}</span>
+                  <Send className="w-4 h-4" />
+                </>
+              )}
             </button>
+            {submitted && (
+              <p className="text-center text-xs text-emerald-400 mt-1 font-medium">
+                {lang === "es"
+                  ? "✓ Solicitud registrada en el sistema. Redirigiendo a WhatsApp..."
+                  : "✓ Inquiry registered. Opening WhatsApp..."}
+              </p>
+            )}
           </form>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { NavItem } from "@/types";
 export const NAVIGATION_LINKS: NavItem[] = [
   { label: "Inicio", href: "#" },
   { label: "Soluciones", href: "#soluciones" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Contacto", href: "#contact" },
 ];
 
 export const AGENCY_INFO = {

@@ -8,95 +8,105 @@ export function Process() {
 
   const steps = [
     {
-      step: "01",
-      phase: lang === "es" ? "Paso 1 · Planificación" : "Phase 1 · Discovery",
-      title: lang === "es" ? "Estrategia & Alcance" : "Strategy & Architecture",
+      number: "1",
+      title: lang === "es" ? "Contacto y plan" : "Contact & Plan",
       desc:
         lang === "es"
-          ? "Analizamos tu negocio, definimos la estructura del sitio, el contenido clave y el plan de entrega."
-          : "We define core user goals, site architecture, required integrations, and a firm timeline.",
+          ? "Hablamos de tu idea, definimos objetivos, alcance técnico y armamos el plan de entrega."
+          : "We explore your goals, define scope, select the stack, and prepare a fixed roadmap.",
     },
     {
-      step: "02",
-      phase: lang === "es" ? "Paso 2 · Prototipo" : "Phase 2 · Prototype",
-      title: lang === "es" ? "Diseño UI/UX en Figma" : "Bespoke UI/UX Design",
+      number: "2",
+      title: lang === "es" ? "Diseño y prototipo" : "Design & Prototype",
       desc:
         lang === "es"
-          ? "Diseñamos interfaces interactivas y pantallas completas para que apruebes el look antes de programar."
-          : "We craft high-fidelity mockups in Figma for your full review and approval before writing code.",
+          ? "Diseñamos interfaces interactivas en Figma para que apruebes el look antes de programar."
+          : "We design high-fidelity mockups so you review and approve every visual detail first.",
     },
     {
-      step: "03",
-      phase: lang === "es" ? "Paso 3 · Construcción" : "Phase 3 · Development",
-      title: lang === "es" ? "Desarrollo con Next.js 16" : "Next.js & React Build",
+      number: "3",
+      title: lang === "es" ? "Construcción" : "Development",
       desc:
         lang === "es"
-          ? "Programamos con código limpio, carga instantánea, animaciones fluidas y optimización SEO al 100%."
-          : "High-performance production build with responsive layout, zero bloat, and top Google SEO scores.",
+          ? "Programamos tu plataforma con código limpio, bases de datos rápidas y 100% responsive."
+          : "We engineer your platform with clean, ultra-fast code and mobile-first optimization.",
     },
     {
-      step: "04",
-      phase: lang === "es" ? "Paso 4 · Despliegue" : "Phase 4 · Launch",
-      title: lang === "es" ? "Lanzamiento & Soporte" : "Deployment & Support",
+      number: "4",
+      title: lang === "es" ? "Despliegue y soporte" : "Launch & Support",
       desc:
         lang === "es"
-          ? "Publicamos tu web en servidores ultra rápidos (Vercel/Cloud), configuramos dominio y te acompañamos."
-          : "Live deployment on global CDN servers, domain setup, and ongoing technical maintenance.",
+          ? "Publicamos tu web en Vercel con SSL, configuramos el dominio y te acompañamos post-lanzamiento."
+          : "We launch your live platform on global servers with SSL and continuous maintenance.",
     },
   ];
 
   return (
-    <section id="proceso" className="w-full max-w-[1000px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#171717] m-0">
-          {lang === "es" ? "Nuestro " : "Our "}
-          <span className="text-[#FF532A]">
-            {lang === "es" ? "Proceso de Trabajo" : "Work Process"}
-          </span>
-        </h2>
-        <p className="text-neutral-500 text-sm sm:text-base mt-3 max-w-[500px] mx-auto">
-          {lang === "es"
-            ? "Un flujo claro, transparente y sin sorpresas desde la idea hasta el lanzamiento."
-            : "A transparent, milestone-driven development process from concept to live deployment."}
-        </p>
-      </div>
+    <div className="w-full px-0 sm:px-6 py-6 sm:py-8 bg-white">
+      {/* Dark Bento Container matching current palette & previous step pipeline */}
+      <section
+        id="process"
+        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-16 sm:p-14 lg:p-16 shadow-2xl overflow-hidden relative"
+      >
+        {/* Resplandor sutil idéntico al de la sección Marketplace */}
+        <div
+          className="absolute -top-8 -right-8 sm:-top-16 sm:-right-16 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[#FF532A]/25 sm:bg-[#FF532A]/35 rounded-full blur-[45px] sm:blur-[65px] pointer-events-none"
+          aria-hidden="true"
+        />
 
-      {/* Timeline matching "My Work Experience" reference */}
-      <div className="relative flex flex-col gap-10 sm:gap-12 pl-4 sm:pl-0">
-        {/* Continuous vertical timeline connector line */}
-        <div className="hidden sm:block absolute left-[30%] top-3 bottom-3 w-[2px] bg-neutral-200 -translate-x-1/2" />
-
-        {steps.map((item, index) => (
-          <div
-            key={item.step}
-            className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-10 relative group"
-          >
-            {/* Left Column: Step & Phase */}
-            <div className="sm:w-[30%] sm:text-right pr-0 sm:pr-8 flex sm:flex-col items-center sm:items-end justify-between sm:justify-start">
-              <span className="hd text-2xl sm:text-3xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors">
-                {item.step}
+        <div className="relative z-10 flex flex-col gap-12 sm:gap-16">
+          {/* Header (Sin etiqueta superior) */}
+          <div className="text-center flex flex-col items-center gap-3">
+            <h2 className="hd text-3xl sm:text-5xl lg:text-[48px] font-bold tracking-tight text-white m-0">
+              {lang === "es" ? "Cómo " : "How we "}
+              <span className="text-[#FF532A]">
+                {lang === "es" ? "trabajamos" : "work"}
               </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400 mt-1">
-                {item.phase}
-              </span>
-            </div>
+            </h2>
 
-            {/* Middle: Orange Dot on Timeline */}
-            <div className="hidden sm:flex absolute left-[30%] -translate-x-1/2 top-1.5 z-10 w-4 h-4 rounded-full bg-[#FF532A] ring-4 ring-[#FF532A]/20 group-hover:scale-125 transition-transform" />
-
-            {/* Right Column: Title & Description */}
-            <div className="sm:w-[70%] sm:pl-8 flex flex-col gap-1.5">
-              <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0 group-hover:text-[#FF532A] transition-colors">
-                {item.title}
-              </h3>
-              <p className="text-sm sm:text-[15px] text-neutral-500 leading-relaxed m-0 max-w-[560px]">
-                {item.desc}
-              </p>
-            </div>
+            <p className="text-neutral-400 text-sm sm:text-base max-w-[540px] mx-auto leading-relaxed m-0">
+              {lang === "es"
+                ? "Un flujo claro, transparente y sin sorpresas desde la idea inicial hasta el lanzamiento en producción."
+                : "A transparent, milestone-driven development process from concept to live production."}
+            </p>
           </div>
-        ))}
-      </div>
-    </section>
+
+          {/* 4 Steps with Connector Lines and Orange Badges */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-7 relative">
+            {steps.map((item, index) => {
+              const isLast = index === steps.length - 1;
+
+              return (
+                <div key={item.number} className="flex flex-col gap-4 group">
+                  {/* Top: Step Number Badge + Connector Line */}
+                  <div className="flex items-center gap-3">
+                    <div className="hd w-[52px] h-[52px] rounded-2xl sm:rounded-full bg-[#FF532A] text-white font-extrabold text-[22px] flex items-center justify-center shrink-0 shadow-lg shadow-[#FF532A]/30 group-hover:scale-105 group-hover:bg-[#E5451D] transition-all">
+                      {item.number}
+                    </div>
+
+                    {/* Connector line (visible on desktop between steps) */}
+                    {!isLast && (
+                      <div className="flex-1 h-[2px] bg-neutral-800 hidden lg:block relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF532A]/50 to-transparent" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step Title */}
+                  <h3 className="hd text-xl sm:text-[22px] font-bold text-white m-0 group-hover:text-[#FF532A] transition-colors">
+                    {item.title}
+                  </h3>
+
+                  {/* Step Description */}
+                  <p className="text-neutral-400 leading-[1.6] text-xs sm:text-[14px] m-0">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -13,7 +13,7 @@ export function Footer() {
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 pt-16 pb-12 flex flex-col gap-10">
         {/* Top row */}
         <div className="flex justify-between items-center flex-wrap gap-6">
-          <Link href="#inicio" className="hd flex items-center gap-2.5 font-bold text-xl sm:text-2xl text-white group">
+          <Link href="/#home" className="hd flex items-center gap-2.5 font-bold text-xl sm:text-2xl text-white group">
             <span className="w-8 h-8 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#FF532A]/30 group-hover:scale-105 transition-transform">
               ✦
             </span>
@@ -21,19 +21,25 @@ export function Footer() {
           </Link>
 
           <div className="flex gap-6 sm:gap-8 text-sm font-medium flex-wrap text-neutral-300">
-            <Link href="#servicios" className="hover:text-[#FF532A] transition-colors">
+            <Link href="/#about" className="hover:text-[#FF532A] transition-colors">
+              {lang === "es" ? "Nosotros" : "About"}
+            </Link>
+            <Link href="/#services" className="hover:text-[#FF532A] transition-colors">
               {t.navbar.services}
             </Link>
-            <Link href="#proyectos" className="hover:text-[#FF532A] transition-colors">
+            <Link href="/projects" className="hover:text-[#FF532A] transition-colors">
               {t.navbar.projects}
             </Link>
-            <Link href="#proceso" className="hover:text-[#FF532A] transition-colors">
+            <Link href="/marketplace" className="hover:text-[#FF532A] transition-colors">
+              Marketplace
+            </Link>
+            <Link href="/#process" className="hover:text-[#FF532A] transition-colors">
               {t.navbar.process}
             </Link>
-            <Link href="#precios" className="hover:text-[#FF532A] transition-colors">
+            <Link href="/#pricing" className="hover:text-[#FF532A] transition-colors">
               {t.navbar.pricing}
             </Link>
-            <Link href="#contacto" className="hover:text-[#FF532A] transition-colors">
+            <Link href="/#contact" className="hover:text-[#FF532A] transition-colors">
               {t.navbar.contact}
             </Link>
           </div>
@@ -63,17 +69,23 @@ export function Footer() {
           </Link>
         </div>
 
-        {/* Bottom row */}
+        {/* Bottom row con enlaces legales */}
         <div className="flex justify-between items-center flex-wrap gap-4 text-xs text-neutral-500">
           <div>
             © {new Date().getFullYear()} Stellaris Dev Solutions. {lang === "es" ? "Todos los derechos reservados." : "All rights reserved."}
           </div>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <Link href="/privacy-policy" className="hover:text-[#FF532A] transition-colors">
+              {lang === "es" ? "Política de Privacidad" : "Privacy Policy"}
+            </Link>
+            <span>·</span>
+            <Link href="/terms-and-conditions" className="hover:text-[#FF532A] transition-colors">
+              {lang === "es" ? "Términos y Condiciones" : "Terms & Conditions"}
+            </Link>
+            <span>·</span>
             <a href="mailto:stellarisdev.us@gmail.com" className="hover:text-white transition-colors">
               stellarisdev.us@gmail.com
             </a>
-            <span>·</span>
-            <span>Next.js 16 + React 19</span>
           </div>
         </div>
       </div>

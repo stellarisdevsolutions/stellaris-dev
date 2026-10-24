@@ -49,34 +49,77 @@ export function FeatureMobile() {
       </div>
 
       {/* Right Text */}
-      <div className="flex flex-col gap-6 items-start text-left order-1 lg:order-2">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-neutral-100 text-neutral-700">
+      <div className="flex flex-col gap-5 items-start text-left order-1 lg:order-2">
+        {/* Etiqueta superior */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-neutral-100 text-neutral-700 shadow-xs">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
           100% RESPONSIVE
         </div>
-        <h2 className="hd text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] tracking-[-1px] text-[#171717] m-0">
-          {lang === "es" ? "Diseños optimizados para " : "Flawless on "}
-          <span className="text-[#FF532A]">
-            {lang === "es" ? "celulares" : "mobile devices"}
+
+        <h2 className="hd text-3xl sm:text-5xl lg:text-[54px] font-bold leading-[1.08] tracking-[-1.5px] text-[#171717] m-0">
+          {lang === "es" ? "Diseños " : "Responsive "}
+          <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
+            {lang === "es" ? "responsivos" : "designs"}
           </span>
         </h2>
-        <p className="m-0 text-neutral-600 text-base sm:text-[17px] leading-[1.6]">
+
+        <p className="m-0 text-neutral-600 text-base sm:text-lg leading-relaxed max-w-[520px]">
           {lang === "es"
-            ? "Más del 80% de tus clientes navegarán desde su teléfono. Tu sitio web cargará al instante y se sentirá como una app nativa."
-            : "Over 80% of your visitors will browse from a smartphone. Your site will load instantly and feel like a native app."}
+            ? "Tu sitio se ve bien y funciona igual de fácil en computadora, tableta y celular. Tus clientes compran y te contactan desde donde estén."
+            : "Your website looks great and works effortlessly on desktop, tablet, and mobile. Customers purchase and contact you wherever they are."}
         </p>
-        <div className="flex flex-col gap-3 text-base text-neutral-700">
-          <div className="flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
-            <span>{lang === "es" ? "Adaptado a cualquier tamaño de pantalla" : "Adaptive layout across all screens"}</span>
+
+        {/* 3 Puntos con Check en Naranja */}
+        <div className="flex flex-col gap-4 mt-2">
+          {/* Point 1 */}
+          <div className="flex items-start gap-3">
+            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 shadow-sm shadow-[#FF532A]/25">
+              ✓
+            </span>
+            <div className="flex flex-col gap-0.5">
+              <h3 className="hd text-lg sm:text-xl font-bold text-[#171717] m-0">
+                {lang === "es" ? "Se adapta a cualquier pantalla" : "Adapts to any screen"}
+              </h3>
+              <p className="text-sm sm:text-[15px] text-neutral-600 leading-relaxed m-0">
+                {lang === "es"
+                  ? "Cada sección se reorganiza según el tamaño del dispositivo."
+                  : "Every section intelligently reorganizes to fit the device viewport."}
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
-            <span>{lang === "es" ? "Botones y textos fáciles de usar con el dedo" : "Thumb-friendly navigation and typography"}</span>
+
+          {/* Point 2 */}
+          <div className="flex items-start gap-3">
+            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 shadow-sm shadow-[#FF532A]/25">
+              ✓
+            </span>
+            <div className="flex flex-col gap-0.5">
+              <h3 className="hd text-lg sm:text-xl font-bold text-[#171717] m-0">
+                {lang === "es" ? "Carga rápida" : "Fast loading"}
+              </h3>
+              <p className="text-sm sm:text-[15px] text-neutral-600 leading-relaxed m-0">
+                {lang === "es"
+                  ? "Código ligero para que nadie se vaya esperando."
+                  : "Lightweight code so visitors never leave while waiting."}
+              </p>
+            </div>
           </div>
-          <div className="flex items-center gap-2.5">
-            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
-            <span>{lang === "es" ? "Carga rápida incluso con datos móviles 4G" : "Instant load times on 4G cellular data"}</span>
+
+          {/* Point 3 */}
+          <div className="flex items-start gap-3">
+            <span className="w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 shadow-sm shadow-[#FF532A]/25">
+              ✓
+            </span>
+            <div className="flex flex-col gap-0.5">
+              <h3 className="hd text-lg sm:text-xl font-bold text-[#171717] m-0">
+                {lang === "es" ? "Listo para móviles" : "Mobile ready"}
+              </h3>
+              <p className="text-sm sm:text-[15px] text-neutral-600 leading-relaxed m-0">
+                {lang === "es"
+                  ? "Botones y textos pensados para usarse con el dedo."
+                  : "Buttons and typography engineered for effortless thumb tapping."}
+              </p>
+            </div>
           </div>
         </div>
       </div>

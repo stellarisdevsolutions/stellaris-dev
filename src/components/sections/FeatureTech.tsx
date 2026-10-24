@@ -7,9 +7,9 @@ export function FeatureTech() {
   const { lang } = useLanguage();
 
   return (
-    <div className="w-full px-4 sm:px-6 my-6 bg-white">
-      <div className="bg-[#171717] text-white rounded-[36px] sm:rounded-[48px] py-16 sm:py-20 lg:py-24 shadow-2xl border border-neutral-800">
-        <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+    <div className="w-full px-0 sm:px-6 my-0 sm:my-6 bg-white">
+      <div className="bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-16 sm:py-20 lg:py-24 shadow-2xl border-y sm:border border-neutral-800">
+        <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
           {/* Left Text */}
           <div className="flex flex-col gap-6 items-start text-left">
             <div className="border border-neutral-700 bg-neutral-900 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#FF532A]">

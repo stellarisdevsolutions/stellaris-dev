@@ -71,10 +71,10 @@ export function FAQ() {
         ];
 
   return (
-    <div className="w-full px-4 sm:px-6 py-6 bg-white">
+    <div className="w-full px-0 sm:px-6 py-0 sm:py-6 bg-white">
       <section
         id="faq"
-        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-[36px] sm:rounded-[48px] p-8 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
+        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-14 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
       >
         {/* Testimonials Header matching exact reference */}
         <div className="text-center mb-12 sm:mb-16">
