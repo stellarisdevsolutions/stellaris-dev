@@ -1,40 +1,55 @@
 export interface MarketplaceProduct {
   id: string;
   slug: string;
-  title: string;
+  title: { en: string; es: string } | string;
+  image?: string;
+  gallery?: string[];
   category: "all" | "saas" | "ecommerce" | "agencies" | "landing";
-  categoryLabel: { es: string; en: string };
-  tag: { es: string; en: string };
+  categoryLabel?: { es: string; en: string };
+  tag?: { es: string; en: string };
   price: string;
   originalPrice?: string;
-  rating: string;
-  salesCount: number;
+  rating?: string;
+  salesCount?: number;
   shortDesc: { es: string; en: string };
   fullDesc: { es: string; en: string };
-  architecture: {
-    frontend: string;
-    backend: string;
-    database: string;
-    styling: string;
-    auth: string;
-    deployment: string;
+  architecture?: {
+    frontend?: string;
+    backend?: string;
+    database?: string;
+    styling?: string;
+    auth?: string;
+    deployment?: string;
   };
-  features: { es: string[]; en: string[] };
-  includedFiles: { es: string[]; en: string[] };
-  stack: string[];
-  demoUrl: string;
-  accent: string;
-  faqs: {
+  features?: { es: string[]; en: string[] };
+  includedFiles?: { es: string[]; en: string[] };
+  stack?: string[];
+  demoUrl?: string;
+  faqs?: {
     q: { es: string; en: string };
     a: { es: string; en: string };
   }[];
+}
+
+export function getMarketplaceTitle(
+  title: { en: string; es: string } | string | undefined,
+  lang: "en" | "es" = "es"
+): string {
+  if (!title) return "";
+  if (typeof title === "string") return title;
+  return title[lang] || title.en || title.es || "";
 }
 
 export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   {
     id: "saas-starter-pro",
     slug: "saas-starter-pro",
-    title: "Stellaris SaaS Starter Pro",
+    title: {
+      en: "Stellaris SaaS Starter Pro",
+      es: "Stellaris SaaS Starter Pro",
+    },
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
+    gallery: [],
     category: "saas",
     categoryLabel: { es: "SaaS & Dashboard", en: "SaaS & Dashboard" },
     tag: { es: "🔥 Más Vendido", en: "🔥 Best Seller" },
@@ -96,7 +111,6 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     },
     stack: ["Next.js 16", "Supabase", "Stripe", "Tailwind CSS", "TypeScript"],
     demoUrl: "https://stellaris-dev.vercel.app",
-    accent: "#FF532A",
     faqs: [
       {
         q: {
@@ -133,7 +147,12 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   {
     id: "omnistore-ecommerce",
     slug: "omnistore-ecommerce",
-    title: "OmniStore - Tienda Online & WhatsApp CRM",
+    title: {
+      en: "OmniStore - Modern E-Commerce & WhatsApp CRM",
+      es: "OmniStore - Tienda Online & WhatsApp CRM",
+    },
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+    gallery: [],
     category: "ecommerce",
     categoryLabel: { es: "E-Commerce", en: "E-Commerce" },
     tag: { es: "⚡ Nuevo", en: "⚡ New" },
@@ -193,7 +212,6 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     },
     stack: ["Next.js 16", "Vercel Blob", "Postgres", "WhatsApp API", "Tailwind"],
     demoUrl: "https://stellaris-dev.vercel.app",
-    accent: "#171717",
     faqs: [
       {
         q: {
@@ -220,7 +238,12 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   {
     id: "nova-agency-template",
     slug: "nova-agency-template",
-    title: "Nova Agency - Studio Bento Template",
+    title: {
+      en: "Nova Agency - Creative Studio Bento Template",
+      es: "Nova Agency - Studio Bento Template",
+    },
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1600&q=80",
+    gallery: [],
     category: "agencies",
     categoryLabel: { es: "Agencia & Portafolio", en: "Agency & Portfolio" },
     tag: { es: "⭐ Destacado", en: "⭐ Featured" },
@@ -278,7 +301,6 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     },
     stack: ["React 19", "Framer Motion", "Tailwind CSS", "TypeScript"],
     demoUrl: "https://stellaris-dev.vercel.app",
-    accent: "#FF532A",
     faqs: [
       {
         q: {
@@ -295,7 +317,12 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   {
     id: "leadmagnet-funnel",
     slug: "leadmagnet-funnel",
-    title: "LeadMagnet - Funnel de Conversión Ads",
+    title: {
+      en: "LeadMagnet - High-Converting Paid Ads Funnel",
+      es: "LeadMagnet - Funnel de Conversión Ads",
+    },
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+    gallery: [],
     category: "landing",
     categoryLabel: { es: "Landing Page", en: "Landing Page" },
     tag: { es: "🚀 Conversión", en: "🚀 High-ROI" },
@@ -349,7 +376,6 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     },
     stack: ["Next.js 16", "Tailwind CSS", "Resend API", "Analytics"],
     demoUrl: "https://stellaris-dev.vercel.app",
-    accent: "#171717",
     faqs: [
       {
         q: {

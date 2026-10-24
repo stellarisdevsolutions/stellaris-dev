@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, ProjectItem } from "@/data/projects";
 
-export function Portfolio() {
+export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
   const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState("all");
 
@@ -58,7 +58,7 @@ export function Portfolio() {
 
       {/* Projects Grid / Cards (Diseño más sencillo, sin párrafos y sin tantos bordes) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {PROJECTS.filter((p) => activeTab === "all" || p.category === activeTab).map(
+        {(items || PROJECTS).filter((p) => activeTab === "all" || p.category === activeTab).map(
           (project) => (
             <Link
               key={project.id}
@@ -67,7 +67,8 @@ export function Portfolio() {
             >
               {/* Imagen/Preview Limpia sin tantos bordes */}
               <div
-                className={`w-full h-[230px] rounded-2xl ${project.bgPreview} p-5 flex flex-col justify-between text-white relative overflow-hidden mb-4`}
+                className={`w-full h-[230px] rounded-2xl ${project.bgPreview?.startsWith("http") ? "bg-cover bg-center" : project.bgPreview} p-5 flex flex-col justify-between text-white relative overflow-hidden mb-4`}
+                style={project.bgPreview?.startsWith("http") ? { backgroundImage: `url(${project.bgPreview})` } : undefined}
               >
                 {/* Categoría y Botón de flecha circular */}
                 <div className="flex items-center justify-between z-10">
@@ -96,7 +97,9 @@ export function Portfolio() {
               {/* Título y Enlace directo (sin párrafo largo de texto) */}
               <div className="pt-2 flex items-center justify-between gap-2">
                 <h3 className="hd text-lg sm:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-1 m-0">
-                  {project.title}
+                  {typeof project.title === "object"
+                    ? project.title[lang] || project.title.es
+                    : project.title}
                 </h3>
                 <span className="text-xs font-semibold text-[#FF532A] shrink-0 group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
                   <span>{lang === "es" ? "Ver caso" : "View"}</span>

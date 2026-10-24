@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { MARKETPLACE_PRODUCTS } from "@/data/marketplace";
+import { MARKETPLACE_PRODUCTS, MarketplaceProduct, getMarketplaceTitle } from "@/data/marketplace";
 
-export function Marketplace() {
+export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: MarketplaceProduct[] }) {
   const { lang } = useLanguage();
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
 
@@ -16,7 +16,7 @@ export function Marketplace() {
     { id: "portafolios", label: lang === "es" ? "Portafolios" : "Portfolios" },
   ];
 
-  const filteredProducts = MARKETPLACE_PRODUCTS.filter((product) => {
+  const filteredProducts = (items || MARKETPLACE_PRODUCTS).filter((product) => {
     if (selectedFilter === "all") return true;
     if (selectedFilter === "negocios") return product.category === "saas" || product.category === "landing";
     if (selectedFilter === "tiendas") return product.category === "ecommerce";
@@ -144,11 +144,11 @@ export function Marketplace() {
                   <div className="mb-6">
                     <Link href={`/marketplace/${product.slug}`}>
                       <h3 className="hd text-xl sm:text-2xl font-bold text-white tracking-tight mb-1.5 group-hover:text-[#FF532A] transition-colors line-clamp-1">
-                        {product.title}
+                        {getMarketplaceTitle(product.title, lang)}
                       </h3>
                     </Link>
                     <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed line-clamp-1 m-0">
-                      {categoryName} • {product.shortDesc[lang]}
+                      {categoryName} • {product.shortDesc ? product.shortDesc[lang] : ""}
                     </p>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export function Marketplace() {
                     </Link>
 
                     <a
-                      href={getWhatsAppBuyLink(product.title, product.price)}
+                      href={getWhatsAppBuyLink(getMarketplaceTitle(product.title, lang), product.price)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 sm:px-5 py-2.5 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md shadow-[#FF532A]/25 cursor-pointer whitespace-nowrap"

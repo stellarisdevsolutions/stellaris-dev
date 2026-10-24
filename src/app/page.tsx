@@ -12,16 +12,22 @@ import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
+import { getAllProjects, getAllMarketplaceProducts } from "@/db/service";
 
-export default function Home() {
+export default async function Home() {
+  const [projects, products] = await Promise.all([
+    getAllProjects(),
+    getAllMarketplaceProducts(),
+  ]);
+
   return (
     <main className="flex min-h-screen flex-col bg-white text-[#171717] overflow-hidden">
       <Navbar />
       <Hero />
       <About />
       <Services />
-      <Portfolio />
-      <Marketplace />
+      <Portfolio items={projects} />
+      <Marketplace items={products} />
       <RibbonTicker />
       <Process />
       <FeatureMobile />

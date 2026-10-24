@@ -103,7 +103,30 @@ export async function deleteProjectAction(id: string) {
   const isAuth = await verifyAdminSession();
   if (!isAuth) throw new Error("No autorizado");
 
+  // Fetch project first to discover its physical images in Vercel Blob
+  const all = await getAllProjects();
+  const target = all.find((p) => p.id === id);
+
   const success = await deleteProjectById(id);
+
+  if (success && target) {
+    const candidateUrls = [target.bgPreview, ...(target.gallery || [])];
+    const blobsToDelete = candidateUrls.filter(
+      (url): url is string =>
+        typeof url === "string" &&
+        url.startsWith("https://") &&
+        url.includes(".blob.vercel-storage.com")
+    );
+    if (blobsToDelete.length > 0) {
+      try {
+        const { del } = await import("@vercel/blob");
+        await del(blobsToDelete);
+      } catch (err) {
+        console.warn("Error deleting project blobs from Vercel:", err);
+      }
+    }
+  }
+
   revalidatePath("/projects");
   revalidatePath("/admin/projects");
   revalidatePath("/");
@@ -131,7 +154,30 @@ export async function deleteMarketplaceProductAction(id: string) {
   const isAuth = await verifyAdminSession();
   if (!isAuth) throw new Error("No autorizado");
 
+  // Fetch product first to discover its physical images in Vercel Blob
+  const all = await getAllMarketplaceProducts();
+  const target = all.find((p) => p.id === id);
+
   const success = await deleteMarketplaceProductById(id);
+
+  if (success && target) {
+    const candidateUrls = [target.image, ...(target.gallery || [])];
+    const blobsToDelete = candidateUrls.filter(
+      (url): url is string =>
+        typeof url === "string" &&
+        url.startsWith("https://") &&
+        url.includes(".blob.vercel-storage.com")
+    );
+    if (blobsToDelete.length > 0) {
+      try {
+        const { del } = await import("@vercel/blob");
+        await del(blobsToDelete);
+      } catch (err) {
+        console.warn("Error deleting marketplace blobs from Vercel:", err);
+      }
+    }
+  }
+
   revalidatePath("/marketplace");
   revalidatePath("/admin/marketplace");
   revalidatePath("/");
@@ -169,4 +215,34 @@ export async function seedDatabaseAction() {
   const isAuth = await verifyAdminSession();
   if (!isAuth) throw new Error("No autorizado");
   return await seedDatabase();
+}
+
+// ================= VERCEL BLOB STORAGE CLEANUP =================
+export async function deleteBlobsAction(urls: string[]) {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+
+  if (!Array.isArray(urls) || urls.length === 0) {
+    return { success: true, count: 0 };
+  }
+
+  // Security check: Only delete URLs belonging to our Vercel Blob storage
+  const validBlobUrls = urls.filter((url) => {
+    return (
+      typeof url === "string" &&
+      url.startsWith("https://") &&
+      url.includes(".blob.vercel-storage.com")
+    );
+  });
+
+  if (validBlobUrls.length === 0) return { success: true, count: 0 };
+
+  try {
+    const { del } = await import("@vercel/blob");
+    await del(validBlobUrls);
+    return { success: true, count: validBlobUrls.length };
+  } catch (err: any) {
+    console.error("Error deleting blobs from Vercel Blob:", err);
+    return { success: false, error: err?.message };
+  }
 }

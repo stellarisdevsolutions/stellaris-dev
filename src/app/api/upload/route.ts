@@ -28,9 +28,16 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
+    const contentType = filename.endsWith(".webp")
+      ? "image/webp"
+      : filename.endsWith(".svg")
+      ? "image/svg+xml"
+      : undefined;
+
     const blob = await put(`stellaris/${filename}`, request.body, {
       access: "public",
       addRandomSuffix: true,
+      ...(contentType ? { contentType } : {}),
     });
 
     return NextResponse.json({
