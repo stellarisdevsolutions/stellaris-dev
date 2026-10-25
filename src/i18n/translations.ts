@@ -292,7 +292,7 @@ export const TRANSLATIONS = {
       whatsappNumber: "+591 69991245",
       whatsappBtn: "Direct Call / Contact (+591 69991245)",
       emailLabel: "Official Email",
-      emailAddress: "contacto@tiendastellaris.com",
+      emailAddress: "contact@tiendastellaris.com",
       guarantees: [
         "Response in under 24 hours",
         "Free proposal with 100% no obligation",
@@ -613,7 +613,7 @@ export const TRANSLATIONS = {
       whatsappNumber: "+591 69991245",
       whatsappBtn: "Chatear al WhatsApp (+591 69991245)",
       emailLabel: "Correo Electrónico",
-      emailAddress: "contacto@tiendastellaris.com",
+      emailAddress: "contact@tiendastellaris.com",
       guarantees: [
         "Respuesta en menos de 24 horas",
         "Presupuesto gratuito y 100% sin compromiso",

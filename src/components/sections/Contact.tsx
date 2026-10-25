@@ -71,10 +71,10 @@ export function Contact() {
                 {lang === "es" ? "Correo Electrónico" : "Email Address"}
               </div>
               <a
-                href="mailto:contacto@tiendastellaris.com"
+                href="mailto:contact@tiendastellaris.com"
                 className="font-bold text-[#171717] hover:text-[#FF532A] transition-colors text-base"
               >
-                contacto@tiendastellaris.com
+                contact@tiendastellaris.com
               </a>
             </div>
           </div>

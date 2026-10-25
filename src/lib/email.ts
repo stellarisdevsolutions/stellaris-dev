@@ -5,7 +5,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Remitente verificado en Cloudflare
 const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "Stellaris Dev <contacto@tiendastellaris.com>";
+  process.env.RESEND_FROM_EMAIL || "Stellaris Dev <contact@tiendastellaris.com>";
 
 // Correo donde recibirás las alertas de compra y contacto
 const ADMIN_EMAIL =
