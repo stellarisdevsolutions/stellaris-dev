@@ -25,6 +25,7 @@ export function Contact() {
         email,
         projectType,
         details: message,
+        lang,
       });
       setSubmitted(true);
     } catch (err) {

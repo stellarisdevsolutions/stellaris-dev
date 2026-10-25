@@ -20,6 +20,10 @@ import { ProjectItem } from "@/data/projects";
 import { MarketplaceProduct } from "@/data/marketplace";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
+import {
+  sendPurchaseInquiryEmails,
+  sendContactNotificationEmails,
+} from "@/lib/email";
 
 const ADMIN_SECRET = process.env.ADMIN_PASSWORD || "stellaris2026";
 const COOKIE_NAME = "stellaris_admin_session";
@@ -204,8 +208,61 @@ export async function submitContactFormAction(data: {
   email: string;
   projectType: string;
   details: string;
+  lang?: "es" | "en";
 }) {
-  const result = await createContactMessage(data);
+  const result = await createContactMessage({
+    name: data.name,
+    email: data.email,
+    projectType: data.projectType,
+    details: data.details,
+  });
+
+  try {
+    await sendContactNotificationEmails({
+      name: data.name,
+      email: data.email,
+      projectType: data.projectType,
+      details: data.details,
+      lang: data.lang || "es",
+    });
+  } catch (err) {
+    console.warn("Error enviando email de contacto:", err);
+  }
+
+  revalidatePath("/admin/leads");
+  return result;
+}
+
+export async function submitMarketplacePurchaseAction(data: {
+  buyerEmail: string;
+  productTitle: string;
+  productSlug: string;
+  productPrice: string;
+  buyerNote?: string;
+}) {
+  // 1. Guardar como lead en la base de datos
+  const result = await createContactMessage({
+    name: "Direct Buyer",
+    email: data.buyerEmail,
+    projectType: `Marketplace Order: ${data.productTitle} (${data.productPrice})`,
+    details: data.buyerNote?.trim()
+      ? `[Marketplace Purchase Request: ${data.productSlug}]\nPrice: ${data.productPrice}\nNote: ${data.buyerNote.trim()}`
+      : `[Marketplace Purchase Request: ${data.productSlug}]\nPrice: ${data.productPrice}\nCustomer requested direct checkout delivery for ${data.productTitle}.`,
+  });
+
+  // 2. Enviar emails vía Resend (notificación al admin + confirmación al comprador)
+  try {
+    await sendPurchaseInquiryEmails({
+      buyerEmail: data.buyerEmail,
+      productTitle: data.productTitle,
+      productSlug: data.productSlug,
+      productPrice: data.productPrice,
+      buyerNote: data.buyerNote,
+    });
+  } catch (err) {
+    console.warn("Error enviando email de compra de Marketplace:", err);
+  }
+
   revalidatePath("/admin/leads");
   return result;
 }

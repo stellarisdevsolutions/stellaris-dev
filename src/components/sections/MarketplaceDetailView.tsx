@@ -25,7 +25,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { MarketplaceProduct, getMarketplaceTitle, getProductSpecs } from "@/data/marketplace";
 import { useLanguage } from "@/context/LanguageContext";
-import { submitContactFormAction } from "@/app/admin/actions";
+import { submitMarketplacePurchaseAction } from "@/app/admin/actions";
 
 interface MarketplaceDetailViewProps {
   product: MarketplaceProduct;
@@ -87,13 +87,12 @@ export function MarketplaceDetailView({
     setIsSubmittingOrder(true);
 
     try {
-      await submitContactFormAction({
-        name: "Direct Buyer",
-        email: buyerEmail.trim(),
-        projectType: `Marketplace Order: ${title} (${product.price})`,
-        details: buyerNote.trim()
-          ? `[Marketplace Purchase Request: ${product.slug}]\nPrice: ${product.price}\nNote from customer: ${buyerNote.trim()}`
-          : `[Marketplace Purchase Request: ${product.slug}]\nPrice: ${product.price}\nCustomer requested direct checkout delivery for ${title}.`,
+      await submitMarketplacePurchaseAction({
+        buyerEmail: buyerEmail.trim(),
+        productTitle: title,
+        productSlug: product.slug,
+        productPrice: product.price,
+        buyerNote: buyerNote.trim() || undefined,
       });
       setOrderSubmitted(true);
     } catch (err) {
