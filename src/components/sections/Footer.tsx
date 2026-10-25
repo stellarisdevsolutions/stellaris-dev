@@ -65,15 +65,25 @@ export function Footer() {
             </p>
           </div>
 
-          <Link
-            href="https://wa.me/59169991245"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/30 transition-all hover:scale-105"
-          >
-            <span>WhatsApp: +591 69991245</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+          {lang === "es" ? (
+            <Link
+              href="https://wa.me/59169991245"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/30 transition-all hover:scale-105"
+            >
+              <span>WhatsApp: +591 69991245</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          ) : (
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm px-6 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/30 transition-all hover:scale-105"
+            >
+              <span>Contact Us</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
 
         {/* Bottom row con enlaces legales */}
