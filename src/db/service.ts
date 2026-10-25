@@ -1,5 +1,16 @@
-import { db, isDatabaseConfigured, projects, marketplaceProducts, contactMessages, adminUsers, AdminUserRecord } from "./index";
-import { eq, desc } from "drizzle-orm";
+import {
+  db,
+  isDatabaseConfigured,
+  projects,
+  marketplaceProducts,
+  contactMessages,
+  adminUsers,
+  AdminUserRecord,
+  outreachHistory,
+  OutreachHistoryRecord,
+  NewOutreachHistoryRecord,
+} from "./index";
+import { eq, desc, inArray } from "drizzle-orm";
 import { PROJECTS, ProjectItem } from "@/data/projects";
 import { MARKETPLACE_PRODUCTS, MarketplaceProduct } from "@/data/marketplace";
 import bcrypt from "bcryptjs";
@@ -35,6 +46,8 @@ let localMessages: Array<{
     createdAt: new Date(Date.now() - 86400000 * 2),
   },
 ];
+
+let localOutreachHistory: OutreachHistoryRecord[] = [];
 
 // ==========================================
 // PROJECTS
@@ -337,4 +350,99 @@ export async function seedDatabase() {
     console.error("Seeding error:", err);
     return { success: false, message: err?.message || "Error seeding database." };
   }
+}
+
+// ==========================================
+// OUTREACH HISTORY
+// ==========================================
+export async function saveOutreachHistoryRecord(
+  record: NewOutreachHistoryRecord
+): Promise<OutreachHistoryRecord> {
+  if (isDatabaseConfigured && db) {
+    try {
+      const rows = await db
+        .insert(outreachHistory)
+        .values({
+          ...record,
+          sentAt: new Date(),
+        })
+        .returning();
+      if (rows && rows.length > 0) {
+        return rows[0] as OutreachHistoryRecord;
+      }
+    } catch (err) {
+      console.warn("Falling back to local outreach history save:", err);
+    }
+  }
+
+  const fallback: OutreachHistoryRecord = {
+    id: localOutreachHistory.length + 1,
+    email: record.email,
+    companyName: record.companyName,
+    subject: record.subject,
+    greeting: record.greeting ?? null,
+    introAndNeed: record.introAndNeed ?? null,
+    pitch: record.pitch ?? null,
+    demoUrl: record.demoUrl ?? null,
+    imageUrl: record.imageUrl ?? null,
+    closing: record.closing ?? null,
+    signature: record.signature ?? null,
+    resendId: record.resendId ?? null,
+    status: record.status ?? "sent",
+    sentAt: new Date(),
+    notes: record.notes ?? null,
+  };
+  localOutreachHistory.unshift(fallback);
+  return fallback;
+}
+
+export async function getAllOutreachHistory(): Promise<OutreachHistoryRecord[]> {
+  if (isDatabaseConfigured && db) {
+    try {
+      const rows = await db
+        .select()
+        .from(outreachHistory)
+        .orderBy(desc(outreachHistory.sentAt));
+      return rows as OutreachHistoryRecord[];
+    } catch (err) {
+      console.warn("Falling back to local outreach history get:", err);
+    }
+  }
+  return localOutreachHistory;
+}
+
+export async function checkExistingOutreachEmails(
+  emails: string[]
+): Promise<string[]> {
+  if (!emails || emails.length === 0) return [];
+  const normalized = emails.map((e) => e.trim().toLowerCase());
+
+  if (isDatabaseConfigured && db) {
+    try {
+      const rows = await db
+        .select({ email: outreachHistory.email })
+        .from(outreachHistory)
+        .where(inArray(outreachHistory.email, normalized));
+      return rows.map((r) => r.email.toLowerCase());
+    } catch (err) {
+      console.warn("Falling back to local duplicate check:", err);
+    }
+  }
+
+  return localOutreachHistory
+    .filter((r) => normalized.includes(r.email.toLowerCase()))
+    .map((r) => r.email.toLowerCase());
+}
+
+export async function deleteOutreachHistoryRecord(id: number): Promise<boolean> {
+  if (isDatabaseConfigured && db) {
+    try {
+      await db.delete(outreachHistory).where(eq(outreachHistory.id, id));
+      return true;
+    } catch (err) {
+      console.warn("Falling back to local outreach delete:", err);
+    }
+  }
+  localOutreachHistory = localOutreachHistory.filter((r) => r.id !== id);
+  return true;
 }

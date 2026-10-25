@@ -15,6 +15,10 @@ import {
   createContactMessage,
   seedDatabase,
   findAdminUserByEmail,
+  saveOutreachHistoryRecord,
+  getAllOutreachHistory,
+  checkExistingOutreachEmails,
+  deleteOutreachHistoryRecord,
 } from "@/db/service";
 import { ProjectItem } from "@/data/projects";
 import { MarketplaceProduct } from "@/data/marketplace";
@@ -272,6 +276,7 @@ export async function submitMarketplacePurchaseAction(data: {
 // ================= COLD OUTREACH =================
 export async function sendOutreachEmailAction(data: {
   email: string;
+  companyName?: string;
   subject: string;
   greeting: string;
   intro_and_need: string;
@@ -285,7 +290,48 @@ export async function sendOutreachEmailAction(data: {
   if (!isAuth) throw new Error("No autorizado");
 
   const { sendOutreachEmail } = await import("@/lib/outreach-email");
-  return await sendOutreachEmail(data);
+  const result = await sendOutreachEmail(data);
+
+  if (result.success) {
+    try {
+      await saveOutreachHistoryRecord({
+        email: data.email.trim().toLowerCase(),
+        companyName: data.companyName || "Prospecto",
+        subject: data.subject,
+        greeting: data.greeting,
+        introAndNeed: data.intro_and_need,
+        pitch: data.pitch,
+        demoUrl: data.demo_url,
+        imageUrl: data.image_url,
+        closing: data.closing,
+        signature: data.signature,
+        resendId: result.messageId,
+        status: "sent",
+      });
+    } catch (dbErr) {
+      console.warn("Error guardando historial de outreach en DB:", dbErr);
+    }
+  }
+
+  return result;
+}
+
+export async function getOutreachHistoryAction() {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+  return await getAllOutreachHistory();
+}
+
+export async function checkOutreachDuplicatesAction(emails: string[]) {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+  return await checkExistingOutreachEmails(emails);
+}
+
+export async function deleteOutreachHistoryAction(id: number) {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+  return await deleteOutreachHistoryRecord(id);
 }
 
 export async function sendTestOutreachEmailAction(data: {

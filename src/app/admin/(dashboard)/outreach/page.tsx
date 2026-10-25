@@ -31,6 +31,9 @@ import {
   sendOutreachEmailAction,
   sendTestOutreachEmailAction,
   deleteBlobsAction,
+  getOutreachHistoryAction,
+  checkOutreachDuplicatesAction,
+  deleteOutreachHistoryAction,
 } from "@/app/admin/actions";
 import { OutreachEmailData } from "@/lib/outreach-email";
 
@@ -280,16 +283,45 @@ export default function OutreachPage() {
       loadSampleData();
     }
 
-    // 2. Historial de enviados
-    const savedHistory = localStorage.getItem("stellaris_outreach_history");
-    if (savedHistory) {
-      try {
-        const parsed = JSON.parse(savedHistory);
-        if (Array.isArray(parsed)) setSentHistory(parsed);
-      } catch (err) {
-        console.warn("Error loading history:", err);
-      }
-    }
+    // 2. Historial de enviados (Cargado desde la Base de Datos PostgreSQL con fallback local)
+    getOutreachHistoryAction()
+      .then((records) => {
+        if (records && records.length > 0) {
+          const mapped: SentRecord[] = records.map((r) => ({
+            id: String(r.id),
+            companyName: r.companyName,
+            email: r.email,
+            subject: r.subject,
+            sentAt: new Date(r.sentAt).toLocaleString([], {
+              dateStyle: "short",
+              timeStyle: "short",
+            }),
+            demoUrl: r.demoUrl || undefined,
+          }));
+          setSentHistory(mapped);
+        } else {
+          const savedHistory = localStorage.getItem("stellaris_outreach_history");
+          if (savedHistory) {
+            try {
+              const parsed = JSON.parse(savedHistory);
+              if (Array.isArray(parsed)) setSentHistory(parsed);
+            } catch (err) {
+              console.warn("Error loading history:", err);
+            }
+          }
+        }
+      })
+      .catch(() => {
+        const savedHistory = localStorage.getItem("stellaris_outreach_history");
+        if (savedHistory) {
+          try {
+            const parsed = JSON.parse(savedHistory);
+            if (Array.isArray(parsed)) setSentHistory(parsed);
+          } catch (err) {
+            console.warn("Error loading history:", err);
+          }
+        }
+      });
 
     // 3. Galería de maquetas
     const savedAssets = localStorage.getItem("stellaris_outreach_assets");
@@ -396,10 +428,42 @@ export default function OutreachPage() {
           return;
         }
 
-        setLeads(newLeads);
-        setSelectedLeadId(newLeads[0].id);
-        setActiveView("queue");
-        alert(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
+        // Comprobación automática de duplicados contra la base de datos
+        const emailsToCheck = newLeads.map((l) => l.email);
+        checkOutreachDuplicatesAction(emailsToCheck)
+          .then((duplicates) => {
+            if (duplicates && duplicates.length > 0) {
+              const dupSample = duplicates.slice(0, 3).join(", ");
+              const extraCount = duplicates.length > 3 ? ` y ${duplicates.length - 3} más` : "";
+              const shouldOmit = window.confirm(
+                `⚠️ Se detectaron ${duplicates.length} correos que ya habían sido contactados anteriormente en tu base de datos (${dupSample}${extraCount}).\n\n¿Deseas omitirlos automáticamente para no repetir prospectos?`
+              );
+              if (shouldOmit) {
+                const uniqueLeads = newLeads.filter(
+                  (l) => !duplicates.includes(l.email.toLowerCase())
+                );
+                if (uniqueLeads.length === 0) {
+                  alert("Todos los prospectos del archivo ya fueron contactados anteriormente.");
+                  return;
+                }
+                setLeads(uniqueLeads);
+                setSelectedLeadId(uniqueLeads[0].id);
+                setActiveView("queue");
+                alert(`¡Listo! Se cargaron ${uniqueLeads.length} prospectos nuevos (se omitieron ${duplicates.length} repetidos).`);
+                return;
+              }
+            }
+            setLeads(newLeads);
+            setSelectedLeadId(newLeads[0].id);
+            setActiveView("queue");
+            alert(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
+          })
+          .catch(() => {
+            setLeads(newLeads);
+            setSelectedLeadId(newLeads[0].id);
+            setActiveView("queue");
+            alert(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
+          });
       },
       error: (error) => {
         console.error("Error CSV:", error);
@@ -589,6 +653,7 @@ export default function OutreachPage() {
     try {
       const result = await sendOutreachEmailAction({
         email: targetLead.email,
+        companyName: targetLead.companyName,
         subject: targetLead.subject,
         greeting: targetLead.greeting,
         intro_and_need: targetLead.intro_and_need,
@@ -657,6 +722,7 @@ export default function OutreachPage() {
       try {
         const result = await sendOutreachEmailAction({
           email: lead.email,
+          companyName: lead.companyName,
           subject: lead.subject,
           greeting: lead.greeting,
           intro_and_need: lead.intro_and_need,
@@ -1246,6 +1312,7 @@ export default function OutreachPage() {
                     <th className="py-3 px-4">Correo Destinatario</th>
                     <th className="py-3 px-4">Asunto Enviado</th>
                     <th className="py-3 px-4">Demo Asociada</th>
+                    <th className="py-3 px-4 text-right">Acción</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5 text-neutral-300">
@@ -1275,6 +1342,24 @@ export default function OutreachPage() {
                         ) : (
                           <span className="text-neutral-500">—</span>
                         )}
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            if (window.confirm(`¿Eliminar registro de ${item.email}?`)) {
+                              setSentHistory((prev) => prev.filter((r) => r.id !== item.id));
+                              const numId = Number(item.id);
+                              if (!isNaN(numId)) {
+                                await deleteOutreachHistoryAction(numId);
+                              }
+                            }
+                          }}
+                          className="p-1 rounded text-neutral-500 hover:text-red-400 transition-colors cursor-pointer"
+                          title="Eliminar del historial"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </td>
                     </tr>
                   ))}

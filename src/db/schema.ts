@@ -73,6 +73,24 @@ export const adminUsers = pgTable("admin_users", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const outreachHistory = pgTable("outreach_history", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  companyName: text("company_name").notNull(),
+  subject: text("subject").notNull(),
+  greeting: text("greeting"),
+  introAndNeed: text("intro_and_need"),
+  pitch: text("pitch"),
+  demoUrl: text("demo_url"),
+  imageUrl: text("image_url"),
+  closing: text("closing"),
+  signature: text("signature"),
+  resendId: text("resend_id"),
+  status: text("status").notNull().default("sent"), // sent, opt_out, follow_up
+  sentAt: timestamp("sent_at").defaultNow().notNull(),
+  notes: text("notes"),
+});
+
 export type ProjectRecord = typeof projects.$inferSelect;
 export type NewProjectRecord = typeof projects.$inferInsert;
 
@@ -82,3 +100,6 @@ export type NewMarketplaceProductRecord = typeof marketplaceProducts.$inferInser
 export type ContactMessageRecord = typeof contactMessages.$inferSelect;
 export type AdminUserRecord = typeof adminUsers.$inferSelect;
 export type NewAdminUserRecord = typeof adminUsers.$inferInsert;
+
+export type OutreachHistoryRecord = typeof outreachHistory.$inferSelect;
+export type NewOutreachHistoryRecord = typeof outreachHistory.$inferInsert;
