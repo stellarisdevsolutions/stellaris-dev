@@ -26,6 +26,9 @@ import {
   Clock,
   AlertTriangle,
   History,
+  Lock,
+  Save,
+  CloudUpload,
 } from "lucide-react";
 import {
   sendOutreachEmailAction,
@@ -75,7 +78,7 @@ const DEFAULT_ASSETS: MockupAsset[] = [
     category: "Clínicas & Odontología",
     url: "https://dental.tiendastellaris.com/BrightSmile_Dental_Demo_HD.jpg",
     demoUrl: "https://dental.tiendastellaris.com",
-    format: "JPG",
+    format: "WEBP",
     dimensions: "1200 × 750 px",
     sizeKb: "45 KB",
   },
@@ -178,7 +181,7 @@ const SAMPLE_DENTAL_LEADS: Omit<LeadItem, "id" | "status">[] = [
 
 /**
  * Optimiza y comprime una imagen local a formato WebP ligero (máx 1200px)
- * sin perder calidad visual, para envíos de correo ultrarrápidos.
+ * sin perder calidad visual para envíos de correo ultrarrápidos.
  */
 async function optimizeImageToWebP(file: File): Promise<{
   blob: Blob;
@@ -244,10 +247,29 @@ export default function OutreachPage() {
   // Galería de maquetas
   const [assets, setAssets] = useState<MockupAsset[]>(DEFAULT_ASSETS);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [galleryTab, setGalleryTab] = useState<"gallery" | "upload">("gallery");
+  const [galleryOrigin, setGalleryOrigin] = useState<"header" | "lead">("header");
   const [selectedAssetId, setSelectedAssetId] = useState<string>(DEFAULT_ASSETS[0].id);
   const [gallerySearch, setGallerySearch] = useState("");
   const [copiedUrl, setCopiedUrl] = useState(false);
-  const [uploadingMockup, setUploadingMockup] = useState(false);
+
+  // Edición en panel derecho
+  const [isEditingAsset, setIsEditingAsset] = useState(false);
+  const [assetDraft, setAssetDraft] = useState({ name: "", category: "", demoUrl: "" });
+
+  // Pestaña Subir Nueva Maqueta (Workflow sin archivos fantasma)
+  const [pendingUploadFile, setPendingUploadFile] = useState<File | null>(null);
+  const [pendingUploadBlob, setPendingUploadBlob] = useState<Blob | null>(null);
+  const [pendingUploadPreview, setPendingUploadPreview] = useState<string | null>(null);
+  const [pendingDimensions, setPendingDimensions] = useState("");
+  const [pendingSizeKb, setPendingSizeKb] = useState("");
+  const [newMockupName, setNewMockupName] = useState("");
+  const [newMockupCategory, setNewMockupCategory] = useState("");
+  const [newMockupDemoUrl, setNewMockupDemoUrl] = useState("");
+  const [isSubmittingNewMockup, setIsSubmittingNewMockup] = useState(false);
+
+  // Toast
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Modales tipo SweetAlert
   const [swalDeleteAsset, setSwalDeleteAsset] = useState<MockupAsset | null>(null);
@@ -258,11 +280,15 @@ export default function OutreachPage() {
   const [isBatchSending, setIsBatchSending] = useState(false);
   const [batchProgress, setBatchProgress] = useState({ current: 0, total: 0 });
   const [testSendLoading, setTestSendLoading] = useState(false);
-  const [testSendSuccess, setTestSendSuccess] = useState<string | null>(null);
   const [singleSendLoading, setSingleSendLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const mockupUploadInputRef = useRef<HTMLInputElement>(null);
+  const dropzoneInputRef = useRef<HTMLInputElement>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 4000);
+  };
 
   // Cargar datos persistentes
   useEffect(() => {
@@ -279,11 +305,10 @@ export default function OutreachPage() {
         console.warn("Error loading leads:", err);
       }
     } else {
-      // Cargar muestra por defecto
       loadSampleData();
     }
 
-    // 2. Historial de enviados (Cargado desde la Base de Datos PostgreSQL con fallback local)
+    // 2. Historial de enviados (Cargado desde la Base de Datos PostgreSQL)
     getOutreachHistoryAction()
       .then((records) => {
         if (records && records.length > 0) {
@@ -343,15 +368,29 @@ export default function OutreachPage() {
     localStorage.setItem("stellaris_outreach_leads_v2", JSON.stringify(leads));
   }, [leads]);
 
-  // Guardar historial
-  useEffect(() => {
-    localStorage.setItem("stellaris_outreach_history", JSON.stringify(sentHistory));
-  }, [sentHistory]);
-
   // Guardar galería
   useEffect(() => {
     localStorage.setItem("stellaris_outreach_assets", JSON.stringify(assets));
   }, [assets]);
+
+  // Lead activo seleccionado
+  const activeLead = leads.find((l) => l.id === selectedLeadId) || leads[0] || null;
+
+  // Maqueta seleccionada en la galería
+  const selectedAsset =
+    assets.find((a) => a.id === selectedAssetId) || assets[0] || null;
+
+  // Sincronizar borrador al cambiar de maqueta seleccionada
+  useEffect(() => {
+    if (selectedAsset) {
+      setAssetDraft({
+        name: selectedAsset.name,
+        category: selectedAsset.category,
+        demoUrl: selectedAsset.demoUrl,
+      });
+      setIsEditingAsset(false);
+    }
+  }, [selectedAssetId, selectedAsset]);
 
   // Cargar muestra dental inicial
   const loadSampleData = () => {
@@ -363,13 +402,6 @@ export default function OutreachPage() {
     setLeads(formatted);
     setSelectedLeadId(formatted[0].id);
   };
-
-  // Lead activo seleccionado
-  const activeLead = leads.find((l) => l.id === selectedLeadId) || leads[0] || null;
-
-  // Maqueta seleccionada en la galería
-  const selectedAsset =
-    assets.find((a) => a.id === selectedAssetId) || assets[0] || null;
 
   // Parsear CSV subido
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -449,20 +481,20 @@ export default function OutreachPage() {
                 setLeads(uniqueLeads);
                 setSelectedLeadId(uniqueLeads[0].id);
                 setActiveView("queue");
-                alert(`¡Listo! Se cargaron ${uniqueLeads.length} prospectos nuevos (se omitieron ${duplicates.length} repetidos).`);
+                showToast(`¡Listo! Se cargaron ${uniqueLeads.length} prospectos nuevos.`);
                 return;
               }
             }
             setLeads(newLeads);
             setSelectedLeadId(newLeads[0].id);
             setActiveView("queue");
-            alert(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
+            showToast(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
           })
           .catch(() => {
             setLeads(newLeads);
             setSelectedLeadId(newLeads[0].id);
             setActiveView("queue");
-            alert(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
+            showToast(`¡Listo! Se cargaron ${newLeads.length} prospectos en la cola.`);
           });
       },
       error: (error) => {
@@ -474,81 +506,125 @@ export default function OutreachPage() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Subir y optimizar nueva maqueta a la galería (una a la vez)
-  const handleUploadMockup = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingMockup(true);
+  // Paso 1: Selección y optimización en memoria de la imagen para la maqueta
+  const handleSelectMockupFile = async (file: File) => {
     try {
-      // 1. Optimizar en el navegador a WebP de alta resolución
       const { blob, dimensions, sizeKb } = await optimizeImageToWebP(file);
-      const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "_");
-      const filename = `${cleanName}-${Date.now()}.webp`;
+      const previewUrl = URL.createObjectURL(blob);
+      const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, " ").trim();
 
-      // 2. Subir a Vercel Blob
-      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
-        method: "POST",
-        body: blob,
-      });
+      setPendingUploadFile(file);
+      setPendingUploadBlob(blob);
+      setPendingUploadPreview(previewUrl);
+      setPendingDimensions(dimensions);
+      setPendingSizeKb(sizeKb);
 
-      if (!response.ok) {
-        throw new Error("No se pudo conectar con el almacenamiento de Vercel Blob");
-      }
-
-      const data = await response.json();
-      const finalUrl = data.url;
-
-      // 3. Registrar en la galería
-      const newMockup: MockupAsset = {
-        id: `mockup-${Date.now()}`,
-        name: cleanName.replace(/_/g, " "),
-        category: "Personalizados",
-        url: finalUrl,
-        demoUrl: activeLead?.demo_url || "https://tiendastellaris.com",
-        format: "WEBP",
-        dimensions,
-        sizeKb,
-      };
-
-      setAssets((prev) => [newMockup, ...prev]);
-      setSelectedAssetId(newMockup.id);
+      setNewMockupName(cleanName);
+      setNewMockupCategory("Personalizados");
+      setNewMockupDemoUrl(activeLead?.demo_url || "https://dental.tiendastellaris.com");
     } catch (err: any) {
-      console.warn("Fallo subida Blob, usando fallback WebP local:", err);
-      // Fallback local WebP
-      const { blob, dimensions, sizeKb } = await optimizeImageToWebP(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = reader.result as string;
-        const newMockup: MockupAsset = {
-          id: `mockup-${Date.now()}`,
-          name: file.name.replace(/\.[^/.]+$/, ""),
-          category: "Personalizados",
-          url: base64,
-          demoUrl: activeLead?.demo_url || "https://tiendastellaris.com",
-          format: "WEBP",
-          dimensions,
-          sizeKb,
-        };
-        setAssets((prev) => [newMockup, ...prev]);
-        setSelectedAssetId(newMockup.id);
-      };
-      reader.readAsDataURL(blob);
-    } finally {
-      setUploadingMockup(false);
-      if (mockupUploadInputRef.current) mockupUploadInputRef.current.value = "";
+      alert("No se pudo procesar la imagen: " + err?.message);
     }
   };
 
-  // Modificar datos de la maqueta activa en el panel derecho de la galería
-  const updateSelectedAsset = (fields: Partial<MockupAsset>) => {
-    if (!selectedAsset) return;
-    setAssets((prev) =>
-      prev.map((a) => (a.id === selectedAsset.id ? { ...a, ...fields } : a))
-    );
+  // Paso 2: Cancelar la subida sin dejar archivos fantasma
+  const handleCancelNewMockup = () => {
+    if (pendingUploadPreview) {
+      URL.revokeObjectURL(pendingUploadPreview);
+    }
+    setPendingUploadFile(null);
+    setPendingUploadBlob(null);
+    setPendingUploadPreview(null);
+    setNewMockupName("");
+    setNewMockupCategory("");
+    setNewMockupDemoUrl("");
+    setGalleryTab("gallery");
   };
 
-  // Eliminar maqueta con confirmación y borrado físico en Vercel Blob
+  // Paso 3: Guardar y subir a Vercel Blob únicamente al confirmar el registro
+  const handleConfirmRegisterMockup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!pendingUploadBlob || !newMockupName.trim() || !newMockupDemoUrl.trim()) {
+      alert("Por favor completa los campos requeridos (*).");
+      return;
+    }
+
+    setIsSubmittingNewMockup(true);
+
+    try {
+      const cleanSlug = newMockupName.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+      const filename = `${cleanSlug}-${Date.now()}.webp`;
+
+      // Subir a Vercel Blob
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+        method: "POST",
+        body: pendingUploadBlob,
+      });
+
+      let finalUrl = "";
+      if (response.ok) {
+        const data = await response.json();
+        finalUrl = data.url;
+      } else {
+        // Fallback a Base64 si el token no está configurado
+        finalUrl = await new Promise<string>((res) => {
+          const reader = new FileReader();
+          reader.onload = () => res(reader.result as string);
+          reader.readAsDataURL(pendingUploadBlob);
+        });
+      }
+
+      const newAsset: MockupAsset = {
+        id: `mockup-${Date.now()}`,
+        name: newMockupName.trim(),
+        category: newMockupCategory.trim() || "Personalizados",
+        url: finalUrl,
+        demoUrl: newMockupDemoUrl.trim(),
+        format: "WEBP",
+        dimensions: pendingDimensions,
+        sizeKb: pendingSizeKb,
+      };
+
+      setAssets((prev) => [newAsset, ...prev]);
+      setSelectedAssetId(newAsset.id);
+
+      // Limpiar estados de subida
+      handleCancelNewMockup();
+      setGalleryTab("gallery");
+      showToast("✅ ¡Maqueta registrada con éxito en la galería!");
+    } catch (err: any) {
+      alert("Error al registrar la maqueta: " + err?.message);
+    } finally {
+      setIsSubmittingNewMockup(false);
+    }
+  };
+
+  // Guardar edición de datos de la maqueta
+  const handleSaveAssetEdit = () => {
+    if (!selectedAsset) return;
+    if (!assetDraft.name.trim() || !assetDraft.demoUrl.trim()) {
+      alert("El nombre y el enlace de la demo no pueden estar vacíos.");
+      return;
+    }
+
+    setAssets((prev) =>
+      prev.map((a) =>
+        a.id === selectedAsset.id
+          ? {
+              ...a,
+              name: assetDraft.name.trim(),
+              category: assetDraft.category.trim() || "General",
+              demoUrl: assetDraft.demoUrl.trim(),
+            }
+          : a
+      )
+    );
+
+    setIsEditingAsset(false);
+    showToast("✅ ¡Datos de la maqueta guardados exitosamente!");
+  };
+
+  // Eliminar maqueta con confirmación Swal y borrado físico de Blob
   const handleConfirmDeleteAsset = async () => {
     if (!swalDeleteAsset) return;
     const assetToDelete = swalDeleteAsset;
@@ -557,7 +633,7 @@ export default function OutreachPage() {
     // 1. Borrar de la lista local
     setAssets((prev) => prev.filter((a) => a.id !== assetToDelete.id));
 
-    // 2. Si es una URL de Vercel Blob, borrar físicamente en la nube
+    // 2. Si es URL de Vercel Blob, borrar físicamente en la nube
     if (assetToDelete.url.includes(".blob.vercel-storage.com")) {
       try {
         await deleteBlobsAction([assetToDelete.url]);
@@ -566,11 +642,11 @@ export default function OutreachPage() {
       }
     }
 
-    // Seleccionar la primera maqueta restante
     const remaining = assets.filter((a) => a.id !== assetToDelete.id);
     if (remaining.length > 0) {
       setSelectedAssetId(remaining[0].id);
     }
+    showToast(`🗑️ Maqueta "${assetToDelete.name}" eliminada de forma permanente.`);
   };
 
   // Actualizar lead activo
@@ -581,7 +657,7 @@ export default function OutreachPage() {
     );
   };
 
-  // Aplicar maqueta al prospecto activo
+  // Aplicar maqueta solo al prospecto activo
   const applyAssetToCurrentLead = () => {
     if (!selectedAsset || !activeLead) return;
     updateActiveLead({
@@ -589,6 +665,7 @@ export default function OutreachPage() {
       demo_url: selectedAsset.demoUrl || activeLead.demo_url,
     });
     setIsGalleryOpen(false);
+    showToast(`✅ Maqueta asignada a ${activeLead.companyName}`);
   };
 
   // Aplicar maqueta a todo el lote
@@ -602,14 +679,13 @@ export default function OutreachPage() {
       }))
     );
     setIsGalleryOpen(false);
-    alert(`Se asignó la maqueta "${selectedAsset.name}" y su demo a los ${leads.length} prospectos del lote.`);
+    showToast(`✅ Se aplicó "${selectedAsset.name}" a todo el lote (${leads.length} prospectos)`);
   };
 
   // Enviar prueba a mi Gmail
   const handleSendTestToMe = async () => {
     if (!activeLead) return;
     setTestSendLoading(true);
-    setTestSendSuccess(null);
 
     try {
       const result = await sendTestOutreachEmailAction(
@@ -628,10 +704,7 @@ export default function OutreachPage() {
       );
 
       if (result.success) {
-        setTestSendSuccess(
-          "¡Correo de prueba enviado con éxito a stellarisdevsolutions@gmail.com! Revisa tu bandeja de entrada."
-        );
-        setTimeout(() => setTestSendSuccess(null), 8000);
+        showToast("📬 ¡Prueba enviada a stellarisdevsolutions@gmail.com! Revisa tu bandeja.");
       } else {
         alert(`Error al enviar prueba: ${result.error || "Verifica tu RESEND_API_KEY"}`);
       }
@@ -647,7 +720,6 @@ export default function OutreachPage() {
     if (!swalSingleSend) return;
     const targetLead = swalSingleSend;
     setSwalSingleSend(null);
-
     setSingleSendLoading(true);
 
     try {
@@ -693,6 +765,8 @@ export default function OutreachPage() {
           }
           return remaining;
         });
+
+        showToast(`✉️ Correo enviado con éxito a ${targetLead.companyName}`);
       } else {
         alert(`Error al enviar correo: ${result.error}`);
       }
@@ -772,7 +846,7 @@ export default function OutreachPage() {
     });
 
     setIsBatchSending(false);
-    alert(`¡Lote completado! Se enviaron ${successfullySentIds.length} correos con éxito.`);
+    showToast(`🚀 ¡Lote completado! Se enviaron ${successfullySentIds.length} correos.`);
   };
 
   // Filtrar maquetas por búsqueda
@@ -793,6 +867,14 @@ export default function OutreachPage() {
 
   return (
     <div className="space-y-6">
+      {/* Toast flotante */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-70 bg-[#171717] border border-[#FF532A]/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-200">
+          <CheckCircle2 className="w-5 h-5 text-[#FF532A] shrink-0" />
+          <span className="text-xs font-semibold">{toastMessage}</span>
+        </div>
+      )}
+
       {/* Top Header con EXACTAMENTE 3 botones principales */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
@@ -821,7 +903,7 @@ export default function OutreachPage() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-white/20"
+            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#FF532A]/40"
           >
             <Upload className="w-4 h-4 text-[#FF532A]" />
             <span>Subir Archivo CSV</span>
@@ -830,10 +912,14 @@ export default function OutreachPage() {
           {/* 2. Galería de Maquetas */}
           <button
             type="button"
-            onClick={() => setIsGalleryOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-white/20"
+            onClick={() => {
+              setGalleryOrigin("header");
+              setGalleryTab("gallery");
+              setIsGalleryOpen(true);
+            }}
+            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#FF532A]/40"
           >
-            <ImageIcon className="w-4 h-4 text-cyan-400" />
+            <ImageIcon className="w-4 h-4 text-[#FF532A]" />
             <span>Galería de Maquetas</span>
           </button>
 
@@ -860,14 +946,6 @@ export default function OutreachPage() {
           </button>
         </div>
       </div>
-
-      {/* Test feedback */}
-      {testSendSuccess && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs flex items-center gap-3">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span>{testSendSuccess}</span>
-        </div>
-      )}
 
       {/* Toggle View: Cola de Pendientes vs Historial de Enviados */}
       <div className="flex items-center justify-between">
@@ -961,7 +1039,7 @@ export default function OutreachPage() {
                             {lead.companyName}
                           </span>
                           {lead.image_url && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 font-medium">
+                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#FF532A]/15 text-[#FF532A] border border-[#FF532A]/30 shrink-0 font-medium">
                               🖼️ Con maqueta
                             </span>
                           )}
@@ -1236,8 +1314,12 @@ export default function OutreachPage() {
 
                       <button
                         type="button"
-                        onClick={() => setIsGalleryOpen(true)}
-                        className="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-semibold hover:bg-cyan-500/30 transition-colors shrink-0 cursor-pointer"
+                        onClick={() => {
+                          setGalleryOrigin("lead");
+                          setGalleryTab("gallery");
+                          setIsGalleryOpen(true);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-[#FF532A]/15 text-[#FF532A] border border-[#FF532A]/30 text-xs font-semibold hover:bg-[#FF532A]/25 transition-colors shrink-0 cursor-pointer"
                       >
                         Cambiar Maqueta
                       </button>
@@ -1280,20 +1362,20 @@ export default function OutreachPage() {
                 <span>Registro Histórico de Prospectos Contactados</span>
               </h3>
               <p className="text-xs text-neutral-400 mt-0.5">
-                Aquí quedan guardados todos los correos enviados para que nunca contactes dos veces a la misma clínica o negocio.
+                Aquí quedan guardados todos los correos enviados en la base de datos para que nunca contactes dos veces a la misma clínica o negocio.
               </p>
             </div>
             {sentHistory.length > 0 && (
               <button
                 type="button"
                 onClick={() => {
-                  if (window.confirm("¿Seguro que deseas vaciar el historial de enviados?")) {
+                  if (window.confirm("¿Seguro que deseas vaciar el historial de enviados local?")) {
                     setSentHistory([]);
                   }
                 }}
-                className="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer"
+                className="text-xs text-neutral-500 hover:text-neutral-300 font-semibold cursor-pointer"
               >
-                Limpiar Historial
+                Limpiar Vista
               </button>
             )}
           </div>
@@ -1371,15 +1453,15 @@ export default function OutreachPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* MODAL 1: GALERÍA DE MAQUETAS (Diseño inspirado en la 2da imagen del usuario) */}
+      {/* MODAL: GALERÍA DE MAQUETAS (Paleta Stellaris + Pestañas Galería / Subir)   */}
       {/* ========================================================================= */}
       {isGalleryOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-[#0e0e11] border border-white/15 rounded-3xl max-w-5xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
-            {/* Top Bar Modal */}
-            <div className="p-5 border-b border-white/10 flex items-center justify-between bg-[#141416]">
+            {/* Top Bar Modal con Pestañas idénticas a la 2da imagen de referencia */}
+            <div className="p-4 sm:p-5 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#141416]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center shrink-0">
                   <ImageIcon className="w-5 h-5" />
                 </div>
                 <div>
@@ -1390,254 +1472,490 @@ export default function OutreachPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                {/* Input oculto para subir una sola maqueta */}
-                <input
-                  type="file"
-                  ref={mockupUploadInputRef}
-                  onChange={handleUploadMockup}
-                  accept="image/*"
-                  className="hidden"
-                />
-                <button
-                  type="button"
-                  disabled={uploadingMockup}
-                  onClick={() => mockupUploadInputRef.current?.click()}
-                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md disabled:opacity-50"
-                >
-                  {uploadingMockup ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Optimizando WebP...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Plus className="w-4 h-4" />
-                      <span>Subir Nueva Maqueta</span>
-                    </>
-                  )}
-                </button>
+              {/* Botones de Pestaña (Galería vs Subir) y botón Cerrar */}
+              <div className="flex items-center gap-2 self-end sm:self-center">
+                <div className="flex items-center p-1 rounded-xl bg-[#202024] border border-white/10 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setGalleryTab("gallery")}
+                    className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      galleryTab === "gallery"
+                        ? "bg-[#FF532A] text-white shadow-sm"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    <span>≡ Galería Web</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setGalleryTab("upload")}
+                    className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                      galleryTab === "upload"
+                        ? "bg-[#FF532A] text-white shadow-sm"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Subir Maqueta</span>
+                  </button>
+                </div>
 
                 <button
                   type="button"
                   onClick={() => setIsGalleryOpen(false)}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer shrink-0"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Modal Body: 2 Columnas (Grid de maquetas a la izq, Detalles y edición a la der) */}
-            <div className="flex-1 overflow-hidden grid grid-cols-1 md:grid-cols-12">
-              {/* Columna Izquierda: Grid de miniaturas (7 cols) */}
-              <div className="md:col-span-7 p-5 border-r border-white/10 flex flex-col h-[580px] bg-[#0e0e11]">
-                {/* Barra de búsqueda y contador */}
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-white uppercase tracking-wider">
-                      Maquetas del Editor
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-bold">
-                      {assets.length} disponibles
-                    </span>
+            {/* CONTENIDO 1: PESTAÑA "GALERÍA WEB" */}
+            {galleryTab === "gallery" && (
+              <div className="flex-1 overflow-hidden grid grid-cols-1 md:grid-cols-12">
+                {/* Columna Izquierda: Grid de miniaturas (7 cols) */}
+                <div className="md:col-span-7 p-5 border-r border-white/10 flex flex-col h-[600px] bg-[#0e0e11]">
+                  {/* Barra de búsqueda y contador */}
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-white uppercase tracking-wider">
+                        Maquetas del Editor
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-[10px] font-bold border border-[#FF532A]/20">
+                        {assets.length} disponibles
+                      </span>
+                    </div>
+
+                    <div className="relative w-48">
+                      <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        placeholder="Buscar maqueta..."
+                        value={gallerySearch}
+                        onChange={(e) => setGallerySearch(e.target.value)}
+                        className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#18181b] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                      />
+                    </div>
                   </div>
 
-                  <div className="relative w-48">
-                    <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      placeholder="Buscar maqueta..."
-                      value={gallerySearch}
-                      onChange={(e) => setGallerySearch(e.target.value)}
-                      className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#18181b] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-cyan-400 outline-hidden"
-                    />
+                  {/* Grid de maquetas */}
+                  <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3.5 pr-1">
+                    {filteredAssets.map((asset) => {
+                      const isSelected = asset.id === selectedAsset?.id;
+                      return (
+                        <div
+                          key={asset.id}
+                          onClick={() => setSelectedAssetId(asset.id)}
+                          className={`group relative rounded-xl overflow-hidden border cursor-pointer transition-all flex flex-col ${
+                            isSelected
+                              ? "border-[#FF532A] shadow-lg shadow-[#FF532A]/20 ring-2 ring-[#FF532A]/40"
+                              : "border-white/10 hover:border-white/30 bg-[#18181b]"
+                          }`}
+                        >
+                          <div className="relative aspect-[16/10] bg-black/60 overflow-hidden">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={asset.url}
+                              alt={asset.name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            {/* Checkmark badge naranja si está seleccionado */}
+                            {isSelected && (
+                              <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold shadow-md">
+                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Fila debajo con nombre limpio */}
+                          <div className="p-2.5 bg-[#141416]">
+                            <div className="font-semibold text-xs text-white truncate">
+                              {asset.name}
+                            </div>
+                            <div className="text-[10px] text-neutral-400 truncate mt-0.5">
+                              {asset.category}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
-                {/* Grid con scroll */}
-                <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3.5 pr-1">
-                  {filteredAssets.map((asset) => {
-                    const isSelected = asset.id === selectedAsset?.id;
-                    return (
-                      <div
-                        key={asset.id}
-                        onClick={() => setSelectedAssetId(asset.id)}
-                        className={`group relative rounded-xl overflow-hidden border cursor-pointer transition-all flex flex-col ${
-                          isSelected
-                            ? "border-cyan-400 shadow-lg shadow-cyan-500/15 ring-2 ring-cyan-400/30"
-                            : "border-white/10 hover:border-white/30 bg-[#18181b]"
-                        }`}
+                {/* Columna Derecha: DETALLES DE LA MAQUETA (5 cols) */}
+                <div className="md:col-span-5 p-5 flex flex-col justify-between h-[600px] bg-[#141416] overflow-y-auto">
+                  {selectedAsset ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+                          Detalles de la Maqueta
+                        </span>
+
+                        {/* Botón para alternar modo edición */}
+                        {!isEditingAsset ? (
+                          <button
+                            type="button"
+                            onClick={() => setIsEditingAsset(true)}
+                            className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                          >
+                            <Edit3 className="w-3 h-3 text-[#FF532A]" />
+                            <span>Editar Datos</span>
+                          </button>
+                        ) : (
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setIsEditingAsset(false);
+                                setAssetDraft({
+                                  name: selectedAsset.name,
+                                  category: selectedAsset.category,
+                                  demoUrl: selectedAsset.demoUrl,
+                                });
+                              }}
+                              className="px-2 py-0.5 rounded text-[11px] text-neutral-400 hover:text-white cursor-pointer"
+                            >
+                              Cancelar
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleSaveAssetEdit}
+                              className="px-2.5 py-1 rounded-lg bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm"
+                            >
+                              <Save className="w-3 h-3" />
+                              <span>Guardar</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Previsualización grande */}
+                      <div className="rounded-xl overflow-hidden border border-white/10 bg-black/50 aspect-[16/10]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={selectedAsset.url}
+                          alt={selectedAsset.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Botón Copiar URL Directa */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(selectedAsset.url);
+                          setCopiedUrl(true);
+                          setTimeout(() => setCopiedUrl(false), 2000);
+                        }}
+                        className="w-full py-2 px-3 rounded-xl bg-[#202024] hover:bg-[#27272a] text-neutral-300 hover:text-white border border-white/10 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
                       >
-                        <div className="relative aspect-[16/11] bg-black/60 overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={asset.url}
-                            alt={asset.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          {/* Checkmark badge si está seleccionado */}
-                          {isSelected && (
-                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-cyan-400 text-black flex items-center justify-center font-bold shadow-md">
-                              <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        {copiedUrl ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="text-emerald-400 font-bold">¡URL copiada al portapapeles!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copiar URL Directa</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Campos (Readonly por defecto, editables si isEditingAsset es true) */}
+                      <div className="space-y-2.5 pt-1">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <span>Nombre de la Maqueta</span>
+                            {!isEditingAsset && <Lock className="w-2.5 h-2.5 text-neutral-500" />}
+                          </label>
+                          {isEditingAsset ? (
+                            <input
+                              type="text"
+                              value={assetDraft.name}
+                              onChange={(e) => setAssetDraft((d) => ({ ...d, name: e.target.value }))}
+                              className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white focus:border-[#FF532A] outline-hidden"
+                            />
+                          ) : (
+                            <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-neutral-200 font-semibold truncate">
+                              {selectedAsset.name}
                             </div>
                           )}
                         </div>
 
-                        <div className="p-2.5 bg-[#141416]">
-                          <div className="font-semibold text-xs text-white truncate">
-                            {asset.name}
-                          </div>
-                          <div className="text-[10px] text-neutral-400 truncate">
-                            {asset.category}
-                          </div>
+                        <div>
+                          <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <span>Categoría / Nicho</span>
+                            {!isEditingAsset && <Lock className="w-2.5 h-2.5 text-neutral-500" />}
+                          </label>
+                          {isEditingAsset ? (
+                            <input
+                              type="text"
+                              value={assetDraft.category}
+                              onChange={(e) => setAssetDraft((d) => ({ ...d, category: e.target.value }))}
+                              className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white focus:border-[#FF532A] outline-hidden"
+                            />
+                          ) : (
+                            <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-neutral-300 truncate">
+                              {selectedAsset.category}
+                            </div>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <span>Enlace Demo en Vivo</span>
+                            {!isEditingAsset && <Lock className="w-2.5 h-2.5 text-neutral-500" />}
+                          </label>
+                          {isEditingAsset ? (
+                            <input
+                              type="text"
+                              value={assetDraft.demoUrl}
+                              onChange={(e) => setAssetDraft((d) => ({ ...d, demoUrl: e.target.value }))}
+                              className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white font-mono focus:border-[#FF532A] outline-hidden"
+                            />
+                          ) : (
+                            <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-[#FF532A] font-mono truncate">
+                              {selectedAsset.demoUrl}
+                            </div>
+                          )}
                         </div>
                       </div>
-                    );
-                  })}
+
+                      {/* Ficha técnica */}
+                      <div className="p-3 rounded-xl bg-[#202024] border border-white/10 space-y-1.5 text-xs">
+                        <div className="flex justify-between text-neutral-400">
+                          <span>Formato</span>
+                          <span className="text-white font-mono font-bold">
+                            {selectedAsset.format || "WEBP"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-neutral-400">
+                          <span>Dimensiones</span>
+                          <span className="text-white font-mono">
+                            {selectedAsset.dimensions || "1200 × 750 px"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-neutral-400">
+                          <span>Tamaño Optimizado</span>
+                          <span className="text-emerald-400 font-mono font-bold">
+                            {selectedAsset.sizeKb || "45 KB"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Eliminar con borrado físico */}
+                      <div className="pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setSwalDeleteAsset(selectedAsset)}
+                          className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1.5 font-semibold transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Eliminar de la galería (borrado permanente)</span>
+                        </button>
+                      </div>
+
+                      {/* Botones de acción principales según desde dónde se abrió */}
+                      <div className="pt-3 space-y-2">
+                        {galleryOrigin === "lead" ? (
+                          <>
+                            {/* Abierto desde el editor de un lead específico */}
+                            <button
+                              type="button"
+                              onClick={applyAssetToCurrentLead}
+                              className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
+                            >
+                              🎯 USAR SOLO EN ESTE PROSPECTO ({activeLead?.companyName})
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={applyAssetToAllLeads}
+                              className="w-full py-2 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-neutral-200 font-semibold text-xs transition-all cursor-pointer"
+                            >
+                              🌐 Aplicar a todo el lote ({leads.length} prospectos)
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {/* Abierto desde el botón superior de la barra */}
+                            <button
+                              type="button"
+                              onClick={applyAssetToAllLeads}
+                              className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
+                            >
+                              🚀 APLICAR MAQUETA Y DEMO A TODO EL LOTE ({leads.length} prospectos)
+                            </button>
+                            <span className="block text-[11px] text-neutral-500 text-center">
+                              Asignará la maqueta y demo seleccionada a todos los prospectos de la cola actual.
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex items-center justify-center text-xs text-neutral-500">
+                      Selecciona una maqueta de la lista
+                    </div>
+                  )}
                 </div>
               </div>
+            )}
 
-              {/* Columna Derecha: Panel de DETALLES DE LA MAQUETA (5 cols) */}
-              <div className="md:col-span-5 p-5 flex flex-col justify-between h-[580px] bg-[#141416] overflow-y-auto">
-                {selectedAsset ? (
-                  <div className="space-y-4">
-                    <div className="text-xs font-bold uppercase tracking-wider text-neutral-400">
-                      Detalles de la Maqueta
-                    </div>
-
-                    {/* Previsualización grande */}
-                    <div className="rounded-xl overflow-hidden border border-white/10 bg-black/50 aspect-[16/10]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={selectedAsset.url}
-                        alt={selectedAsset.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    {/* Botón Copiar URL Directa */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText(selectedAsset.url);
-                        setCopiedUrl(true);
-                        setTimeout(() => setCopiedUrl(false), 2000);
+            {/* CONTENIDO 2: PESTAÑA "SUBIR NUEVA MAQUETA" (Workflow sin archivos fantasma) */}
+            {galleryTab === "upload" && (
+              <div className="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col items-center justify-center bg-[#0e0e11]">
+                {!pendingUploadPreview ? (
+                  /* Dropzone idéntico a la 2da imagen de referencia */
+                  <div
+                    onClick={() => dropzoneInputRef.current?.click()}
+                    className="w-full max-w-xl p-10 rounded-3xl border-2 border-dashed border-white/15 hover:border-[#FF532A] bg-[#141416] transition-all cursor-pointer flex flex-col items-center justify-center text-center group"
+                  >
+                    <input
+                      type="file"
+                      ref={dropzoneInputRef}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) handleSelectMockupFile(f);
                       }}
-                      className="w-full py-2 px-3 rounded-xl bg-[#202024] hover:bg-[#27272a] text-neutral-300 hover:text-white border border-white/10 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
-                    >
-                      {copiedUrl ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-emerald-400">¡URL copiada al portapapeles!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copiar URL Directa</span>
-                        </>
-                      )}
-                    </button>
+                      accept="image/*"
+                      className="hidden"
+                    />
 
-                    {/* Edición rápida de datos */}
-                    <div className="space-y-2.5 pt-1">
-                      <div>
-                        <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1">
-                          Nombre de la Maqueta
-                        </label>
-                        <input
-                          type="text"
-                          value={selectedAsset.name}
-                          onChange={(e) => updateSelectedAsset({ name: e.target.value })}
-                          className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-white/10 text-xs text-white focus:border-cyan-400 outline-hidden"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1">
-                          Categoría / Nicho
-                        </label>
-                        <input
-                          type="text"
-                          value={selectedAsset.category}
-                          onChange={(e) => updateSelectedAsset({ category: e.target.value })}
-                          className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-white/10 text-xs text-white focus:border-cyan-400 outline-hidden"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mb-1">
-                          Enlace a Demo en Vivo
-                        </label>
-                        <input
-                          type="text"
-                          value={selectedAsset.demoUrl}
-                          onChange={(e) => updateSelectedAsset({ demoUrl: e.target.value })}
-                          className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-white/10 text-xs text-white font-mono focus:border-cyan-400 outline-hidden"
-                        />
-                      </div>
+                    <div className="w-16 h-16 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <CloudUpload className="w-8 h-8" />
                     </div>
 
-                    {/* Metadata técnica */}
-                    <div className="p-3 rounded-xl bg-[#202024] border border-white/10 space-y-1.5 text-xs">
-                      <div className="flex justify-between text-neutral-400">
-                        <span>Formato</span>
-                        <span className="text-white font-mono font-bold">
-                          {selectedAsset.format || "WEBP"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-neutral-400">
-                        <span>Dimensiones</span>
-                        <span className="text-white font-mono">
-                          {selectedAsset.dimensions || "1200 × 750 px"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-neutral-400">
-                        <span>Tamaño Optimizado</span>
-                        <span className="text-emerald-400 font-mono font-bold">
-                          {selectedAsset.sizeKb || "45 KB"}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Botón de eliminar con confirmación física */}
-                    <div className="pt-1">
-                      <button
-                        type="button"
-                        onClick={() => setSwalDeleteAsset(selectedAsset)}
-                        className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1.5 font-semibold transition-colors cursor-pointer"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                        <span>Eliminar de la galería (borrado permanente)</span>
-                      </button>
-                    </div>
-
-                    {/* Botones de acción principales */}
-                    <div className="pt-3 space-y-2">
-                      <button
-                        type="button"
-                        onClick={applyAssetToCurrentLead}
-                        className="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-emerald-500/20"
-                      >
-                        Usar en este Prospecto
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={applyAssetToAllLeads}
-                        className="w-full py-2 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs transition-all cursor-pointer"
-                      >
-                        Aplicar Demo e Imagen a Todo el Lote
-                      </button>
-                    </div>
+                    <h4 className="text-base font-bold text-white mb-1">
+                      Arrastra aquí tu imagen o maqueta
+                    </h4>
+                    <p className="text-xs text-neutral-400 mb-3">
+                      o haz clic para explorar en tu computadora
+                    </p>
+                    <span className="text-[11px] text-neutral-500">
+                      Admite PNG, JPG o WEBP. Se optimizará automáticamente a WebP de alta resolución (máx 1200px) reduciendo el peso en más del 80%.
+                    </span>
                   </div>
                 ) : (
-                  <div className="flex-1 flex items-center justify-center text-xs text-neutral-500">
-                    Selecciona una maqueta de la lista
+                  /* Formulario de Registro con campos requeridos tras seleccionar imagen */
+                  <div className="w-full max-w-xl bg-[#141416] border border-white/10 rounded-3xl p-6 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <div>
+                        <h4 className="font-bold text-sm text-white">Completar Datos de la Maqueta</h4>
+                        <p className="text-xs text-neutral-400">
+                          Revisa la optimización y completa los campos obligatorios para registrarla.
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleCancelNewMockup}
+                        className="text-xs text-neutral-400 hover:text-white"
+                      >
+                        Cambiar imagen
+                      </button>
+                    </div>
+
+                    {/* Previsualización optimizada */}
+                    <div className="flex items-center gap-4 p-3 bg-[#18181b] rounded-2xl border border-white/5">
+                      <div className="w-24 h-16 rounded-xl overflow-hidden bg-black/60 shrink-0 border border-white/10">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={pendingUploadPreview}
+                          alt="Previsualización"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="min-w-0 text-xs space-y-1">
+                        <div className="font-bold text-white truncate">{pendingUploadFile?.name}</div>
+                        <div className="flex items-center gap-2 text-neutral-400 text-[11px]">
+                          <span className="text-emerald-400 font-bold font-mono">WEBP</span>
+                          <span>•</span>
+                          <span className="font-mono">{pendingDimensions}</span>
+                          <span>•</span>
+                          <span className="text-emerald-400 font-bold font-mono">{pendingSizeKb}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Formulario */}
+                    <form onSubmit={handleConfirmRegisterMockup} className="space-y-3.5">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                          Nombre de la Maqueta <span className="text-[#FF532A]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={newMockupName}
+                          onChange={(e) => setNewMockupName(e.target.value)}
+                          placeholder="Ej. BrightSmile Dental Clinic HD"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                          Categoría / Nicho <span className="text-[#FF532A]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={newMockupCategory}
+                          onChange={(e) => setNewMockupCategory(e.target.value)}
+                          placeholder="Ej. Clínicas & Odontología / Restaurantes"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                          Enlace a Demo en Vivo <span className="text-[#FF532A]">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={newMockupDemoUrl}
+                          onChange={(e) => setNewMockupDemoUrl(e.target.value)}
+                          placeholder="https://dental.tiendastellaris.com"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 font-mono focus:border-[#FF532A] outline-hidden"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3 pt-3">
+                        <button
+                          type="button"
+                          onClick={handleCancelNewMockup}
+                          className="py-2.5 px-4 rounded-xl bg-[#202024] hover:bg-[#27272a] text-neutral-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+                        >
+                          Cancelar (no subir)
+                        </button>
+
+                        <button
+                          type="submit"
+                          disabled={isSubmittingNewMockup}
+                          className="py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold transition-all shadow-md shadow-[#FF532A]/25 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                          {isSubmittingNewMockup ? (
+                            <>
+                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                              <span>Subiendo a Blob...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Check className="w-4 h-4" />
+                              <span>Registrar Maqueta</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 )}
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
