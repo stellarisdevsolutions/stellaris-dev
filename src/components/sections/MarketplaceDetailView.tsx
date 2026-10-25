@@ -93,6 +93,7 @@ export function MarketplaceDetailView({
         productSlug: product.slug,
         productPrice: product.price,
         buyerNote: buyerNote.trim() || undefined,
+        lang,
       });
       setOrderSubmitted(true);
     } catch (err) {
@@ -825,8 +826,8 @@ export function MarketplaceDetailView({
                     </h3>
                     <p className="text-sm text-neutral-300 leading-relaxed max-w-[380px] mx-auto">
                       We have received your purchase inquiry for{" "}
-                      <strong className="text-white">{title}</strong>. We will contact you at{" "}
-                      <strong className="text-[#FF532A]">{buyerEmail}</strong> shortly with your secure payment options and instant codebase repository access.
+                      <strong className="text-white">{title}</strong>. A dedicated project specialist will contact you at{" "}
+                      <strong className="text-[#FF532A]">{buyerEmail}</strong> shortly with payment options and your preferred delivery method (private GitHub repository or direct ZIP download).
                     </p>
                   </div>
 
@@ -868,7 +869,7 @@ export function MarketplaceDetailView({
                   <div className="bg-[#202024] border border-neutral-800 rounded-2xl p-4 mb-6 text-xs text-neutral-300 leading-relaxed flex items-start gap-3">
                     <Lock className="w-4 h-4 text-[#FF532A] shrink-0 mt-0.5" />
                     <p className="m-0">
-                      Submit your information and we will contact you shortly to complete your secure purchase and deliver the source code repository.
+                      Submit your email and a dedicated project specialist will contact you shortly to coordinate payment and deliver the full codebase (via GitHub or direct ZIP archive).
                     </p>
                   </div>
 

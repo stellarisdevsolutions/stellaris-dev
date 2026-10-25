@@ -239,6 +239,7 @@ export async function submitMarketplacePurchaseAction(data: {
   productSlug: string;
   productPrice: string;
   buyerNote?: string;
+  lang?: "es" | "en";
 }) {
   // 1. Guardar como lead en la base de datos
   const result = await createContactMessage({
@@ -258,6 +259,7 @@ export async function submitMarketplacePurchaseAction(data: {
       productSlug: data.productSlug,
       productPrice: data.productPrice,
       buyerNote: data.buyerNote,
+      lang: data.lang || "en",
     });
   } catch (err) {
     console.warn("Error enviando email de compra de Marketplace:", err);
