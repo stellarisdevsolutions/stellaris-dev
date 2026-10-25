@@ -9,7 +9,7 @@ const FROM_EMAIL =
 
 // Correo donde recibirás las alertas de compra y contacto
 const ADMIN_EMAIL =
-  process.env.ADMIN_NOTIFICATION_EMAIL || "stellarisdev.us@gmail.com";
+  process.env.ADMIN_NOTIFICATION_EMAIL || "stellarisdevsolutions@gmail.com";
 
 interface SendPurchaseInquiryParams {
   buyerEmail: string;
@@ -43,7 +43,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
   const isEn = lang === "en";
 
   try {
-    // 1. Notificación al Administrador (stellarisdev.us@gmail.com)
+    // 1. Notificación al Administrador (stellarisdevsolutions@gmail.com)
     const adminHtml = `
       <!DOCTYPE html>
       <html>
