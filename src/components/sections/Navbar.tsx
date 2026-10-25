@@ -1,15 +1,62 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Navbar() {
+  const pathname = usePathname();
   const { lang, setLang } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = ["home", "about", "services", "process", "pricing", "contact"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  const isLinkActive = (href: string) => {
+    if (href === "/marketplace") {
+      return pathname.startsWith("/marketplace");
+    }
+    if (href === "/projects") {
+      return pathname.startsWith("/projects");
+    }
+    if (pathname === "/") {
+      if (href === "/#home") return activeSection === "home";
+      if (href === "/#about") return activeSection === "about";
+      if (href === "/#services") return activeSection === "services";
+      if (href === "/#process") return activeSection === "process";
+      if (href === "/#pricing") return activeSection === "pricing";
+      if (href === "/#contact") return activeSection === "contact";
+    }
+    return false;
+  };
 
   const leftNav = [
     { label: lang === "es" ? "INICIO" : "HOME", href: "/#home" },
@@ -39,17 +86,20 @@ export function Navbar() {
       <div className="bg-[#171717]/95 backdrop-blur-md border border-neutral-800/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.12)] flex items-center justify-between gap-2 sm:gap-4">
         {/* Left Navigation Links (Todos en mayúsculas) */}
         <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[12.5px] font-semibold tracking-wider text-neutral-300">
-          {leftNav.map((link, idx) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`transition-colors hover:text-[#FF532A] ${
-                idx === 0 ? "text-[#FF532A]" : ""
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {leftNav.map((link) => {
+            const active = isLinkActive(link.href);
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`transition-colors hover:text-[#FF532A] ${
+                  active ? "text-[#FF532A] font-bold" : "text-neutral-300"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Center Brand Logo with Circular Badge */}
@@ -73,15 +123,20 @@ export function Navbar() {
         {/* Right Nav Links & Actions */}
         <div className="flex items-center gap-3 sm:gap-4">
           <nav className="hidden md:flex items-center gap-5 text-[12.5px] font-semibold tracking-wider text-neutral-300">
-            {rightNav.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="transition-colors hover:text-[#FF532A]"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {rightNav.map((link) => {
+              const active = isLinkActive(link.href);
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`transition-colors hover:text-[#FF532A] ${
+                    active ? "text-[#FF532A] font-bold" : "text-neutral-300"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Language Switcher Pill */}
@@ -141,16 +196,23 @@ export function Navbar() {
             className="md:hidden mt-3 rounded-3xl border border-neutral-800 bg-[#171717]/98 p-6 backdrop-blur-2xl shadow-2xl text-white"
           >
             <div className="flex flex-col gap-3.5">
-              {allNavItems.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-semibold tracking-wider text-neutral-200 hover:text-[#FF532A] py-1 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {allNavItems.map((link) => {
+                const active = isLinkActive(link.href);
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-semibold tracking-wider py-1 transition-colors ${
+                      active
+                        ? "text-[#FF532A] font-bold"
+                        : "text-neutral-200 hover:text-[#FF532A]"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
 
               <div className="pt-3 border-t border-neutral-800 flex items-center justify-between">
                 <span className="text-xs text-neutral-400">
