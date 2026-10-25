@@ -9,6 +9,7 @@ import {
   ShoppingBag,
   Inbox,
   Database,
+  Send,
   ExternalLink,
   LogOut,
   Sparkles,
@@ -27,6 +28,7 @@ const navItems: NavItem[] = [
   { label: "Proyectos", href: "/admin/projects", icon: FolderGit2 },
   { label: "Marketplace", href: "/admin/marketplace", icon: ShoppingBag },
   { label: "Mensajes / Leads", href: "/admin/leads", icon: Inbox },
+  { label: "Cold Outreach", href: "/admin/outreach", icon: Send, badge: "Nuevo" },
   { label: "Base de Datos", href: "/admin/settings", icon: Database },
 ];
 

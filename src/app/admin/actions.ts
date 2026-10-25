@@ -269,6 +269,47 @@ export async function submitMarketplacePurchaseAction(data: {
   return result;
 }
 
+// ================= COLD OUTREACH =================
+export async function sendOutreachEmailAction(data: {
+  email: string;
+  subject: string;
+  greeting: string;
+  intro_and_need: string;
+  pitch: string;
+  demo_url?: string;
+  image_url?: string;
+  closing: string;
+  signature: string;
+}) {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+
+  const { sendOutreachEmail } = await import("@/lib/outreach-email");
+  return await sendOutreachEmail(data);
+}
+
+export async function sendTestOutreachEmailAction(data: {
+  email: string;
+  subject: string;
+  greeting: string;
+  intro_and_need: string;
+  pitch: string;
+  demo_url?: string;
+  image_url?: string;
+  closing: string;
+  signature: string;
+}, testRecipient: string) {
+  const isAuth = await verifyAdminSession();
+  if (!isAuth) throw new Error("No autorizado");
+
+  const { sendOutreachEmail } = await import("@/lib/outreach-email");
+  return await sendOutreachEmail({
+    ...data,
+    email: testRecipient || "stellarisdevsolutions@gmail.com",
+    subject: `[PRUEBA] ${data.subject}`,
+  });
+}
+
 // ================= SEED =================
 export async function seedDatabaseAction() {
   const isAuth = await verifyAdminSession();
