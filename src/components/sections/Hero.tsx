@@ -88,9 +88,18 @@ export function Hero() {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#171717] text-white text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase mb-1.5 sm:mb-3 shadow-xs"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#171717] text-white text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase mb-1.5 sm:mb-3 shadow-xs"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
+          <div className="relative w-4 h-4 rounded-full overflow-hidden shrink-0 ring-1 ring-white/20">
+            <Image
+              src="/logo.webp"
+              alt="Logo Stellaris Dev"
+              width={16}
+              height={16}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
           <span>{lang === "es" ? "Estudio de Software & Web" : "Product & Web Studio"}</span>
           <span className="text-[#FF532A]">✦</span>
         </motion.div>

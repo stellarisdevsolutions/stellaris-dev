@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
@@ -49,9 +50,16 @@ export function AdminSidebar() {
         {/* Brand */}
         <div className="h-16 px-6 flex items-center justify-between border-b border-white/10">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-lg bg-[#FF532A] flex items-center justify-center font-bold text-white text-sm shadow-md shadow-[#FF532A]/20">
-              S
-            </span>
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-md shadow-[#FF532A]/20">
+              <Image
+                src="/logo.webp"
+                alt="Stellaris Admin"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
             <span className="font-bold text-sm tracking-tight text-white">
               STELLARIS <span className="text-[#FF532A] text-xs font-mono ml-1 px-1.5 py-0.5 rounded bg-[#FF532A]/10 border border-[#FF532A]/20">ADMIN</span>
             </span>

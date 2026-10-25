@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -14,9 +15,15 @@ export function Footer() {
         {/* Top row */}
         <div className="flex justify-between items-center flex-wrap gap-6">
           <Link href="/#home" className="hd flex items-center gap-2.5 font-bold text-xl sm:text-2xl text-white group">
-            <span className="w-8 h-8 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#FF532A]/30 group-hover:scale-105 transition-transform">
-              ✦
-            </span>
+            <div className="relative w-8 h-8 rounded-full overflow-hidden bg-black/40 ring-1 ring-white/10 group-hover:scale-105 transition-transform shrink-0 shadow-md shadow-[#FF532A]/20">
+              <Image
+                src="/logo.webp"
+                alt="Stellaris Dev Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
+            </div>
             <span>Stellaris Dev</span>
           </Link>
 

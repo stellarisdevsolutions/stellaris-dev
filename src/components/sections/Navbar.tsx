@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -54,11 +55,18 @@ export function Navbar() {
         {/* Center Brand Logo with Circular Badge */}
         <Link
           href="/#home"
-          className="hd flex items-center gap-2 font-bold text-[17px] sm:text-[19px] text-white tracking-tight group"
+          className="hd flex items-center gap-2.5 font-bold text-[17px] sm:text-[19px] text-white tracking-tight group"
         >
-          <span className="w-7 h-7 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold text-xs shadow-md shadow-[#FF532A]/30 group-hover:scale-105 transition-transform">
-            ✦
-          </span>
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-black/40 ring-1 ring-white/10 group-hover:scale-105 transition-transform shrink-0 shadow-md shadow-[#FF532A]/20">
+            <Image
+              src="/logo.webp"
+              alt="Stellaris Dev Logo"
+              width={32}
+              height={32}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
           <span>Stellaris</span>
         </Link>
 

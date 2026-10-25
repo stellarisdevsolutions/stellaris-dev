@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { loginAdmin } from "../actions";
 import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
-import Link from "next/link";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("admin@stellaris.dev");
@@ -43,10 +44,17 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md relative z-10">
         {/* Logo badge */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-3 group">
-            <span className="w-8 h-8 rounded-lg bg-[#FF532A] flex items-center justify-center font-bold text-white shadow-lg shadow-[#FF532A]/25">
-              S
-            </span>
+          <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-lg shadow-[#FF532A]/25">
+              <Image
+                src="/logo.webp"
+                alt="Stellaris Dev"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
             <span className="font-bold text-xl tracking-tight text-white group-hover:text-[#FF532A] transition-colors">
               STELLARIS<span className="text-[#FF532A]">.</span>DEV
             </span>
