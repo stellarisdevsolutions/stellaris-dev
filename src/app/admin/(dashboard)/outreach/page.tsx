@@ -276,12 +276,14 @@ export default function OutreachPage() {
   const [swalBatchSend, setSwalBatchSend] = useState(false);
   const [swalSingleSend, setSwalSingleSend] = useState<LeadItem | null>(null);
   const [swalTestSend, setSwalTestSend] = useState<LeadItem | null>(null);
+  const [swalClearBatch, setSwalClearBatch] = useState(false);
 
   // Bloquear el scroll del fondo cuando cualquier modal esté abierto
   useEffect(() => {
     const isAnyModalOpen =
       isGalleryOpen ||
       swalBatchSend ||
+      swalClearBatch ||
       !!swalDeleteAsset ||
       !!swalSingleSend ||
       !!swalTestSend;
@@ -296,6 +298,7 @@ export default function OutreachPage() {
   }, [
     isGalleryOpen,
     swalBatchSend,
+    swalClearBatch,
     swalDeleteAsset,
     swalSingleSend,
     swalTestSend,
@@ -880,6 +883,26 @@ export default function OutreachPage() {
     showToast(`🚀 ¡Lote completado! Se enviaron ${successfullySentIds.length} correos.`);
   };
 
+  // Eliminar un prospecto individual de la cola
+  const handleDeleteLead = (id: string) => {
+    setLeads((prev) => {
+      const remaining = prev.filter((l) => l.id !== id);
+      if (selectedLeadId === id) {
+        setSelectedLeadId(remaining.length > 0 ? remaining[0].id : null);
+      }
+      return remaining;
+    });
+    showToast("🗑️ Prospecto retirado de la cola");
+  };
+
+  // Vaciar la cola completa del lote
+  const handleConfirmClearBatch = () => {
+    setLeads([]);
+    setSelectedLeadId(null);
+    setSwalClearBatch(false);
+    showToast("🗑️ Se vació la cola del lote con éxito");
+  };
+
   // Filtrar maquetas por búsqueda
   const filteredAssets = assets.filter(
     (a) =>
@@ -921,8 +944,8 @@ export default function OutreachPage() {
           </p>
         </div>
 
-        {/* Los 3 Botones Principales */}
-        <div className="flex items-center gap-3">
+        {/* Botones de Acción */}
+        <div className="flex flex-wrap items-center gap-3">
           {/* 1. Cargar CSV */}
           <input
             type="file"
@@ -954,7 +977,21 @@ export default function OutreachPage() {
             <span>Galería de Maquetas</span>
           </button>
 
-          {/* 3. Enviar Lote */}
+          {/* 3. Vaciar Lote */}
+          {leads.length > 0 && (
+            <button
+              type="button"
+              disabled={isBatchSending}
+              onClick={() => setSwalClearBatch(true)}
+              className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-red-500/10 text-neutral-300 hover:text-red-400 border border-white/10 hover:border-red-500/30 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm disabled:opacity-50"
+              title="Vaciar todos los prospectos de la cola actual"
+            >
+              <Trash2 className="w-4 h-4 text-red-400" />
+              <span>Vaciar Lote</span>
+            </button>
+          )}
+
+          {/* 4. Enviar Lote */}
           <button
             type="button"
             disabled={isBatchSending || leads.length === 0}
@@ -1008,15 +1045,30 @@ export default function OutreachPage() {
           </button>
         </div>
 
-        {activeView === "queue" && leads.length === 0 && (
-          <button
-            type="button"
-            onClick={loadSampleData}
-            className="text-xs text-[#FF532A] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
-          >
-            <RefreshCw className="w-3 h-3" />
-            <span>Cargar prospectos de prueba (dentistas)</span>
-          </button>
+        {activeView === "queue" && (
+          <div className="flex items-center gap-3">
+            {leads.length > 0 && (
+              <button
+                type="button"
+                disabled={isBatchSending}
+                onClick={() => setSwalClearBatch(true)}
+                className="text-xs text-neutral-400 hover:text-red-400 flex items-center gap-1.5 font-medium transition-colors cursor-pointer"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Vaciar lote ({leads.length})</span>
+              </button>
+            )}
+            {leads.length === 0 && (
+              <button
+                type="button"
+                onClick={loadSampleData}
+                className="text-xs text-[#FF532A] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Cargar prospectos de prueba (dentistas)</span>
+              </button>
+            )}
+          </div>
         )}
       </div>
 
@@ -1058,7 +1110,7 @@ export default function OutreachPage() {
                     <div
                       key={lead.id}
                       onClick={() => setSelectedLeadId(lead.id)}
-                      className={`p-3.5 rounded-xl cursor-pointer transition-all flex items-start justify-between gap-3 ${
+                      className={`group p-3.5 rounded-xl cursor-pointer transition-all flex items-start justify-between gap-3 ${
                         isSelected
                           ? "bg-[#FF532A]/15 border border-[#FF532A]/30 text-white"
                           : "hover:bg-white/5 text-neutral-300"
@@ -1082,6 +1134,18 @@ export default function OutreachPage() {
                           {lead.subject}
                         </div>
                       </div>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteLead(lead.id);
+                        }}
+                        title="Eliminar este prospecto de la cola"
+                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-neutral-400 hover:text-red-400 hover:bg-red-500/10 transition-all shrink-0 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   );
                 })
@@ -1123,6 +1187,16 @@ export default function OutreachPage() {
                   </div>
 
                   <div className="flex items-center gap-2">
+                    {/* Botón eliminar prospecto activo */}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteLead(activeLead.id)}
+                      title="Quitar este prospecto de la cola"
+                      className="p-1.5 rounded-xl bg-[#27272a] hover:bg-red-500/15 text-neutral-400 hover:text-red-400 border border-white/10 hover:border-red-500/30 transition-all cursor-pointer"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+
                     {/* Botón de prueba a Gmail (con confirmación Swal) */}
                     <button
                       type="button"
@@ -2183,6 +2257,51 @@ export default function OutreachPage() {
                 ) : (
                   <span>Sí, enviar prueba</span>
                 )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL 6: CONFIRMACIÓN TIPO SWEETALERT PARA VACIAR LOTE COMPLETO            */}
+      {/* ========================================================================= */}
+      {swalClearBatch && (
+        <div
+          className="fixed inset-0 z-60 bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSwalClearBatch(false);
+          }}
+        >
+          <div className="bg-[#171717] border border-red-500/30 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="w-14 h-14 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 flex items-center justify-center mx-auto">
+              <Trash2 className="w-7 h-7" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-white mb-1.5">
+                ¿Vaciar la cola del lote?
+              </h3>
+              <p className="text-xs text-neutral-300 leading-relaxed max-w-sm mx-auto">
+                Se retirarán los <strong className="text-white">{leads.length} prospectos</strong> pendientes de la cola de trabajo. Podrás subir un nuevo archivo CSV o iniciar otra campaña desde cero.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setSwalClearBatch(false)}
+                className="py-2.5 px-4 rounded-xl bg-[#202024] hover:bg-[#27272a] text-neutral-300 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmClearBatch}
+                className="py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold transition-colors cursor-pointer shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>Sí, vaciar lote</span>
               </button>
             </div>
           </div>
