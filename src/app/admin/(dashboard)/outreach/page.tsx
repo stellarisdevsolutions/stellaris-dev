@@ -1550,8 +1550,8 @@ export default function OutreachPage() {
             {/* CONTENIDO 1: PESTAÑA "GALERÍA WEB" */}
             {galleryTab === "gallery" && (
               <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-12 overflow-hidden">
-                {/* Columna Izquierda: Grid de miniaturas (7 cols) */}
-                <div className="md:col-span-7 p-4 sm:p-5 border-r border-white/10 flex flex-col h-full min-h-0 bg-[#0e0e11]">
+                {/* Columna Izquierda: Grid de miniaturas (8 cols) */}
+                <div className="md:col-span-8 p-4 sm:p-5 border-r border-white/10 flex flex-col h-full min-h-0 bg-[#0e0e11]">
                   {/* Barra de búsqueda y contador */}
                   <div className="shrink-0 flex items-center justify-between gap-3 mb-4">
                     <div className="flex items-center gap-2">
@@ -1576,7 +1576,7 @@ export default function OutreachPage() {
                   </div>
 
                   {/* Grid de maquetas con scroll independiente y tarjetas compactas */}
-                  <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain grid grid-cols-2 sm:grid-cols-3 gap-3 pr-2 content-start items-start">
+                  <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pr-2 content-start items-start">
                     {filteredAssets.map((asset) => {
                       const isSelected = asset.id === selectedAsset?.id;
                       return (
@@ -1619,12 +1619,12 @@ export default function OutreachPage() {
                   </div>
                 </div>
 
-                {/* Columna Derecha: DETALLES DE LA MAQUETA (5 cols) */}
-                <div className="md:col-span-5 flex flex-col h-full min-h-0 bg-[#141416]">
+                {/* Columna Derecha: DETALLES DE LA MAQUETA (4 cols - ancho reducido) */}
+                <div className="md:col-span-4 flex flex-col h-full min-h-0 bg-[#141416]">
                   {selectedAsset ? (
                     <>
                       {/* Área scrollable de detalles */}
-                      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-5 space-y-4 pr-3">
+                      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-3.5 pr-2.5">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">
                             Detalles de la Maqueta
