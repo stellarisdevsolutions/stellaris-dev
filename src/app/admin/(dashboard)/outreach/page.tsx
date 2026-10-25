@@ -286,59 +286,13 @@ export default function OutreachPage() {
       !!swalSingleSend ||
       !!swalTestSend;
 
-    if (!isAnyModalOpen) return;
-
-    // 1. Guardar estilos previos de body, html y el contenedor <main> del dashboard
-    const prevBodyOverflow = document.body.style.overflow;
-    const prevHtmlOverflow = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    const mainEl = document.querySelector("main");
-    const prevMainOverflow = mainEl ? mainEl.style.overflow : "";
-    if (mainEl) {
-      mainEl.style.overflow = "hidden";
+    if (isAnyModalOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
     }
-
-    // 2. Prevenir que la rueda del mouse mueva el fondo si el cursor está sobre el modal
-    const handleWheelPrevent = (e: WheelEvent) => {
-      let el = e.target as HTMLElement | null;
-      let canScroll = false;
-
-      while (el && el !== document.body && el !== document.documentElement) {
-        const style = window.getComputedStyle(el);
-        const overflowY = style.overflowY;
-        const isScrollable =
-          (overflowY === "auto" || overflowY === "scroll") &&
-          el.scrollHeight > el.clientHeight;
-
-        if (isScrollable) {
-          const atTop = el.scrollTop <= 0 && e.deltaY < 0;
-          const atBottom =
-            el.scrollTop + el.clientHeight >= el.scrollHeight && e.deltaY > 0;
-          if (!atTop && !atBottom) {
-            canScroll = true;
-            break;
-          }
-        }
-        el = el.parentElement;
-      }
-
-      if (!canScroll) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener("wheel", handleWheelPrevent, { passive: false });
-
-    return () => {
-      document.body.style.overflow = prevBodyOverflow;
-      document.documentElement.style.overflow = prevHtmlOverflow;
-      if (mainEl) {
-        mainEl.style.overflow = prevMainOverflow;
-      }
-      window.removeEventListener("wheel", handleWheelPrevent);
-    };
   }, [
     isGalleryOpen,
     swalBatchSend,
