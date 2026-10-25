@@ -1575,8 +1575,8 @@ export default function OutreachPage() {
                     </div>
                   </div>
 
-                  {/* Grid de maquetas con scroll independiente */}
-                  <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain grid grid-cols-2 sm:grid-cols-3 gap-3.5 pr-2">
+                  {/* Grid de maquetas con scroll independiente y tarjetas compactas */}
+                  <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain grid grid-cols-2 sm:grid-cols-3 gap-3 pr-2 content-start items-start">
                     {filteredAssets.map((asset) => {
                       const isSelected = asset.id === selectedAsset?.id;
                       return (
@@ -1585,11 +1585,11 @@ export default function OutreachPage() {
                           onClick={() => setSelectedAssetId(asset.id)}
                           className={`group relative rounded-xl overflow-hidden border cursor-pointer transition-all flex flex-col ${
                             isSelected
-                              ? "border-[#FF532A] shadow-lg shadow-[#FF532A]/20 ring-2 ring-[#FF532A]/40"
+                              ? "border-[#FF532A] shadow-md shadow-[#FF532A]/20 ring-2 ring-[#FF532A]/40"
                               : "border-white/10 hover:border-white/30 bg-[#18181b]"
                           }`}
                         >
-                          <div className="relative aspect-[16/10] bg-black/60 overflow-hidden">
+                          <div className="relative aspect-[16/10] bg-black/60 overflow-hidden shrink-0">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={asset.url}
@@ -1604,14 +1604,14 @@ export default function OutreachPage() {
                             )}
                           </div>
 
-                          {/* Fila debajo con nombre limpio */}
-                          <div className="p-2.5 bg-[#141416]">
-                            <div className="font-semibold text-xs text-white truncate">
+                          {/* Fila debajo solo con el nombre, sin espacios vacíos ni categoría */}
+                          <div className="px-2.5 py-2 bg-[#141416] border-t border-white/5 flex items-center justify-center">
+                            <span
+                              className="font-semibold text-xs text-white truncate text-center w-full block m-0 leading-tight"
+                              title={asset.name}
+                            >
                               {asset.name}
-                            </div>
-                            <div className="text-[10px] text-neutral-400 truncate mt-0.5">
-                              {asset.category}
-                            </div>
+                            </span>
                           </div>
                         </div>
                       );
@@ -1668,8 +1668,8 @@ export default function OutreachPage() {
                           )}
                         </div>
 
-                        {/* Previsualización grande */}
-                        <div className="rounded-xl overflow-hidden border border-white/10 bg-black/50 aspect-[16/10]">
+                        {/* Previsualización moderada idéntica a la referencia (no gigante) */}
+                        <div className="rounded-xl overflow-hidden border border-white/10 bg-black/40 h-36 sm:h-40 w-full flex items-center justify-center shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={selectedAsset.url}
