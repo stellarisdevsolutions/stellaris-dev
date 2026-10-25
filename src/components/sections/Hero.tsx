@@ -104,7 +104,7 @@ export function Hero() {
         >
           <span>{lang === "es" ? "Somos " : "We are "}</span>
           <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-5 py-0.5 rounded-xl sm:rounded-2xl shadow-md shadow-[#FF532A]/25 -rotate-1 mx-1">
-            Stellaris,
+            Stellaris Dev,
           </span>
           <br />
           <span className="font-extrabold text-[#171717]">
@@ -192,8 +192,8 @@ export function Hero() {
             </div>
             <p className="text-[11px] sm:text-xs text-neutral-600 leading-relaxed m-0 font-medium">
               {lang === "es"
-                ? "El desarrollo web de Stellaris aseguró el éxito y la velocidad de nuestra tienda online."
-                : "Stellaris' modern web development ensured our online store scaled smoothly."}
+                ? "El desarrollo web de Stellaris Dev aseguró el éxito y la velocidad de nuestra tienda online."
+                : "Stellaris Dev's modern web development ensured our online store scaled smoothly."}
             </p>
           </motion.div>
 
