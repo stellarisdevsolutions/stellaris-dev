@@ -34,10 +34,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.webp", type: "image/webp" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
       { url: "/favicon.webp", type: "image/webp" },
     ],
-    apple: "/icon.webp",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
