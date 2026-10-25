@@ -8,6 +8,10 @@ import { AdminHeader } from "@/components/admin/AdminHeader";
 export const metadata = {
   title: "Admin Panel | Stellaris Dev",
   description: "Panel de administración y control de Stellaris Dev",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function AdminDashboardLayout({

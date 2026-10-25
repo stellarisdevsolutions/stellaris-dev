@@ -1,8 +1,18 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, FileText } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+
+export const metadata: Metadata = {
+  title: "Términos y Condiciones",
+  description:
+    "Términos generales de contratación de servicios y adquisición de software en Stellaris Dev Solutions.",
+  alternates: {
+    canonical: "/terms-and-conditions",
+  },
+};
 
 export default function TermsPage() {
   return (

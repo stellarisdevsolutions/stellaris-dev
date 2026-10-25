@@ -1,12 +1,17 @@
 import React from "react";
+import type { Metadata } from "next";
 import { getAllMarketplaceProducts } from "@/db/service";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { MarketplaceCatalog } from "@/components/sections/MarketplaceCatalog";
 
-export const metadata = {
-  title: "Marketplace de Plantillas & Sistemas Web | Stellaris Dev",
-  description: "Compra código fuente listo para producción con Next.js 16, React 19 y PostgreSQL.",
+export const metadata: Metadata = {
+  title: "Marketplace de Plantillas & Sistemas Web",
+  description:
+    "Compra código fuente profesional listo para producción con Next.js, React y PostgreSQL. Plantillas modernas y optimizadas para conversión.",
+  alternates: {
+    canonical: "/marketplace",
+  },
 };
 
 export default async function MarketplaceListPage() {

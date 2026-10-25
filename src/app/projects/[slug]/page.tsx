@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PROJECTS } from "@/data/projects";
 import { getProjectBySlug, getAllProjects } from "@/db/service";
@@ -7,6 +8,54 @@ import { Footer } from "@/components/sections/Footer";
 import { ProjectDetailView } from "@/components/sections/ProjectDetailView";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    return {
+      title: "Proyecto no encontrado",
+    };
+  }
+
+  const rawTitle =
+    typeof project.title === "string"
+      ? project.title
+      : project.title?.es || project.title?.en || "Proyecto";
+  const title = `${rawTitle} | Caso de Éxito & Proyecto`;
+  const rawDesc =
+    typeof project.tagline === "object"
+      ? project.tagline?.es || project.tagline?.en
+      : "";
+  const description =
+    rawDesc ||
+    `Conoce el desarrollo y arquitectura web de ${rawTitle} realizado por Stellaris Dev Solutions con Next.js y React.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: `${title} | Stellaris Dev`,
+      description,
+      url: `https://tiendastellaris.com/projects/${project.slug}`,
+      images: project.bgPreview ? [{ url: project.bgPreview, alt: rawTitle }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Stellaris Dev`,
+      description,
+      images: project.bgPreview ? [project.bgPreview] : undefined,
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const allProjects = await getAllProjects();

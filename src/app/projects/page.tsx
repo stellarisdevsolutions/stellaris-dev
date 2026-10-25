@@ -1,12 +1,17 @@
 import React from "react";
+import type { Metadata } from "next";
 import { getAllProjects } from "@/db/service";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { ProjectsCatalog } from "@/components/sections/ProjectsCatalog";
 
-export const metadata = {
-  title: "Proyectos & Casos de Éxito | Stellaris Dev",
-  description: "Explora nuestros proyectos y aplicaciones web desarrolladas con Next.js y React.",
+export const metadata: Metadata = {
+  title: "Proyectos & Casos de Éxito",
+  description:
+    "Explora nuestros casos de éxito y aplicaciones web desarrolladas con Next.js, React y arquitecturas en la nube por Stellaris Dev Solutions.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default async function ProyectosListPage() {
