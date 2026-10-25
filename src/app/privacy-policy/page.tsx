@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
                 Si tienes preguntas sobre nuestras prácticas de privacidad o deseas que eliminemos tus datos de contacto de nuestros registros, contáctanos directamente a:
               </p>
               <p className="font-semibold text-[#171717] mt-2">
-                stellarisdev.us@gmail.com • WhatsApp: +591 69991245
+                contacto@tiendastellaris.com • WhatsApp: +591 69991245
               </p>
             </section>
           </div>

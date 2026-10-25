@@ -89,7 +89,7 @@ export default function TermsPage() {
                 Para cualquier aclaración sobre estos términos, escríbenos a:
               </p>
               <p className="font-semibold text-[#171717] mt-2">
-                stellarisdev.us@gmail.com
+                contacto@tiendastellaris.com
               </p>
             </section>
           </div>

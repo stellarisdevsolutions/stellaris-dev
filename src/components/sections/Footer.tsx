@@ -83,8 +83,8 @@ export function Footer() {
               {lang === "es" ? "Términos y Condiciones" : "Terms & Conditions"}
             </Link>
             <span>·</span>
-            <a href="mailto:stellarisdev.us@gmail.com" className="hover:text-white transition-colors">
-              stellarisdev.us@gmail.com
+            <a href="mailto:contacto@tiendastellaris.com" className="hover:text-white transition-colors">
+              contacto@tiendastellaris.com
             </a>
           </div>
         </div>
