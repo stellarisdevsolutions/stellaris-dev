@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Stellaris Dev | Desarrollo Web de Alto Rendimiento & Sistemas a Medida";
 export const size = {
   width: 1200,
