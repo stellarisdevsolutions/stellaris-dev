@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MarketplaceProduct, getMarketplaceTitle, getProductSpecs, MarketplaceSpecItem } from "@/data/marketplace";
 import { saveMarketplaceProductAction, deleteBlobsAction } from "@/app/admin/actions";
 import { ImageUploader } from "./ImageUploader";
+import { MultiImageUploader } from "./MultiImageUploader";
 import {
   ArrowLeft,
   Save,
@@ -387,6 +388,26 @@ export function MarketplaceForm({
     setFormData({
       ...formData,
       gallery: [...current, url],
+    });
+  };
+
+  const addMultipleGalleryImages = (urls: string[]) => {
+    if (!urls || urls.length === 0) return;
+    const current = formData.gallery || [];
+    setFormData({
+      ...formData,
+      gallery: [...current, ...urls],
+    });
+  };
+
+  const reorderGalleryImage = (fromIndex: number, toIndex: number) => {
+    const current = [...(formData.gallery || [])];
+    if (toIndex < 0 || toIndex >= current.length) return;
+    const [moved] = current.splice(fromIndex, 1);
+    current.splice(toIndex, 0, moved);
+    setFormData({
+      ...formData,
+      gallery: current,
     });
   };
 
@@ -1288,60 +1309,16 @@ export function MarketplaceForm({
             </p>
           </div>
 
-          {/* Card: Galería de Imágenes Adicionales (OPCIONAL) */}
+          {/* Card: Galería de Imágenes Adicionales (Múltiple) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/5 pb-3">
-              <div>
-                <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Images className="w-4 h-4 text-[#FF532A]" />
-                  Galería Adicional <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
-                </h2>
-                <p className="text-[10px] text-neutral-400 mt-0.5">
-                  Para el visor interactivo de capturas. Si no se suben, la sección no se mostrará.
-                </p>
-              </div>
-            </div>
-
-            {/* Existing gallery thumbnails */}
-            {formData.gallery && formData.gallery.length > 0 && (
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                {formData.gallery.map((imgUrl, idx) => (
-                  <div
-                    key={idx}
-                    className="relative aspect-video rounded-xl bg-black/40 border border-white/10 overflow-hidden group"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={imgUrl}
-                      alt={`Galería ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeGalleryImage(idx)}
-                      className="absolute top-1.5 right-1.5 p-1 rounded-md bg-black/70 text-red-400 hover:text-white transition-colors cursor-pointer"
-                      title="Eliminar de galería"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Upload extra image */}
-            <div className="pt-1">
-              <label className="block text-[11px] font-semibold text-neutral-400 mb-1.5">
-                Subir captura a la galería:
-              </label>
-              <ImageUploader
-                label=""
-                value=""
-                onChange={(url) => {
-                  if (url) addGalleryImage(url);
-                }}
-              />
-            </div>
+            <MultiImageUploader
+              images={formData.gallery || []}
+              onAddImages={addMultipleGalleryImages}
+              onRemoveImage={removeGalleryImage}
+              onReorderImage={reorderGalleryImage}
+              label="Galería Adicional (Opcional)"
+              helperText="Para el visor interactivo de capturas. Puedes arrastrar o seleccionar varias capturas al mismo tiempo."
+            />
           </div>
 
           {/* Card: Datos Comerciales & Badges (OPCIONAL - BILINGÜE) */}
