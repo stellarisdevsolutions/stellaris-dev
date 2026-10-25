@@ -15,42 +15,79 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filterTabs = [
+  // Mapa de etiquetas bilingües para categorías
+  const categoryLabels: Record<string, { es: string; en: string }> = {
+    saas: { es: "SaaS & Dashboard", en: "SaaS & Dashboard" },
+    ecommerce: { es: "Tienda Online", en: "Online Store" },
+    "custom-systems": { es: "Sistemas a Medida", en: "Custom Systems" },
+    cms: { es: "CMS", en: "CMS" },
+    agencies: { es: "Agencias & Portafolios", en: "Agencies & Portfolios" },
+    landing: { es: "Landing Pages", en: "Landing Pages" },
+  };
+
+  // Conjunto de categorías que realmente tienen productos registrados
+  const existingCategoryIds = new Set(initialProducts.map((p) => p.category));
+
+  // Generar pestañas dinámicas solo para categorías que tienen productos
+  const dynamicFilterTabs: { id: string; label: string }[] = [
     { id: "all", label: lang === "es" ? "Todas" : "All" },
-    { id: "negocios", label: lang === "es" ? "Negocios & SaaS" : "Business & SaaS" },
-    { id: "tiendas", label: lang === "es" ? "Tiendas Online" : "Online Stores" },
-    { id: "portafolios", label: lang === "es" ? "Agencias & Portafolios" : "Agencies & Portfolios" },
   ];
 
+  Object.entries(categoryLabels).forEach(([id, labels]) => {
+    if (existingCategoryIds.has(id)) {
+      dynamicFilterTabs.push({
+        id,
+        label: labels[lang] || labels.es,
+      });
+    }
+  });
+
+  existingCategoryIds.forEach((id) => {
+    if (!categoryLabels[id] && id) {
+      dynamicFilterTabs.push({
+        id,
+        label: id.charAt(0).toUpperCase() + id.slice(1),
+      });
+    }
+  });
+
+  // Preset mockup colors matching the cards
   const cardPresets: Record<string, { blockColor: string; pillColor: string }> = {
     "saas-starter-pro": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
     "omnistore-ecommerce": { blockColor: "bg-[#171717]", pillColor: "bg-[#171717]" },
     "nova-agency-template": { blockColor: "bg-[#737373]", pillColor: "bg-[#737373]" },
-    "leadmagnet-funnel": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
   };
 
+  // Filtrado de productos por categoría y búsqueda
   const filteredProducts = initialProducts.filter((product) => {
-    let matchesCategory = true;
-    if (selectedFilter === "negocios") matchesCategory = product.category === "saas" || product.category === "landing";
-    if (selectedFilter === "tiendas") matchesCategory = product.category === "ecommerce";
-    if (selectedFilter === "portafolios") matchesCategory = product.category === "agencies";
+    const matchesCategory = selectedFilter === "all" || product.category === selectedFilter;
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return matchesCategory;
 
-    const q = searchQuery.toLowerCase();
     const titleEn = getMarketplaceTitle(product.title, "en").toLowerCase();
     const titleEs = getMarketplaceTitle(product.title, "es").toLowerCase();
+
+    const specsMatch = (product.specs || []).some(
+      (s) =>
+        s.title?.es?.toLowerCase().includes(q) ||
+        s.title?.en?.toLowerCase().includes(q) ||
+        s.detail?.es?.toLowerCase().includes(q) ||
+        s.detail?.en?.toLowerCase().includes(q)
+    );
 
     const matchesSearch =
       titleEn.includes(q) ||
       titleEs.includes(q) ||
       (product.shortDesc?.es && product.shortDesc.es.toLowerCase().includes(q)) ||
       (product.shortDesc?.en && product.shortDesc.en.toLowerCase().includes(q)) ||
-      product.stack?.some((s) => s.toLowerCase().includes(q));
+      product.stack?.some((s) => s.toLowerCase().includes(q)) ||
+      specsMatch;
 
     return matchesCategory && matchesSearch;
   });
 
   return (
-    <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 relative z-10">
+    <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8">
       {/* Breadcrumb / Regresar al Inicio */}
       <div className="mb-6">
         <Link
@@ -58,7 +95,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          <span>Volver al inicio</span>
+          <span>{lang === "es" ? "Volver al inicio" : "Back to home"}</span>
         </Link>
       </div>
 
@@ -67,17 +104,17 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
         <div>
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
-            <span>CATÁLOGO DE PLANTILLAS & SISTEMAS</span>
+            <span>{lang === "es" ? "CATÁLOGO DE PLANTILLAS & SISTEMAS" : "TEMPLATES & SYSTEMS CATALOG"}</span>
           </div>
           <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#171717] leading-[1.08] m-0">
-            Marketplace de{" "}
+            {lang === "es" ? "Marketplace de " : "Marketplace of "}
             <span className="inline-block relative text-white bg-[#FF532A] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
-              Sistemas Web
+              {lang === "es" ? "Sistemas Web" : "Web Systems"}
             </span>
           </h1>
         </div>
 
-        {/* Párrafo al lado derecho aprovechando el espacio */}
+        {/* Párrafo al lado derecho */}
         <p className="m-0 text-sm sm:text-base text-neutral-600 max-w-[460px] leading-relaxed">
           {lang === "es"
             ? "Sitios y aplicaciones web listos para personalizar y lanzar. Elige tu solución, adquiere el código con licencia comercial y ahorra semanas de desarrollo."
@@ -87,22 +124,25 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
 
       {/* MISMA FILA: BOTONES DE FILTRO + BUSCADOR TIPO PILL */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
-        {/* Botones de Filtro */}
+        {/* Botones de Filtro (Solo categorías que contienen productos) */}
         <div className="flex flex-wrap items-center gap-2">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedFilter(tab.id)}
-              type="button"
-              className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedFilter === tab.id
-                  ? "bg-[#171717] text-white shadow-md shadow-neutral-900/20"
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {dynamicFilterTabs.map((tab) => {
+            const active = selectedFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedFilter(tab.id)}
+                type="button"
+                className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                  active
+                    ? "bg-[#171717] text-white shadow-md shadow-neutral-900/20"
+                    : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Buscador Tipo Pill */}
@@ -113,8 +153,8 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={
               lang === "es"
-                ? "Buscar plantilla, tecnología o nicho..."
-                : "Search template, stack or niche..."
+                ? "Buscar plantilla o tecnología..."
+                : "Search template or tech..."
             }
             className="flex-1 bg-transparent border-0 px-4 py-2 text-xs sm:text-sm text-[#171717] placeholder-neutral-400 outline-none"
           />
@@ -122,139 +162,108 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
             type="button"
             className="px-5 py-2.5 bg-[#FF532A] hover:bg-[#e0451e] text-white text-xs sm:text-sm font-semibold rounded-full transition-all shrink-0 shadow-sm shadow-[#FF532A]/25 cursor-pointer"
           >
-            Buscar
+            {lang === "es" ? "Buscar" : "Search"}
           </button>
         </div>
       </div>
 
-      {/* Grid de Productos / Soluciones */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10">
+      {/* Grid de Productos - Modo Claro (3 columnas) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {filteredProducts.map((product) => {
           const preset = cardPresets[product.slug] || {
             blockColor: "bg-[#FF532A]",
             pillColor: "bg-[#FF532A]",
           };
 
+          const catLabel =
+            typeof product.categoryLabel === "object"
+              ? product.categoryLabel[lang] || product.categoryLabel.es || product.categoryLabel.en || product.category
+              : categoryLabels[product.category]?.[lang] || categoryLabels[product.category]?.es || product.category;
+
           return (
             <div
               key={product.id}
-              className="flex flex-col rounded-[32px] border border-neutral-200/90 bg-white p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 group justify-between"
+              className="group rounded-[28px] bg-white border border-neutral-200/90 p-5 sm:p-6 flex flex-col justify-between hover:border-neutral-300 hover:shadow-xl transition-all duration-300 shadow-xs"
             >
               <div>
-                {/* Visual Preview / Wireframe Frame */}
-                <div
-                  className={`w-full aspect-[16/10] rounded-[22px] border border-neutral-200 bg-neutral-900 mb-6 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group-hover:scale-[1.01] ${
-                    product.image?.startsWith("http") || product.image?.startsWith("/")
-                      ? "bg-cover bg-center"
-                      : ""
-                  }`}
-                  style={
-                    product.image?.startsWith("http") || product.image?.startsWith("/")
-                      ? { backgroundImage: `url(${product.image})` }
-                      : {}
-                  }
-                >
-                  {/* Browser top controls */}
-                  <div className="w-full flex items-center justify-between p-3.5 bg-black/40 backdrop-blur-xs border-b border-white/10 z-10">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF532A]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
-                    </div>
-                    <span className="text-[10px] text-neutral-300 font-mono">
-                      stellaris.dev/templates/{product.slug}
-                    </span>
-                  </div>
-
-                  {/* Fallback wireframe when no image */}
-                  {(!product.image || (!product.image.startsWith("http") && !product.image.startsWith("/"))) && (
-                    <div className="flex-1 my-3 flex flex-col justify-center gap-2 px-4 z-10">
-                      <div className="h-6 w-1/3 bg-neutral-800 rounded-lg animate-pulse" />
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className={`h-16 rounded-xl ${preset.blockColor} opacity-90`} />
-                        <div className="h-16 rounded-xl bg-neutral-800" />
-                        <div className="h-16 rounded-xl bg-neutral-800/60" />
-                      </div>
-                      <div className="h-3 w-4/5 bg-neutral-800 rounded-md mt-1" />
-                    </div>
-                  )}
-
-                  {/* Bottom details bar */}
-                  <div className="w-full flex items-center justify-between text-xs text-neutral-300 p-3 bg-black/40 backdrop-blur-xs border-t border-white/10 z-10">
-                    <span className="flex items-center gap-1 font-semibold text-white">
-                      ⭐ {product.rating || "4.9"} ({product.salesCount || 0} {lang === "es" ? "ventas" : "sales"})
-                    </span>
-                    <span className="font-mono text-[11px] text-neutral-400">
-                      Next.js 16 • React 19
-                    </span>
-                  </div>
-                </div>
-
-                {/* Product Title and Price */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
-                  <div>
-                    {product.tag && (
-                      <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-[#FF532A] mb-1">
-                        {product.tag?.[lang as "es" | "en"] || product.tag?.es}
-                      </span>
-                    )}
-                    <h3 className="font-bold text-xl sm:text-2xl text-[#171717] group-hover:text-[#FF532A] transition-colors leading-tight">
-                      {getMarketplaceTitle(product.title, lang)}
-                    </h3>
-                  </div>
-
-                  <div className="text-left sm:text-right shrink-0">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-[#171717]">
-                      {product.price}
-                    </div>
-                    {product.originalPrice && (
-                      <div className="text-xs text-neutral-400 line-through font-mono">
-                        {product.originalPrice}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Short Description */}
-                <p className="text-sm text-neutral-600 leading-relaxed mb-6">
-                  {product.shortDesc?.[lang as "es" | "en"] || product.shortDesc?.es}
-                </p>
-
-                {/* Architecture Bullets (if exists) */}
-                {product.architecture && (
-                  <div className="bg-neutral-50 rounded-2xl p-4 border border-neutral-200/80 mb-6 space-y-1.5 text-xs text-neutral-600">
-                    {product.architecture.frontend && (
-                      <div>
-                        <span className="font-semibold text-neutral-900">Frontend: </span>
-                        {product.architecture.frontend}
-                      </div>
-                    )}
-                    {product.architecture.backend && (
-                      <div>
-                        <span className="font-semibold text-neutral-900">Backend: </span>
-                        {product.architecture.backend}
-                      </div>
-                    )}
-                    {product.architecture.database && (
-                      <div>
-                        <span className="font-semibold text-neutral-900">
-                          {lang === "es" ? "Base de Datos: " : "Database: "}
-                        </span>
-                        {product.architecture.database}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-3 pt-4 border-t border-neutral-100">
+                {/* Mockup o Imagen Real Limpia */}
                 <Link
                   href={`/marketplace/${product.slug}`}
-                  className="flex-1 py-3.5 px-4 rounded-xl bg-[#171717] hover:bg-[#FF532A] text-white text-xs sm:text-sm font-semibold text-center transition-all shadow-md group-hover:shadow-lg flex items-center justify-center gap-1.5"
+                  className="block rounded-2xl bg-neutral-100 border border-neutral-200/80 overflow-hidden mb-5 cursor-pointer group-hover:border-neutral-300 transition-colors shadow-2xs"
                 >
-                  <span>{lang === "es" ? "Ver Detalles & Comprar" : "View Details & Buy"}</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  {product.image ? (
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100">
+                      <img
+                        src={product.image}
+                        alt={getMarketplaceTitle(product.title, lang)}
+                        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  ) : (
+                    <div className="p-4 sm:p-5 bg-neutral-900 text-white">
+                      {/* 3 Window Top Dots (1 orange, 2 grey) */}
+                      <div className="flex items-center gap-1.5 mb-4">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF532A]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                      </div>
+
+                      {/* Window UI Layout (Left Bars + Right Solid Block) */}
+                      <div className="grid grid-cols-12 gap-3 items-center min-h-[110px]">
+                        {/* Left: Wireframe Bars */}
+                        <div className="col-span-7 flex flex-col justify-center">
+                          <div className="w-[90%] h-3.5 bg-white rounded-full mb-2" />
+                          <div className="w-[70%] h-2 bg-neutral-600 rounded-full mb-3" />
+                          <div className={`w-20 h-5 rounded-full ${preset.pillColor} opacity-90`} />
+                        </div>
+
+                        {/* Right: Solid Square Block */}
+                        <div className="col-span-5 flex justify-end">
+                          <div className={`w-20 sm:w-22 h-20 sm:h-22 rounded-2xl ${preset.blockColor} shadow-md`} />
+                        </div>
+                      </div>
+
+                      {/* Full-width bottom bar */}
+                      <div className="w-full h-4 rounded-lg bg-neutral-800/90 mt-4" />
+                    </div>
+                  )}
+                </Link>
+
+                {/* Title & Category with Short Description */}
+                <div className="mb-6 flex flex-col">
+                  {/* Etiqueta de Categoría - Tipográfica y limpia (NO cápsula) */}
+                  <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1.5">
+                    {catLabel}
+                  </span>
+
+                  {/* Título - Máximo 2 filas */}
+                  <Link href={`/marketplace/${product.slug}`}>
+                    <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] tracking-tight mb-2 group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                      {getMarketplaceTitle(product.title, lang)}
+                    </h3>
+                  </Link>
+
+                  {/* Descripción corta - Máximo 2 filas */}
+                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed line-clamp-2 m-0">
+                    {product.shortDesc ? product.shortDesc[lang] || product.shortDesc.es : ""}
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom Row: Price + Single Action Button */}
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
+                {/* Price */}
+                <div className="hd text-2xl sm:text-[26px] font-extrabold text-[#171717]">
+                  {product.price}
+                </div>
+
+                {/* Single Action Button: Ver detalle */}
+                <Link
+                  href={`/marketplace/${product.slug}`}
+                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#171717] hover:bg-[#FF532A] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-xs cursor-pointer whitespace-nowrap group/btn"
+                >
+                  <span>{lang === "es" ? "Ver detalle" : "View details"}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                 </Link>
               </div>
             </div>
@@ -265,7 +274,9 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
       {filteredProducts.length === 0 && (
         <div className="text-center py-20 bg-neutral-50 rounded-3xl border border-neutral-200 mt-6">
           <p className="text-neutral-500 text-sm">
-            No se encontraron plantillas para los filtros seleccionados.
+            {lang === "es"
+              ? "No se encontraron plantillas para los filtros seleccionados."
+              : "No templates found for the selected filters."}
           </p>
         </div>
       )}

@@ -17,11 +17,15 @@ import {
   Headphones,
   HelpCircle,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Layers,
+  X,
 } from "lucide-react";
-import { MarketplaceProduct, getMarketplaceTitle } from "@/data/marketplace";
+import { motion, AnimatePresence } from "framer-motion";
+import { MarketplaceProduct, getMarketplaceTitle, getProductSpecs } from "@/data/marketplace";
 import { useLanguage } from "@/context/LanguageContext";
-import { MarketplaceGallery } from "./MarketplaceGallery";
+import { submitContactFormAction } from "@/app/admin/actions";
 
 interface MarketplaceDetailViewProps {
   product: MarketplaceProduct;
@@ -49,16 +53,55 @@ export function MarketplaceDetailView({
     product.includedFiles?.[lang] || product.includedFiles?.es || [];
   const faqsList = product.faqs || [];
 
-  const hasArchitecture =
-    product.architecture &&
-    Object.values(product.architecture).some((v) => Boolean(v?.trim()));
+  const allImages = [product.image, ...(product.gallery || [])].filter(
+    (img): img is string => Boolean(img && (img.startsWith("http") || img.startsWith("/")))
+  );
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const activeImage = allImages[selectedImageIndex] || product.image || "";
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prev) => (prev > 0 ? prev - 1 : allImages.length - 1));
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) => (prev < allImages.length - 1 ? prev + 1 : 0));
+  };
+
+  const specsList = getProductSpecs(product);
 
   const getWhatsAppBuyLink = () => {
-    const message =
-      lang === "es"
-        ? `¡Hola Stellaris Dev! Me interesa adquirir el sistema "${title}" (${product.price}). ¿Cuáles son los métodos de pago y el proceso de entrega del repositorio y despliegue?`
-        : `Hi Stellaris Dev! I'd like to acquire the system "${title}" (${product.price}). What are the payment methods and repository/deployment delivery process?`;
+    const message = `¡Hola Stellaris Dev! Me interesa adquirir el sistema "${title}" (${product.price}). ¿Cuáles son los métodos de pago y el proceso de entrega del repositorio y despliegue?`;
     return `https://wa.me/59169991245?text=${encodeURIComponent(message)}`;
+  };
+
+  // English purchase modal state
+  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+  const [buyerEmail, setBuyerEmail] = useState("");
+  const [buyerNote, setBuyerNote] = useState("");
+  const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+
+  const handleBuyEnglishSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!buyerEmail.trim()) return;
+    setIsSubmittingOrder(true);
+
+    try {
+      await submitContactFormAction({
+        name: "Direct Buyer",
+        email: buyerEmail.trim(),
+        projectType: `Marketplace Order: ${title} (${product.price})`,
+        details: buyerNote.trim()
+          ? `[Marketplace Purchase Request: ${product.slug}]\nPrice: ${product.price}\nNote from customer: ${buyerNote.trim()}`
+          : `[Marketplace Purchase Request: ${product.slug}]\nPrice: ${product.price}\nCustomer requested direct checkout delivery for ${title}.`,
+      });
+      setOrderSubmitted(true);
+    } catch (err) {
+      console.warn("Order submit fallback:", err);
+      setOrderSubmitted(true);
+    } finally {
+      setIsSubmittingOrder(false);
+    }
   };
 
   // Buyer reviews (Bilingual)
@@ -158,56 +201,101 @@ export function MarketplaceDetailView({
             )}
           </div>
 
-          {/* Main Visual / Cover Image */}
-          <div className="relative rounded-[32px] bg-[#171717] border border-neutral-800 shadow-xl overflow-hidden text-white">
-            {/* Top Browser Dots Bar */}
-            <div className="flex items-center justify-between p-4 sm:px-6 border-b border-neutral-800 bg-[#171717]/90 backdrop-blur-xs z-10 relative">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#FF532A]" />
-                <span className="w-3 h-3 rounded-full bg-neutral-700" />
-                <span className="w-3 h-3 rounded-full bg-neutral-700" />
-              </div>
-              <div className="text-xs font-mono text-neutral-400 bg-neutral-800 px-3 py-1 rounded-md">
-                {product.slug} • production-ready
-              </div>
-            </div>
+          {/* Main Visual & Additional Images Thumbnails */}
+          <div className="flex flex-col gap-3">
+            {/* Imagen Grande (Principal o seleccionada) */}
+            <div className="relative rounded-2xl sm:rounded-3xl bg-neutral-900 border border-neutral-200/90 shadow-md overflow-hidden group">
+              {activeImage ? (
+                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-black/5 flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    key={activeImage}
+                    src={activeImage}
+                    alt={title}
+                    className="w-full h-full object-cover object-top transition-all duration-300"
+                  />
 
-            {isCoverBlob ? (
-              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-black/60">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={product.image}
-                  alt={title}
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
-            ) : (
-              <div className="relative p-6 sm:p-10">
-                <div className="absolute top-0 right-0 w-72 h-72 bg-[#FF532A]/20 rounded-full blur-3xl pointer-events-none" />
-                <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-[#FF532A] flex items-center justify-center text-white mb-4 shadow-lg shadow-[#FF532A]/30">
-                    <Code2 className="w-8 h-8" />
-                  </div>
-                  <h3 className="hd text-2xl sm:text-3xl font-bold mb-2">
-                    {title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 max-w-[480px] leading-relaxed mb-6">
-                    {shortDesc}
-                  </p>
-
-                  {product.stack && product.stack.length > 0 && (
-                    <div className="flex flex-wrap items-center justify-center gap-2">
-                      {product.stack.map((item) => (
-                        <span
-                          key={item}
-                          className="px-3.5 py-1 rounded-full bg-neutral-800 text-neutral-200 text-xs font-mono border border-neutral-700"
-                        >
-                          {item}
-                        </span>
-                      ))}
+                  {/* Indicator / Counter pill */}
+                  {allImages.length > 1 && (
+                    <div className="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-mono border border-white/10">
+                      {selectedImageIndex + 1} / {allImages.length}
                     </div>
                   )}
+
+                  {/* Controls Prev / Next */}
+                  {allImages.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handlePrevImage}
+                        aria-label={lang === "es" ? "Imagen anterior" : "Previous image"}
+                        className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNextImage}
+                        aria-label={lang === "es" ? "Siguiente imagen" : "Next image"}
+                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </>
+                  )}
                 </div>
+              ) : (
+                <div className="relative p-6 sm:p-10 bg-[#171717] text-white">
+                  <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-[#FF532A] flex items-center justify-center text-white mb-4 shadow-lg shadow-[#FF532A]/30">
+                      <Code2 className="w-8 h-8" />
+                    </div>
+                    <h3 className="hd text-2xl sm:text-3xl font-bold mb-2">
+                      {title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-400 max-w-[480px] leading-relaxed">
+                      {shortDesc}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Miniaturas Inferiores (Imágenes adicionales) */}
+            {allImages.length > 1 && (
+              <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pt-2 pb-1 scrollbar-thin scrollbar-thumb-neutral-200">
+                {allImages.map((imgUrl, idx) => {
+                  const isSelected = idx === selectedImageIndex;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setSelectedImageIndex(idx)}
+                      aria-label={
+                        lang === "es"
+                          ? `Ver captura ${idx + 1}`
+                          : `View screenshot ${idx + 1}`
+                      }
+                      className={`relative shrink-0 w-24 sm:w-28 aspect-[16/10] rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                        isSelected
+                          ? "border-[#FF532A] shadow-md shadow-[#FF532A]/20 scale-102 ring-2 ring-[#FF532A]/20"
+                          : "border-neutral-200 hover:border-neutral-400 opacity-70 hover:opacity-100"
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={imgUrl}
+                        alt={`${title} - miniatura ${idx + 1}`}
+                        className="w-full h-full object-cover object-top"
+                      />
+                      {idx === 0 && (
+                        <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-black/75 text-[9px] font-bold text-white uppercase tracking-wider">
+                          {lang === "es" ? "Principal" : "Main"}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -231,16 +319,8 @@ export function MarketplaceDetailView({
             </div>
           )}
 
-          {/* Interactive Additional Gallery Viewer (Omitted if no additional images) */}
-          <MarketplaceGallery
-            mainImage={product.image || ""}
-            gallery={product.gallery || []}
-            title={title}
-            lang={lang}
-          />
-
-          {/* Ficha Técnica & Arquitectura (Omitted if empty) */}
-          {hasArchitecture && (
+          {/* Ficha Técnica & Arquitectura (Dinámica) */}
+          {specsList.length > 0 && (
             <div className="rounded-[32px] border border-neutral-200 bg-neutral-50 p-6 sm:p-8">
               <div className="flex items-center gap-2 mb-6">
                 <Cpu className="w-5 h-5 text-[#FF532A]" />
@@ -252,73 +332,25 @@ export function MarketplaceDetailView({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {product.architecture?.frontend && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      Frontend Core
-                    </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.frontend}
-                    </div>
-                  </div>
-                )}
+                {specsList.map((spec, idx) => {
+                  const specTitle = spec.title?.[lang] || spec.title?.es || spec.title?.en || "";
+                  const specDetail = spec.detail?.[lang] || spec.detail?.es || spec.detail?.en || "";
+                  if (!specTitle && !specDetail) return null;
 
-                {product.architecture?.backend && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      Backend & API
+                  return (
+                    <div
+                      key={idx}
+                      className="p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200/80 shadow-2xs hover:border-neutral-300 transition-all"
+                    >
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF532A] mb-1.5">
+                        {specTitle}
+                      </div>
+                      <div className="text-sm sm:text-[15px] font-semibold text-[#171717] leading-snug">
+                        {specDetail}
+                      </div>
                     </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.backend}
-                    </div>
-                  </div>
-                )}
-
-                {product.architecture?.database && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      {lang === "es" ? "Base de Datos" : "Database"}
-                    </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.database}
-                    </div>
-                  </div>
-                )}
-
-                {product.architecture?.styling && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      {lang === "es" ? "Estilos & UI" : "Styling & UI"}
-                    </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.styling}
-                    </div>
-                  </div>
-                )}
-
-                {product.architecture?.auth && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      {lang === "es" ? "Autenticación" : "Authentication"}
-                    </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.auth}
-                    </div>
-                  </div>
-                )}
-
-                {product.architecture?.deployment && (
-                  <div className="p-4 rounded-2xl bg-white border border-neutral-200/80">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      {lang === "es"
-                        ? "Despliegue Recomendado"
-                        : "Recommended Deployment"}
-                    </div>
-                    <div className="text-sm font-semibold text-[#171717]">
-                      {product.architecture.deployment}
-                    </div>
-                  </div>
-                )}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -461,17 +493,26 @@ export function MarketplaceDetailView({
 
             {/* Main Action Buttons */}
             <div className="space-y-3 mb-6">
-              <a
-                href={getWhatsAppBuyLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-4 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>
-                  {lang === "es" ? "Adquirir vía WhatsApp" : "Buy via WhatsApp"}
-                </span>
-              </a>
+              {lang === "es" ? (
+                <a
+                  href={getWhatsAppBuyLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Comprar vía WhatsApp</span>
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsBuyModalOpen(true)}
+                  className="w-full py-4 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
+                >
+                  <Lock className="w-4 h-4" />
+                  <span>Buy Now</span>
+                </button>
+              )}
 
               {product.demoUrl && (
                 <a
@@ -740,6 +781,150 @@ export function MarketplaceDetailView({
           <ArrowUpRight className="w-4 h-4 text-[#FF532A]" />
         </Link>
       </div>
+
+      {/* English Purchase Request Modal */}
+      <AnimatePresence>
+        {isBuyModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                if (!isSubmittingOrder) setIsBuyModalOpen(false);
+              }}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
+            />
+
+            {/* Modal Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-[500px] bg-[#171717] border border-neutral-800 rounded-3xl p-6 sm:p-8 text-white shadow-2xl z-10"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setIsBuyModalOpen(false)}
+                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {orderSubmitted ? (
+                /* Success Confirmation State */
+                <div className="text-center py-6 space-y-4">
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-7 h-7" />
+                  </div>
+                  <div>
+                    <h3 className="hd text-2xl font-bold text-white mb-2">
+                      Purchase Request Received!
+                    </h3>
+                    <p className="text-sm text-neutral-300 leading-relaxed max-w-[380px] mx-auto">
+                      We have received your purchase inquiry for{" "}
+                      <strong className="text-white">{title}</strong>. We will contact you at{" "}
+                      <strong className="text-[#FF532A]">{buyerEmail}</strong> shortly with your secure payment options and instant codebase repository access.
+                    </p>
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsBuyModalOpen(false);
+                        setOrderSubmitted(false);
+                        setBuyerEmail("");
+                        setBuyerNote("");
+                      }}
+                      className="px-6 py-2.5 rounded-full bg-white text-[#171717] hover:bg-neutral-100 text-xs font-semibold transition-all cursor-pointer"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* Purchase Form */
+                <div>
+                  <div className="mb-6">
+                    <span className="text-xs font-bold text-[#FF532A] uppercase tracking-wider block mb-1">
+                      Direct Purchase
+                    </span>
+                    <h3 className="hd text-2xl font-bold text-white leading-tight">
+                      {title}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="text-xl font-extrabold text-white">
+                        {product.price}
+                      </span>
+                      <span className="text-xs text-neutral-400">
+                        • One-time payment, lifetime commercial license
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#202024] border border-neutral-800 rounded-2xl p-4 mb-6 text-xs text-neutral-300 leading-relaxed flex items-start gap-3">
+                    <Lock className="w-4 h-4 text-[#FF532A] shrink-0 mt-0.5" />
+                    <p className="m-0">
+                      Submit your information and we will contact you shortly to complete your secure purchase and deliver the source code repository.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleBuyEnglishSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                        Your Email Address <span className="text-[#FF532A]">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={buyerEmail}
+                        onChange={(e) => setBuyerEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        className="w-full px-4 py-3 rounded-xl bg-[#202024] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm"
+                      />
+                      <span className="text-[11px] text-neutral-500 mt-1 block">
+                        We will send the checkout link and repository access instructions here.
+                      </span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                        Optional Note or Requirements
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={buyerNote}
+                        onChange={(e) => setBuyerNote(e.target.value)}
+                        placeholder="Tell us about your project, timeline, or any questions..."
+                        className="w-full px-4 py-2.5 rounded-xl bg-[#202024] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmittingOrder}
+                      className="w-full py-3.5 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-101 active:scale-98 cursor-pointer disabled:opacity-50 mt-6"
+                    >
+                      {isSubmittingOrder ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      ) : (
+                        <>
+                          <Lock className="w-4 h-4" />
+                          <span>Submit Purchase Request</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MarketplaceProduct, getMarketplaceTitle } from "@/data/marketplace";
+import { MarketplaceProduct, getMarketplaceTitle, getProductSpecs, MarketplaceSpecItem } from "@/data/marketplace";
 import { saveMarketplaceProductAction, deleteBlobsAction } from "@/app/admin/actions";
 import { ImageUploader } from "./ImageUploader";
 import {
@@ -71,14 +71,8 @@ export function MarketplaceForm({
           en: initialData.fullDesc?.en || initialData.fullDesc?.es || "",
           es: initialData.fullDesc?.es || initialData.fullDesc?.en || "",
         },
-        architecture: initialData.architecture || {
-          frontend: "Next.js 16 (App Router) + React 19",
-          backend: "Next.js Server Actions & Route Handlers",
-          database: "PostgreSQL (Supabase o Vercel Postgres)",
-          styling: "Tailwind CSS v4 + Lucide Icons",
-          auth: "Supabase Auth / NextAuth con roles",
-          deployment: "Listo para desplegar en Vercel con 1 clic",
-        },
+        specs: getProductSpecs(initialData),
+        architecture: initialData.architecture,
         features: {
           en: initialData.features?.en || [],
           es: initialData.features?.es || [],
@@ -114,14 +108,24 @@ export function MarketplaceForm({
         en: "",
         es: "",
       },
-      architecture: {
-        frontend: "Next.js 16 (App Router) + React 19",
-        backend: "Next.js Server Actions & Route Handlers",
-        database: "PostgreSQL (Supabase o Vercel Postgres)",
-        styling: "Tailwind CSS v4 + Lucide Icons",
-        auth: "Supabase Auth / NextAuth con roles",
-        deployment: "Listo para desplegar en Vercel con 1 clic",
-      },
+      specs: [
+        {
+          title: { en: "Frontend Core", es: "Frontend Core" },
+          detail: { en: "Next.js 16 (App Router) + React 19", es: "Next.js 16 (App Router) + React 19" },
+        },
+        {
+          title: { en: "Backend & API", es: "Backend & API" },
+          detail: { en: "Next.js Server Actions & Route Handlers", es: "Next.js Server Actions & Route Handlers" },
+        },
+        {
+          title: { en: "Database", es: "Base de Datos" },
+          detail: { en: "PostgreSQL (Supabase / Neon)", es: "PostgreSQL (Supabase / Neon)" },
+        },
+        {
+          title: { en: "Styling & UI", es: "Estilos & UI" },
+          detail: { en: "Tailwind CSS v4 + Lucide Icons", es: "Tailwind CSS v4 + Lucide Icons" },
+        },
+      ],
       features: {
         en: [
           "Complete sign up & login flow (Google, GitHub, Email)",
@@ -254,24 +258,62 @@ export function MarketplaceForm({
     });
   };
 
-  // Stack (item-by-item chips)
-  const handleStackChange = (index: number, val: string) => {
-    const updated = [...(formData.stack || [])];
-    updated[index] = val;
-    setFormData({ ...formData, stack: updated });
+  // Specs / Ficha Técnica & Arquitectura (Bilingual: Title & Detail)
+  const addSpec = () => {
+    setFormData((prev) => ({
+      ...prev,
+      specs: [
+        ...(prev.specs || []),
+        {
+          title: { en: "", es: "" },
+          detail: { en: "", es: "" },
+        },
+      ],
+    }));
   };
 
-  const addStackTech = () => {
-    setFormData({
-      ...formData,
-      stack: [...(formData.stack || []), "Nueva Tecnología"],
+  const removeSpec = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      specs: (prev.specs || []).filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleSpecTitleChange = (
+    index: number,
+    lang: "en" | "es",
+    val: string
+  ) => {
+    setFormData((prev) => {
+      const currentList = [...(prev.specs || [])];
+      if (!currentList[index]) return prev;
+      currentList[index] = {
+        ...currentList[index],
+        title: {
+          ...currentList[index].title,
+          [lang]: val,
+        },
+      };
+      return { ...prev, specs: currentList };
     });
   };
 
-  const removeStackTech = (index: number) => {
-    setFormData({
-      ...formData,
-      stack: (formData.stack || []).filter((_, i) => i !== index),
+  const handleSpecDetailChange = (
+    index: number,
+    lang: "en" | "es",
+    val: string
+  ) => {
+    setFormData((prev) => {
+      const currentList = [...(prev.specs || [])];
+      if (!currentList[index]) return prev;
+      currentList[index] = {
+        ...currentList[index],
+        detail: {
+          ...currentList[index].detail,
+          [lang]: val,
+        },
+      };
+      return { ...prev, specs: currentList };
     });
   };
 
@@ -404,8 +446,20 @@ export function MarketplaceForm({
     setLoading(true);
     setError(null);
 
+    const cleanedSpecs = (formData.specs || []).filter(
+      (s) =>
+        Boolean(s.title?.en?.trim() || s.title?.es?.trim()) &&
+        Boolean(s.detail?.en?.trim() || s.detail?.es?.trim())
+    );
+
+    const payload: MarketplaceProduct = {
+      ...formData,
+      specs: cleanedSpecs,
+      architecture: cleanedSpecs,
+    };
+
     try {
-      await saveMarketplaceProductAction(formData);
+      await saveMarketplaceProductAction(payload);
 
       // Clean up physically deleted images from Vercel Blob only upon saving
       if (pendingBlobDeletions.length > 0) {
@@ -605,7 +659,9 @@ export function MarketplaceForm({
                       const cat = e.target.value as any;
                       const labels: Record<string, { es: string; en: string }> = {
                         saas: { es: "SaaS & Dashboard", en: "SaaS & Dashboard" },
-                        ecommerce: { es: "E-Commerce", en: "E-Commerce" },
+                        ecommerce: { es: "Tienda Online", en: "E-Commerce" },
+                        "custom-systems": { es: "Sistema a Medida", en: "Custom System" },
+                        cms: { es: "CMS / Plataforma de Contenido", en: "CMS / Content Platform" },
                         agencies: { es: "Agencia & Portafolio", en: "Agency & Portfolio" },
                         landing: { es: "Landing Page", en: "Landing Page" },
                       };
@@ -621,7 +677,9 @@ export function MarketplaceForm({
                     className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs outline-none focus:border-[#FF532A]"
                   >
                     <option value="saas">SaaS & Dashboard</option>
-                    <option value="ecommerce">E-Commerce</option>
+                    <option value="ecommerce">Tienda Online / E-Commerce</option>
+                    <option value="custom-systems">Sistema a Medida / Custom System</option>
+                    <option value="cms">CMS / Plataforma de Contenido</option>
                     <option value="agencies">Agencia & Portafolio</option>
                     <option value="landing">Landing Page</option>
                   </select>
@@ -958,169 +1016,124 @@ export function MarketplaceForm({
             )}
           </div>
 
-          {/* Card 5: Arquitectura & Ficha Técnica (OPCIONAL) */}
+          {/* Card 5: Arquitectura & Ficha Técnica (OPCIONAL - DINÁMICO & BILINGÜE) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
-            <div className="border-b border-white/5 pb-3">
-              <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-[#FF532A]" />
-                Arquitectura & Ficha Técnica <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
-              </h2>
-              <p className="text-[11px] text-neutral-400 mt-0.5">
-                Especificaciones técnicas del paquete (dejar vacío si no aplica).
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <div>
+                <h2 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-[#FF532A]" />
+                  Ficha Técnica & Arquitectura{" "}
+                  <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
+                </h2>
+                <p className="text-[11px] text-neutral-400 mt-0.5">
+                  Añade tantas especificaciones técnicas como desees con su título y detalle (bilingüe).
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={addSpec}
+                className="px-3 py-1.5 rounded-lg bg-[#FF532A] hover:bg-[#e0451e] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Añadir</span>
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {(formData.specs || []).map((spec, idx) => (
+                <div
+                  key={idx}
+                  className="bg-[#202024] p-4 rounded-xl border border-white/5 space-y-3"
+                >
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-xs font-bold text-[#FF532A] flex items-center gap-1.5">
+                      <span className="w-5 h-5 rounded-md bg-[#FF532A]/10 flex items-center justify-center text-[10px]">
+                        #{idx + 1}
+                      </span>
+                      <span>Especificación Técnica</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => removeSpec(idx)}
+                      className="p-1 rounded-md text-neutral-400 hover:text-red-400 hover:bg-white/5 transition-colors cursor-pointer"
+                      title="Eliminar especificación"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Título en Inglés y Español */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        Título (Inglés)
+                      </label>
+                      <input
+                        type="text"
+                        value={spec.title?.en || ""}
+                        onChange={(e) =>
+                          handleSpecTitleChange(idx, "en", e.target.value)
+                        }
+                        placeholder="e.g. Frontend Core, Database..."
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        Título (Español)
+                      </label>
+                      <input
+                        type="text"
+                        value={spec.title?.es || ""}
+                        onChange={(e) =>
+                          handleSpecTitleChange(idx, "es", e.target.value)
+                        }
+                        placeholder="ej. Frontend Core, Base de Datos..."
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Detalle en Inglés y Español */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        Detalle / Valor (Inglés)
+                      </label>
+                      <input
+                        type="text"
+                        value={spec.detail?.en || ""}
+                        onChange={(e) =>
+                          handleSpecDetailChange(idx, "en", e.target.value)
+                        }
+                        placeholder="e.g. Next.js 16 (App Router) + React 19..."
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-medium text-neutral-300 mb-1">
+                        Detalle / Valor (Español)
+                      </label>
+                      <input
+                        type="text"
+                        value={spec.detail?.es || ""}
+                        onChange={(e) =>
+                          handleSpecDetailChange(idx, "es", e.target.value)
+                        }
+                        placeholder="ej. Next.js 16 (App Router) + React 19..."
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {(!formData.specs || formData.specs.length === 0) && (
+              <p className="text-xs text-neutral-500 py-3 text-center">
+                Sin especificaciones añadidas. Haz clic en &ldquo;Añadir&rdquo; para agregar una.
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Frontend Core
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.frontend || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: e.target.value,
-                        backend: formData.architecture?.backend || "",
-                        database: formData.architecture?.database || "",
-                        styling: formData.architecture?.styling || "",
-                        auth: formData.architecture?.auth || "",
-                        deployment: formData.architecture?.deployment || "",
-                      },
-                    })
-                  }
-                  placeholder="Next.js 16 (App Router) + React 19"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Backend & API
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.backend || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: formData.architecture?.frontend || "",
-                        backend: e.target.value,
-                        database: formData.architecture?.database || "",
-                        styling: formData.architecture?.styling || "",
-                        auth: formData.architecture?.auth || "",
-                        deployment: formData.architecture?.deployment || "",
-                      },
-                    })
-                  }
-                  placeholder="Next.js Server Actions & Route Handlers"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Base de Datos
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.database || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: formData.architecture?.frontend || "",
-                        backend: formData.architecture?.backend || "",
-                        database: e.target.value,
-                        styling: formData.architecture?.styling || "",
-                        auth: formData.architecture?.auth || "",
-                        deployment: formData.architecture?.deployment || "",
-                      },
-                    })
-                  }
-                  placeholder="PostgreSQL (Supabase o Vercel Postgres)"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Estilos & UI
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.styling || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: formData.architecture?.frontend || "",
-                        backend: formData.architecture?.backend || "",
-                        database: formData.architecture?.database || "",
-                        styling: e.target.value,
-                        auth: formData.architecture?.auth || "",
-                        deployment: formData.architecture?.deployment || "",
-                      },
-                    })
-                  }
-                  placeholder="Tailwind CSS v4 + Lucide Icons"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Autenticación
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.auth || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: formData.architecture?.frontend || "",
-                        backend: formData.architecture?.backend || "",
-                        database: formData.architecture?.database || "",
-                        styling: formData.architecture?.styling || "",
-                        auth: e.target.value,
-                        deployment: formData.architecture?.deployment || "",
-                      },
-                    })
-                  }
-                  placeholder="Supabase Auth / NextAuth con roles"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                  Despliegue Recomendado
-                </label>
-                <input
-                  type="text"
-                  value={formData.architecture?.deployment || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      architecture: {
-                        frontend: formData.architecture?.frontend || "",
-                        backend: formData.architecture?.backend || "",
-                        database: formData.architecture?.database || "",
-                        styling: formData.architecture?.styling || "",
-                        auth: formData.architecture?.auth || "",
-                        deployment: e.target.value,
-                      },
-                    })
-                  }
-                  placeholder="Listo para desplegar en Vercel con 1 clic"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
-                />
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Card 6: Preguntas Frecuentes / FAQs (OPCIONAL - BILINGÜE) */}
@@ -1470,58 +1483,6 @@ export function MarketplaceForm({
                 Aparecerá como botón secundario &ldquo;Ver Demo en Vivo&rdquo;.
               </p>
             </div>
-          </div>
-
-          {/* Card: Stack Tecnológico (OPCIONAL) */}
-          <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/5 pb-3">
-              <div>
-                <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Code2 className="w-4 h-4 text-[#FF532A]" />
-                  Stack Tecnológico <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
-                </h2>
-                <p className="text-[10px] text-neutral-400 mt-0.5">
-                  Insignias de tecnologías principales.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={addStackTech}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-colors cursor-pointer"
-              >
-                <Plus className="w-3.5 h-3.5 text-[#FF532A]" />
-                Añadir
-              </button>
-            </div>
-
-            <div className="space-y-2">
-              {(formData.stack || []).map((tech, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={tech}
-                    onChange={(e) => handleStackChange(idx, e.target.value)}
-                    placeholder="Ej: Next.js 16"
-                    className="flex-1 bg-[#202024] border border-white/10 rounded-xl px-3 py-1.5 text-white text-xs font-mono outline-none focus:border-[#FF532A]"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeStackTech(idx)}
-                    className="p-1.5 text-neutral-500 hover:text-red-400 transition-colors cursor-pointer"
-                    title="Eliminar tecnología"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {(!formData.stack || formData.stack.length === 0) && (
-              <p className="text-xs text-neutral-500 py-2 text-center">
-                Sin tecnologías añadidas. Haz clic en &ldquo;Añadir&rdquo;.
-              </p>
-            )}
           </div>
         </div>
       </div>

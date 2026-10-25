@@ -43,14 +43,7 @@ export const marketplaceProducts = pgTable("marketplace_products", {
   salesCount: integer("sales_count").default(0).notNull(),
   shortDesc: jsonb("short_desc").$type<{ es: string; en: string }>().notNull(),
   fullDesc: jsonb("full_desc").$type<{ es: string; en: string }>().notNull(),
-  architecture: jsonb("architecture").$type<{
-    frontend: string;
-    backend: string;
-    database: string;
-    styling: string;
-    auth: string;
-    deployment: string;
-  }>().notNull(),
+  architecture: jsonb("architecture").$type<any>().notNull(),
   features: jsonb("features").$type<{ es: string[]; en: string[] }>().notNull(),
   includedFiles: jsonb("included_files").$type<{ es: string[]; en: string[] }>().notNull(),
   stack: jsonb("stack").$type<string[]>().notNull(),

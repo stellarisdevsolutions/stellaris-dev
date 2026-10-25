@@ -10,12 +10,56 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
   const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState("all");
 
-  const categories = [
+  const projectsList = items || PROJECTS;
+
+  // Mapa de etiquetas bilingües para las categorías
+  const categoryLabels: Record<string, { es: string; en: string }> = {
+    web: { es: "Sitios Web", en: "Websites" },
+    ecommerce: { es: "Tienda Online", en: "Online Store" },
+    "custom-systems": { es: "Sistemas a Medida", en: "Custom Systems" },
+    cms: { es: "CMS", en: "CMS" },
+    agency: { es: "Agencias", en: "Agencies" },
+    portfolio: { es: "Portafolios", en: "Portfolios" },
+    landing: { es: "Landing Pages", en: "Landing Pages" },
+  };
+
+  // Conjunto de categorías que realmente tienen proyectos cargados
+  const existingCategoryIds = new Set(projectsList.map((p) => p.category));
+
+  // Filtramos las pestañas para mostrar SOLO las categorías que tienen proyectos registrados
+  const visibleCategories: { id: string; label: string }[] = [
     { id: "all", label: lang === "es" ? "Todos" : "All" },
-    { id: "landing", label: lang === "es" ? "Landing Pages" : "Landing Pages" },
-    { id: "web", label: lang === "es" ? "Sitios Web" : "Websites" },
-    { id: "ecommerce", label: lang === "es" ? "E-Commerce" : "E-Commerce" },
   ];
+
+  Object.entries(categoryLabels).forEach(([id, labels]) => {
+    if (existingCategoryIds.has(id)) {
+      visibleCategories.push({
+        id,
+        label: labels[lang] || labels.es,
+      });
+    }
+  });
+
+  // Agregar categorías dinámicas adicionales si existen en la BD pero no en el mapa predeterminado
+  existingCategoryIds.forEach((id) => {
+    if (!categoryLabels[id] && id) {
+      visibleCategories.push({
+        id,
+        label: id.charAt(0).toUpperCase() + id.slice(1),
+      });
+    }
+  });
+
+  // Filtrar proyectos según la categoría activa
+  const filteredProjects = projectsList.filter(
+    (p) => activeTab === "all" || p.category === activeTab
+  );
+
+  // Máximo 2 filas (6 proyectos en grid de 3 columnas)
+  const displayedProjects = filteredProjects.slice(0, 6);
+
+  // Condición para mostrar el botón de ver más si hay más de 6 proyectos
+  const hasMoreProjects = filteredProjects.length > 6 || projectsList.length > 6;
 
   return (
     <section id="portfolio" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
@@ -38,9 +82,9 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
         </Link>
       </div>
 
-      {/* Filter Tabs */}
+      {/* Filter Tabs (Solo muestra categorías que contienen proyectos) */}
       <div className="flex flex-wrap items-center gap-2 mb-10">
-        {categories.map((cat) => (
+        {visibleCategories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveTab(cat.id)}
@@ -56,60 +100,82 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
         ))}
       </div>
 
-      {/* Projects Grid / Cards (Diseño más sencillo, sin párrafos y sin tantos bordes) */}
+      {/* Projects Grid / Cards (Imagen completamente limpia, sin nada encima, máx 2 filas / 6 proyectos) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {(items || PROJECTS).filter((p) => activeTab === "all" || p.category === activeTab).map(
-          (project) => (
+        {displayedProjects.map((project) => {
+          const title =
+            typeof project.title === "object"
+              ? project.title[lang] || project.title.es || project.title.en || ""
+              : project.title;
+
+          const catLabel =
+            typeof project.categoryLabel === "object"
+              ? project.categoryLabel[lang] || project.categoryLabel.es || project.categoryLabel.en || project.category
+              : project.category;
+
+          const imageSrc =
+            project.bgPreview?.startsWith("http") || project.bgPreview?.startsWith("/")
+              ? project.bgPreview
+              : project.gallery?.[0];
+
+          return (
             <Link
               key={project.id}
               href={`/projects/${project.slug}`}
-              className="group flex flex-col rounded-3xl bg-neutral-50/80 hover:bg-white p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1"
+              className="group flex flex-col transition-all duration-300"
             >
-              {/* Imagen/Preview Limpia sin tantos bordes */}
-              <div
-                className={`w-full h-[230px] rounded-2xl ${project.bgPreview?.startsWith("http") ? "bg-cover bg-center" : project.bgPreview} p-5 flex flex-col justify-between text-white relative overflow-hidden mb-4`}
-                style={project.bgPreview?.startsWith("http") ? { backgroundImage: `url(${project.bgPreview})` } : undefined}
-              >
-                {/* Categoría y Botón de flecha circular */}
-                <div className="flex items-center justify-between z-10">
-                  <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-semibold">
-                    {project.categoryLabel[lang]}
-                  </span>
-                  <div className="w-9 h-9 rounded-full bg-white text-[#171717] flex items-center justify-center group-hover:bg-[#FF532A] group-hover:text-white transition-all shadow-md">
-                    <ArrowUpRight className="w-4 h-4" />
+              {/* Imagen/Preview Limpia - SIN NADA ENCIMA */}
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-3 shadow-xs">
+                {imageSrc ? (
+                  <img
+                    src={imageSrc}
+                    alt={title}
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div
+                    className={`w-full h-full ${
+                      project.bgPreview || "bg-neutral-900"
+                    } flex items-center justify-center transition-transform duration-500 group-hover:scale-105`}
+                  >
+                    <span className="text-xl sm:text-2xl font-bold text-white/90 font-mono tracking-tight px-4 text-center">
+                      {project.client}
+                    </span>
                   </div>
-                </div>
-
-                {/* Sutil resplandor de fondo limpio */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-
-                {/* Título integrado sobre el preview visual limpio */}
-                <div className="z-10 mt-auto">
-                  <span className="text-[11px] font-mono text-neutral-300 uppercase tracking-wider block mb-1">
-                    {project.client}
-                  </span>
-                  <div className="text-sm font-mono text-white/90 flex items-center gap-2">
-                    {project.stack.slice(0, 3).join(" • ")}
-                  </div>
-                </div>
+                )}
               </div>
 
-              {/* Título y Enlace directo (sin párrafo largo de texto) */}
-              <div className="pt-2 flex items-center justify-between gap-2">
-                <h3 className="hd text-lg sm:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-1 m-0">
-                  {typeof project.title === "object"
-                    ? project.title[lang] || project.title.es
-                    : project.title}
-                </h3>
-                <span className="text-xs font-semibold text-[#FF532A] shrink-0 group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
-                  <span>{lang === "es" ? "Ver caso" : "View"}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+              {/* Información debajo de la imagen (limpio, sin nada sobre la foto) */}
+              <div className="flex flex-col">
+                {/* Etiqueta de Categoría - NO diseño cápsula (tipográfica, minimalista) */}
+                <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1">
+                  {catLabel}
                 </span>
+
+                {/* Título del proyecto - Máximo 2 filas */}
+                <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                  {title}
+                </h3>
               </div>
             </Link>
-          )
-        )}
+          );
+        })}
       </div>
+
+      {/* Botón Ver todos los proyectos si hay más de 6 proyectos */}
+      {hasMoreProjects && (
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 bg-[#171717] hover:bg-[#FF532A] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 hover:scale-105 active:scale-95 group"
+          >
+            <span>
+              {lang === "es" ? "Ver todos los proyectos" : "View All Projects"}
+            </span>
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -52,27 +53,19 @@ export function Services() {
               </p>
             </div>
 
-            {/* Folder Mockup Preview Box */}
-            <div className="relative rounded-2xl bg-[#171717] p-4 border border-neutral-800 flex flex-col justify-between min-h-[190px] overflow-hidden">
-              {/* Simulated mini browser */}
-              <div className="flex items-center gap-1.5 mb-3">
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-              </div>
-              <div className="w-[75%] h-3 rounded-full bg-neutral-700 mb-2" />
-              <div className="w-[50%] h-2 rounded-full bg-neutral-800 mb-4" />
-              <div className="grid grid-cols-2 gap-2 mt-auto">
-                <div className="h-14 rounded-xl bg-neutral-800 flex items-center justify-center text-[10px] text-neutral-400 font-mono">
-                  Corporate
-                </div>
-                <div className="h-14 rounded-xl bg-neutral-800 flex items-center justify-center text-[10px] text-[#FF532A] font-mono font-semibold">
-                  100 SEO
-                </div>
-              </div>
+            {/* Real WebP Image Preview Box */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/10] w-full bg-[#171717] border border-neutral-800/90 shadow-md">
+              <Image
+                src="/services/sitios-web.webp"
+                alt={lang === "es" ? "Sitios Web & Landing Pages" : "Websites & Landing Pages"}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/60 via-transparent to-transparent pointer-events-none" />
 
               {/* Circular Action Arrow Button */}
-              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#171717] border border-neutral-700 text-white flex items-center justify-center group-hover:bg-[#FF532A] group-hover:border-[#FF532A] transition-all shadow-md">
+              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#171717]/90 backdrop-blur-md border border-neutral-700 text-white flex items-center justify-center group-hover:bg-[#FF532A] group-hover:border-[#FF532A] transition-all shadow-lg z-20">
                 <ArrowUpRight className="w-4 h-4" />
               </div>
             </div>
@@ -86,7 +79,7 @@ export function Services() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="hd text-xl sm:text-2xl font-bold text-white m-0">
-                  {lang === "es" ? "E-Commerce" : "E-Commerce"}
+                  {lang === "es" ? "Tienda Online" : "E-Commerce"}
                 </h3>
                 <span className="px-2.5 py-1 rounded-full bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider">
                   {lang === "es" ? "Popular" : "Popular"}
@@ -99,27 +92,19 @@ export function Services() {
               </p>
             </div>
 
-            {/* Folder Mockup Preview Box */}
-            <div className="relative rounded-2xl bg-white p-4 flex flex-col justify-between min-h-[190px] shadow-lg overflow-hidden">
-              {/* Simulated mini shop */}
-              <div className="flex items-center gap-1.5 mb-3">
-                <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                <span className="w-2 h-2 rounded-full bg-neutral-300" />
-                <span className="w-2 h-2 rounded-full bg-neutral-300" />
-              </div>
-              <div className="w-[60%] h-3 rounded-full bg-[#171717] mb-2" />
-              <div className="w-[85%] h-2 rounded-full bg-neutral-200 mb-4" />
-              <div className="grid grid-cols-2 gap-2 mt-auto">
-                <div className="h-14 rounded-xl bg-neutral-100 flex items-center justify-center text-[10px] text-neutral-700 font-semibold">
-                  Carrito & Pagos
-                </div>
-                <div className="h-14 rounded-xl bg-[#171717] text-white flex items-center justify-center text-[10px] font-semibold">
-                  WhatsApp CRM
-                </div>
-              </div>
+            {/* Real WebP Image Preview Box without tab simulation */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/10] w-full bg-neutral-100 border border-white/20 shadow-lg group/img">
+              <Image
+                src="/services/ecommerce.webp"
+                alt={lang === "es" ? "Tienda Online" : "E-Commerce & Online Stores"}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
 
               {/* Circular Action Arrow Button */}
-              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#FF532A] text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
+              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#FF532A] text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg z-20">
                 <ArrowUpRight className="w-4 h-4 text-white" />
               </div>
             </div>
@@ -143,27 +128,19 @@ export function Services() {
               </p>
             </div>
 
-            {/* Folder Mockup Preview Box */}
-            <div className="relative rounded-2xl bg-[#171717] p-4 border border-neutral-800 flex flex-col justify-between min-h-[190px] overflow-hidden">
-              {/* Simulated mini software dashboard */}
-              <div className="flex items-center gap-1.5 mb-3">
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-                <span className="w-2 h-2 rounded-full bg-neutral-700" />
-              </div>
-              <div className="w-[70%] h-3 rounded-full bg-[#FF532A] mb-2" />
-              <div className="w-[90%] h-2 rounded-full bg-neutral-700 mb-4" />
-              <div className="grid grid-cols-2 gap-2 mt-auto">
-                <div className="h-14 rounded-xl bg-neutral-800 flex items-center justify-center text-[10px] text-neutral-400 font-mono">
-                  Postgres DB
-                </div>
-                <div className="h-14 rounded-xl bg-neutral-800 flex items-center justify-center text-[10px] text-neutral-400 font-mono">
-                  SaaS & API
-                </div>
-              </div>
+            {/* Real WebP Image Preview Box without tab simulation */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[16/10] w-full bg-[#171717] border border-neutral-800/90 shadow-md group/img">
+              <Image
+                src="/services/sistemas-personalizados.webp"
+                alt={lang === "es" ? "Sistemas Web Personalizados" : "Custom Web Systems"}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/60 via-transparent to-transparent pointer-events-none" />
 
               {/* Circular Action Arrow Button */}
-              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#171717] border border-neutral-700 text-white flex items-center justify-center group-hover:bg-[#FF532A] group-hover:border-[#FF532A] transition-all shadow-md">
+              <div className="absolute right-3.5 bottom-3.5 w-10 h-10 rounded-full bg-[#171717]/90 backdrop-blur-md border border-neutral-700 text-white flex items-center justify-center group-hover:bg-[#FF532A] group-hover:border-[#FF532A] transition-all shadow-lg z-20">
                 <ArrowUpRight className="w-4 h-4" />
               </div>
             </div>

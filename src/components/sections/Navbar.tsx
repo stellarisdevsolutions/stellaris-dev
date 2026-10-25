@@ -34,8 +34,8 @@ export function Navbar() {
 
   return (
     <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[880px]">
-      {/* Floating Pill Container matching exact reference */}
-      <div className="bg-[#171717]/95 backdrop-blur-md border border-neutral-800/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex items-center justify-between gap-2 sm:gap-4">
+      {/* Floating Pill Container con sombra sutil y elegante */}
+      <div className="bg-[#171717]/95 backdrop-blur-md border border-neutral-800/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.12)] flex items-center justify-between gap-2 sm:gap-4">
         {/* Left Navigation Links (Todos en mayúsculas) */}
         <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[12.5px] font-semibold tracking-wider text-neutral-300">
           {leftNav.map((link, idx) => (

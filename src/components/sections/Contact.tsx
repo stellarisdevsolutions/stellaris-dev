@@ -29,15 +29,15 @@ export function Contact() {
       setSubmitted(true);
     } catch (err) {
       console.warn("Contact form fallback:", err);
+      setSubmitted(true);
     } finally {
       setSending(false);
     }
 
-    const text =
-      lang === "es"
-        ? `Hola Stellaris Dev! Mi nombre es ${name}. Correo: ${email}. Proyecto: ${projectType}. Mensaje: ${message}`
-        : `Hi Stellaris Dev! My name is ${name}. Email: ${email}. Project: ${projectType}. Message: ${message}`;
-    window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
+    if (lang === "es") {
+      const text = `Hola Stellaris Dev! Mi nombre es ${name}. Correo: ${email}. Proyecto: ${projectType}. Mensaje: ${message}`;
+      window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
+    }
   };
 
   return (
@@ -84,12 +84,12 @@ export function Contact() {
             </div>
             <div>
               <div className="text-xs text-neutral-400 font-semibold uppercase tracking-wider">
-                WhatsApp Directo
+                {lang === "es" ? "WhatsApp Directo" : "Direct Phone / Mobile"}
               </div>
               <a
-                href="https://wa.me/59169991245"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={lang === "es" ? "https://wa.me/59169991245" : "tel:+59169991245"}
+                target={lang === "es" ? "_blank" : undefined}
+                rel={lang === "es" ? "noopener noreferrer" : undefined}
                 className="font-bold text-[#171717] hover:text-[#FF532A] transition-colors text-base"
               >
                 +591 69991245
@@ -188,7 +188,7 @@ export function Contact() {
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <span>{lang === "es" ? "Enviar Mensaje a WhatsApp" : "Send to WhatsApp"}</span>
+                  <span>{lang === "es" ? "Enviar Mensaje a WhatsApp" : "Send Inquiry"}</span>
                   <Send className="w-4 h-4" />
                 </>
               )}
@@ -197,7 +197,7 @@ export function Contact() {
               <p className="text-center text-xs text-emerald-400 mt-1 font-medium">
                 {lang === "es"
                   ? "✓ Solicitud registrada en el sistema. Redirigiendo a WhatsApp..."
-                  : "✓ Inquiry registered. Opening WhatsApp..."}
+                  : "✓ Inquiry submitted successfully. We will get in touch shortly."}
               </p>
             )}
           </form>

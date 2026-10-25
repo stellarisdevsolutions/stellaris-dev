@@ -288,9 +288,9 @@ export const TRANSLATIONS = {
       titleHighlight: "project",
       subtitle:
         "Ready to build or upgrade your digital presence? Send us a message and receive a free, no-obligation quote today.",
-      directWhatsapp: "Official WhatsApp",
+      directWhatsapp: "Direct Phone / Mobile",
       whatsappNumber: "+591 69991245",
-      whatsappBtn: "Chat on WhatsApp (+591 69991245)",
+      whatsappBtn: "Direct Call / Contact (+591 69991245)",
       emailLabel: "Official Email",
       emailAddress: "stellarisdev.us@gmail.com",
       guarantees: [
@@ -302,7 +302,7 @@ export const TRANSLATIONS = {
       formSubtitle: "Tell us about your idea and we'll reply right away.",
       nameLabel: "Your Name or Business",
       namePlaceholder: "e.g. Alex Johnson / TechCorp",
-      contactLabel: "WhatsApp Phone or Email",
+      contactLabel: "Phone Number or Email",
       contactPlaceholder: "e.g. +1 555 123 4567 or alex@company.com",
       planLabel: "Plan or Service of Interest",
       planOptions: [

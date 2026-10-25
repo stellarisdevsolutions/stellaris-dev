@@ -13,23 +13,23 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full bg-white text-[#171717] pt-24 sm:pt-28 pb-10 sm:pb-16 overflow-hidden flex flex-col justify-center min-h-[calc(100vh-20px)] max-h-[960px]"
+      className="relative w-full bg-white text-[#171717] pt-[92px] sm:pt-28 pb-5 sm:pb-16 overflow-hidden flex flex-col justify-center min-h-0 sm:min-h-[calc(100dvh-20px)] max-h-[960px]"
     >
       {/* ══════════════════════════════════════════════════════════════════
           FORMAS SÓLIDAS EN EL FONDO (INTEGRADAS EN TODO EL HERO)
           ══════════════════════════════════════════════════════════════════ */}
 
       {/* Crosshairs arquitectónicos en las esquinas */}
-      <div className="absolute top-20 left-6 sm:left-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
+      <div className="absolute top-20 left-4 sm:left-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
         +
       </div>
-      <div className="absolute top-20 right-6 sm:right-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
+      <div className="absolute top-20 right-4 sm:right-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
         +
       </div>
-      <div className="absolute bottom-8 left-6 sm:left-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
+      <div className="absolute bottom-8 left-4 sm:left-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
         +
       </div>
-      <div className="absolute bottom-8 right-6 sm:right-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
+      <div className="absolute bottom-8 right-4 sm:right-12 text-[#FF532A]/50 font-mono text-xs select-none pointer-events-none">
         +
       </div>
 
@@ -43,31 +43,31 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* Semicírculo sólido superior derecho */}
+      {/* Semicírculo sólido superior derecho (visible tanto en móvil como en desktop) */}
       <div
-        className="hidden md:block absolute -top-6 right-8 lg:right-28 w-32 h-16 rounded-b-full bg-[#FF532A] shadow-md shadow-[#FF532A]/20 pointer-events-none"
+        className="absolute -top-6 right-6 sm:right-10 lg:right-28 w-20 sm:w-28 lg:w-32 h-10 sm:h-14 lg:h-16 rounded-b-full bg-[#FF532A] shadow-md shadow-[#FF532A]/20 pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="hidden lg:block absolute top-20 right-20 w-3.5 h-3.5 rounded-full bg-[#171717] pointer-events-none"
+        className="hidden sm:block absolute top-20 right-20 w-3.5 h-3.5 rounded-full bg-[#171717] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Destellos sólidos '✦' que equilibran el fondo */}
+      {/* Destellos sólidos '✦' que equilibran el fondo (distribuidos en móvil y desktop) */}
       <span
-        className="hidden lg:block absolute left-1/4 top-16 text-[#FF532A] text-lg font-bold select-none pointer-events-none"
+        className="absolute right-6 sm:right-1/4 top-14 sm:top-16 text-[#FF532A] text-base sm:text-xl font-bold select-none pointer-events-none"
         aria-hidden="true"
       >
         ✦
       </span>
       <span
-        className="hidden lg:block absolute right-1/4 top-14 text-[#FF532A] text-xl font-bold select-none pointer-events-none"
+        className="hidden sm:block absolute left-1/4 top-16 text-[#FF532A] text-lg font-bold select-none pointer-events-none"
         aria-hidden="true"
       >
         ✦
       </span>
       <span
-        className="hidden sm:block absolute left-10 bottom-20 text-[#FF532A] text-base font-bold select-none pointer-events-none"
+        className="absolute left-5 sm:left-10 bottom-14 sm:bottom-20 text-[#FF532A] text-sm sm:text-base font-bold select-none pointer-events-none"
         aria-hidden="true"
       >
         ✦
@@ -82,13 +82,13 @@ export function Hero() {
       {/* ══════════════════════════════════════════════════════════════════
           CONTENIDO PRINCIPAL (COMPACTO Y AJUSTADO A VIEWPORT)
           ══════════════════════════════════════════════════════════════════ */}
-      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 flex flex-col items-center text-center relative z-10 my-auto">
+      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 flex flex-col items-center text-center relative z-10 my-0 sm:my-auto">
         {/* Etiqueta superior compacta */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#171717] text-white text-[11px] font-semibold tracking-wider uppercase mb-3 shadow-xs"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#171717] text-white text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase mb-1.5 sm:mb-3 shadow-xs"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
           <span>{lang === "es" ? "Estudio de Software & Web" : "Product & Web Studio"}</span>
@@ -100,33 +100,76 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="hd font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] leading-[1.08] tracking-[-1.5px] max-w-[980px] text-[#171717] mx-auto"
+          className="hd font-bold text-[28px] sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[70px] leading-[1.15] sm:leading-[1.08] tracking-[-0.5px] sm:tracking-[-1.5px] max-w-[980px] text-[#171717] mx-auto"
         >
-          {lang === "es" ? "Somos " : "We are "}
-          <span className="inline-block relative text-white bg-[#FF532A] px-3.5 sm:px-5 py-0.5 rounded-xl sm:rounded-2xl shadow-md shadow-[#FF532A]/25 -rotate-1 mx-1">
+          <span>{lang === "es" ? "Somos " : "We are "}</span>
+          <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-5 py-0.5 rounded-xl sm:rounded-2xl shadow-md shadow-[#FF532A]/25 -rotate-1 mx-1">
             Stellaris,
           </span>
-          <br className="hidden sm:inline" />
+          <br />
           <span className="font-extrabold text-[#171717]">
             {lang === "es" ? "Desarrollo Web & Software" : "Digital Experience Studio"}
           </span>
         </motion.h1>
 
+        {/* Subtítulo dinámico para dar vida y contexto */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="text-xs sm:text-base text-neutral-500 max-w-[540px] mx-auto mt-1 sm:mt-3 leading-relaxed font-normal"
+        >
+          {lang === "es"
+            ? "Diseñamos y programamos plataformas web, tiendas online y sistemas a medida que impulsan tu negocio."
+            : "We engineer high-impact web platforms, online stores, and bespoke software that scale your business."}
+        </motion.p>
+
+        {/* Social Proof Badges en Móvil (dan vida, color y dinamismo sin desbordar) */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="flex sm:hidden items-center justify-center gap-2 mt-1.5 mb-0"
+        >
+          <div className="inline-flex items-center gap-1.5 bg-neutral-100/90 px-3 py-1 rounded-full border border-neutral-200/80 shadow-xs text-[11px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A] animate-pulse" />
+            <span className="font-bold text-[#171717]">450+</span>
+            <span className="text-neutral-500 font-medium">
+              {lang === "es" ? "Proyectos" : "Projects"}
+            </span>
+          </div>
+          <div className="inline-flex items-center gap-1 bg-neutral-100/90 px-3 py-1 rounded-full border border-neutral-200/80 shadow-xs text-[11px]">
+            <div className="flex items-center text-[#FF532A]">
+              <Star className="w-3 h-3 fill-[#FF532A]" />
+            </div>
+            <span className="font-bold text-[#171717]">5.0</span>
+            <span className="text-neutral-500 font-medium">
+              {lang === "es" ? "(10 Años)" : "(10 Yrs)"}
+            </span>
+          </div>
+        </motion.div>
+
         {/* ══════════ ZONA VISUAL CON ARCO MÁS GRANDE Y PROTAGÓNICO ══════════ */}
-        <div className="relative mt-4 sm:mt-6 w-full max-w-[1180px] flex justify-center items-end min-h-[330px] sm:min-h-[400px] lg:min-h-[440px]">
-          {/* Capa 1: Gran arco sólido exterior */}
+        <div className="relative mt-1 sm:mt-6 w-full max-w-[1180px] flex justify-center items-end min-h-[215px] sm:min-h-[400px] lg:min-h-[440px]">
+          {/* Resplandor solar ambiental de fondo */}
           <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[660px] sm:w-[860px] lg:w-[1020px] h-[255px] sm:h-[335px] lg:h-[375px] bg-[#F7F7FA] rounded-t-full border-2 border-neutral-200/90 pointer-events-none"
+            className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[280px] sm:w-[540px] lg:w-[680px] h-[150px] sm:h-[240px] bg-[#FF532A]/20 rounded-full blur-2xl sm:blur-3xl pointer-events-none"
+            aria-hidden="true"
+          />
+
+          {/* Capa 1: Gran arco sólido exterior (adaptado a móvil para no cortar) */}
+          <div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] sm:w-[720px] md:w-[860px] lg:w-[1020px] h-[215px] sm:h-[310px] lg:h-[375px] bg-[#F7F7FA] rounded-t-full border-2 border-neutral-200/90 pointer-events-none"
             aria-hidden="true"
           />
 
           {/* Capa 2: Arco con trazo naranja geométrico sólido */}
           <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[540px] sm:w-[720px] lg:w-[850px] h-[215px] sm:h-[285px] lg:h-[315px] rounded-t-full border-2 border-[#FF532A]/40 pointer-events-none"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[600px] md:w-[720px] lg:w-[850px] h-[190px] sm:h-[265px] lg:h-[315px] rounded-t-full border-2 border-[#FF532A]/40 pointer-events-none"
             aria-hidden="true"
           />
 
-          {/* Formas sólidas circulares naranja a los lados */}
+          {/* Formas sólidas circulares naranja a los lados (Desktop) */}
           <div
             className="hidden lg:block absolute left-10 xl:left-14 top-4 w-16 h-16 rounded-full bg-[#FF532A] shadow-md shadow-[#FF532A]/20 pointer-events-none"
             aria-hidden="true"
@@ -136,8 +179,8 @@ export function Hero() {
             aria-hidden="true"
           />
 
-          {/* ══════════ TARJETAS FLOTANTES LIMPIAS (PROPORCIONALES) ══════════ */}
-          {/* Tarjeta Izquierda 1: Cita Testimonial */}
+          {/* ══════════ BADGES Y TARJETAS FLOTANTES (DESKTOP) ══════════ */}
+          {/* Tarjeta Izquierda 1: Cita Testimonial (Desktop) */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
@@ -154,7 +197,7 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Tarjeta Izquierda 2: Contador de Proyectos */}
+          {/* Tarjeta Izquierda 2: Contador de Proyectos (Tablet y Desktop) */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
@@ -169,7 +212,7 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Tarjeta Derecha: Experiencia & Estrellas */}
+          {/* Tarjeta Derecha: Experiencia & Estrellas (Tablet y Desktop) */}
           <motion.div
             initial={{ opacity: 0, x: 25 }}
             animate={{ opacity: 1, x: 0 }}
@@ -189,37 +232,39 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* ══════════ CENTRO: EL GRAN ARCO NARANJA SOLAR (MÁS GRANDE) & ROBOT ══════════ */}
-          <div className="relative flex flex-col items-center justify-end z-10">
-            {/* Center Orange Semicircle Arch Backdrop (AMPLIADO) */}
-            <div className="w-[320px] sm:w-[420px] lg:w-[480px] h-[235px] sm:h-[300px] lg:h-[335px] bg-[#FF532A] rounded-t-full relative flex items-end justify-center overflow-hidden shadow-2xl shadow-[#FF532A]/30">
-              {/* Inner subtle depth gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent pointer-events-none" />
-
-              {/* Robot Character emerging from arch */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 25 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative z-10 w-[250px] sm:w-[330px] lg:w-[370px] h-[255px] sm:h-[330px] lg:h-[370px] -mb-1.5"
-              >
-                <Image
-                  src="/robot.png"
-                  alt="Stellaris Dev Robot"
-                  fill
-                  sizes="(max-width: 640px) 250px, (max-width: 1024px) 330px, 370px"
-                  className="object-contain object-bottom drop-shadow-[0_20px_32px_rgba(0,0,0,0.32)]"
-                  priority
-                />
-              </motion.div>
+          {/* ══════════ CENTRO: EL GRAN ARCO NARANJA SOLAR & ILUSTRACIÓN HERO POP-OUT ══════════ */}
+          <div className="relative flex flex-col items-center justify-end z-10 w-full max-w-[850px] mx-auto">
+            {/* Semicírculo Naranja de Fondo (DETRÁS de la imagen) */}
+            <div
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[240px] sm:w-[420px] lg:w-[500px] h-[180px] sm:h-[240px] lg:h-[280px] bg-[#FF532A] rounded-t-full shadow-2xl shadow-[#FF532A]/35 z-0 overflow-hidden pointer-events-none"
+              aria-hidden="true"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Overlapping Dual Action Buttons pinned at bottom center */}
+            {/* Ilustración Hero en primer plano (DELANTE del arco y MÁS GRANDE, sobresaliendo libremente) */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 25 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative z-10 w-[300px] sm:w-[540px] lg:w-[680px] xl:w-[740px] h-[200px] sm:h-[310px] lg:h-[380px] xl:h-[410px] -mb-1 flex items-end justify-center"
+            >
+              <Image
+                src="/hero-main.webp"
+                alt="Stellaris Dev Hero"
+                fill
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 540px, 740px"
+                className="object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)] pointer-events-none select-none"
+                priority
+              />
+            </motion.div>
+
+            {/* Dual Action Buttons colocados en la base sin tapar la pantalla */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.35 }}
-              className="relative z-30 -mt-5 sm:-mt-6 flex items-center gap-2 sm:gap-2.5 bg-white/95 backdrop-blur-md p-1.5 rounded-full border border-neutral-200/80 shadow-[0_12px_28px_rgba(0,0,0,0.1)]"
+              className="relative z-30 -mt-1 sm:-mt-3 flex items-center gap-2 sm:gap-2.5 bg-white/95 backdrop-blur-md p-1.5 rounded-full border border-neutral-200/80 shadow-[0_12px_28px_rgba(0,0,0,0.1)]"
             >
               <Link
                 href="/projects"

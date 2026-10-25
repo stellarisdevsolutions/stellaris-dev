@@ -4,7 +4,15 @@ export interface ProjectItem {
   title: { en: string; es: string } | string;
   client: string;
   year: string;
-  category: "landing" | "web" | "ecommerce";
+  category:
+    | "web"
+    | "ecommerce"
+    | "custom-systems"
+    | "cms"
+    | "agency"
+    | "portfolio"
+    | "landing"
+    | string;
   categoryLabel: { es: string; en: string };
   tagline: { es: string; en: string };
   overview: { es: string; en: string };

@@ -11,7 +11,7 @@ export function About() {
   const techChips = ["Next.js", "NestJS", "Laravel", "PostgreSQL", "MySQL", "SQLite"];
 
   return (
-    <section id="about" className="w-full bg-white text-[#171717] py-16 sm:py-20 border-b border-neutral-100">
+    <section id="about" className="w-full bg-white text-[#171717] pt-8 sm:pt-20 pb-16 sm:pb-20 border-b border-neutral-100">
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8">
         {/* Header Eyebrow */}
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left mb-10">

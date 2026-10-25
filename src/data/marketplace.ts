@@ -1,10 +1,23 @@
+export interface MarketplaceSpecItem {
+  title: { es: string; en: string };
+  detail: { es: string; en: string };
+}
+
 export interface MarketplaceProduct {
   id: string;
   slug: string;
   title: { en: string; es: string } | string;
   image?: string;
   gallery?: string[];
-  category: "all" | "saas" | "ecommerce" | "agencies" | "landing";
+  category:
+    | "all"
+    | "saas"
+    | "ecommerce"
+    | "custom-systems"
+    | "cms"
+    | "agencies"
+    | "landing"
+    | string;
   categoryLabel?: { es: string; en: string };
   tag?: { es: string; en: string };
   price: string;
@@ -13,6 +26,7 @@ export interface MarketplaceProduct {
   salesCount?: number;
   shortDesc: { es: string; en: string };
   fullDesc: { es: string; en: string };
+  specs?: MarketplaceSpecItem[];
   architecture?: {
     frontend?: string;
     backend?: string;
@@ -20,7 +34,7 @@ export interface MarketplaceProduct {
     styling?: string;
     auth?: string;
     deployment?: string;
-  };
+  } | MarketplaceSpecItem[];
   features?: { es: string[]; en: string[] };
   includedFiles?: { es: string[]; en: string[] };
   stack?: string[];
@@ -29,6 +43,27 @@ export interface MarketplaceProduct {
     q: { es: string; en: string };
     a: { es: string; en: string };
   }[];
+}
+
+export function getProductSpecs(product: MarketplaceProduct): MarketplaceSpecItem[] {
+  if (product.specs && Array.isArray(product.specs) && product.specs.length > 0) {
+    return product.specs;
+  }
+  if (product.architecture && Array.isArray(product.architecture)) {
+    return product.architecture as unknown as MarketplaceSpecItem[];
+  }
+  if (product.architecture && typeof product.architecture === "object") {
+    const arch = product.architecture as Record<string, string>;
+    const items: MarketplaceSpecItem[] = [];
+    if (arch.frontend) items.push({ title: { es: "Frontend Core", en: "Frontend Core" }, detail: { es: arch.frontend, en: arch.frontend } });
+    if (arch.backend) items.push({ title: { es: "Backend & API", en: "Backend & API" }, detail: { es: arch.backend, en: arch.backend } });
+    if (arch.database) items.push({ title: { es: "Base de Datos", en: "Database" }, detail: { es: arch.database, en: arch.database } });
+    if (arch.styling) items.push({ title: { es: "Estilos & UI", en: "Styling & UI" }, detail: { es: arch.styling, en: arch.styling } });
+    if (arch.auth) items.push({ title: { es: "Autenticación", en: "Authentication" }, detail: { es: arch.auth, en: arch.auth } });
+    if (arch.deployment) items.push({ title: { es: "Despliegue Recomendado", en: "Recommended Deployment" }, detail: { es: arch.deployment, en: arch.deployment } });
+    return items;
+  }
+  return [];
 }
 
 export function getMarketplaceTitle(
@@ -49,7 +84,10 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
       es: "Stellaris SaaS Starter Pro",
     },
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
-    gallery: [],
+    gallery: [
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1600&q=80",
+    ],
     category: "saas",
     categoryLabel: { es: "SaaS & Dashboard", en: "SaaS & Dashboard" },
     tag: { es: "🔥 Más Vendido", en: "🔥 Best Seller" },

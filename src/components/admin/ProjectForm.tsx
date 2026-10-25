@@ -580,35 +580,55 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                   <select
                     value={formData.category}
                     onChange={(e) => {
-                      const cat = e.target.value as "landing" | "web" | "ecommerce";
+                      const cat = e.target.value;
                       const labels: Record<string, { es: string; en: string }> = {
-                        landing: {
-                          en: "Landing Page / Conversion",
-                          es: "Landing Page / Conversión",
-                        },
                         web: {
-                          en: "Web Portal & Dashboard",
-                          es: "Portal Web & Dashboard",
+                          es: "Sitio Web",
+                          en: "Website",
                         },
                         ecommerce: {
-                          en: "Online Store / E-Commerce",
-                          es: "Tienda Online / E-Commerce",
+                          es: "Tienda Online",
+                          en: "E-Commerce",
+                        },
+                        "custom-systems": {
+                          es: "Sistema a Medida",
+                          en: "Custom System",
+                        },
+                        cms: {
+                          es: "CMS / Gestión de Contenido",
+                          en: "CMS / Content Management",
+                        },
+                        agency: {
+                          es: "Agencia",
+                          en: "Agency",
+                        },
+                        portfolio: {
+                          es: "Portafolio",
+                          en: "Portfolio",
+                        },
+                        landing: {
+                          es: "Landing Page",
+                          en: "Landing Page",
                         },
                       };
                       setFormData({
                         ...formData,
                         category: cat,
                         categoryLabel: labels[cat] || {
-                          en: "Web App",
-                          es: "Web App",
+                          en: "Website",
+                          es: "Sitio Web",
                         },
                       });
                     }}
                     className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
                   >
+                    <option value="web">Sitio Web / Website</option>
+                    <option value="ecommerce">Tienda Online / E-Commerce</option>
+                    <option value="custom-systems">Sistema a Medida / Custom System</option>
+                    <option value="cms">CMS / Gestión de Contenido</option>
+                    <option value="agency">Agencia / Agency</option>
+                    <option value="portfolio">Portafolio / Portfolio</option>
                     <option value="landing">Landing Page</option>
-                    <option value="web">Portal Web / SaaS</option>
-                    <option value="ecommerce">E-Commerce</option>
                   </select>
                 </div>
               </div>
