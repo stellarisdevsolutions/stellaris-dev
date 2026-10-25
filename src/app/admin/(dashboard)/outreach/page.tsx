@@ -1806,7 +1806,7 @@ export default function OutreachPage() {
                               onClick={applyAssetToCurrentLead}
                               className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
                             >
-                              🎯 USAR SOLO EN ESTE PROSPECTO ({activeLead?.companyName})
+                              Usar solo en {activeLead?.companyName}
                             </button>
 
                             <button
@@ -1814,7 +1814,7 @@ export default function OutreachPage() {
                               onClick={applyAssetToAllLeads}
                               className="w-full py-2 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-neutral-200 font-semibold text-xs transition-all cursor-pointer"
                             >
-                              🌐 Aplicar a todo el lote ({leads.length} prospectos)
+                              Aplicar a todo el lote
                             </button>
                           </>
                         ) : (
@@ -1825,11 +1825,8 @@ export default function OutreachPage() {
                               onClick={applyAssetToAllLeads}
                               className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
                             >
-                              🚀 APLICAR MAQUETA Y DEMO A TODO EL LOTE ({leads.length} prospectos)
+                              Aplicar a todo el lote
                             </button>
-                            <span className="block text-[11px] text-neutral-500 text-center">
-                              Asignará la maqueta y demo seleccionada a todos los prospectos de la cola actual.
-                            </span>
                           </>
                         )}
                       </div>
