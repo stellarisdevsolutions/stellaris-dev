@@ -67,11 +67,11 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <Inbox className="w-6 h-6 text-[#FF532A]" />
+            <Inbox className="w-6 h-6 text-[#E6FF2A]" />
             Bandeja de Consultas & Leads
           </h1>
           <p className="text-xs text-neutral-400 mt-1">
-            Personas y empresas interesadas que han completado el formulario de contacto de Stellaris Dev.
+            Personas y empresas interesadas que han completado el formulario de contacto de Kano Dev.
           </p>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
             onClick={() => setFilter("unread")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               filter === "unread"
-                ? "bg-[#FF532A] text-white"
+                ? "bg-[#E6FF2A] text-[#0C4651] font-bold"
                 : "bg-white/5 text-neutral-400 hover:text-white"
             }`}
           >
@@ -118,7 +118,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
             placeholder="Buscar por nombre, correo..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-[#171719] border border-white/10 focus:border-[#FF532A] text-white text-xs rounded-xl pl-10 pr-4 py-2 outline-none placeholder:text-neutral-500"
+            className="w-full bg-[#171719] border border-white/10 focus:border-[#E6FF2A] text-white text-xs rounded-xl pl-10 pr-4 py-2 outline-none placeholder:text-neutral-500"
           />
         </div>
       </div>
@@ -130,7 +130,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
             key={msg.id}
             className={`p-5 rounded-2xl border transition-all ${
               msg.status === "unread"
-                ? "bg-[#1b1b1e] border-[#FF532A]/30 shadow-lg shadow-[#FF532A]/5"
+                ? "bg-[#1b1b1e] border-[#E6FF2A]/30 shadow-lg shadow-[#E6FF2A]/5"
                 : "bg-[#171719] border-white/10 opacity-80"
             }`}
           >
@@ -139,7 +139,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
                 <div
                   className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs ${
                     msg.status === "unread"
-                      ? "bg-[#FF532A] text-white"
+                      ? "bg-[#E6FF2A] text-[#0C4651] font-bold"
                       : "bg-white/10 text-neutral-400"
                   }`}
                 >
@@ -154,7 +154,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
                     </span>
                   </div>
                   <div className="text-[11px] text-neutral-400 mt-0.5">
-                    Interés: <span className="text-[#FF532A] font-semibold">{msg.projectType || "General"}</span>
+                    Interés: <span className="text-[#E6FF2A] font-semibold">{msg.projectType || "General"}</span>
                   </div>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
                   disabled={loadingId === msg.id}
                   className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
                     msg.status === "unread"
-                      ? "bg-[#FF532A]/10 border-[#FF532A]/30 text-[#FF532A] hover:bg-[#FF532A]/20"
+                      ? "bg-[#E6FF2A]/10 border-[#E6FF2A]/30 text-[#E6FF2A] hover:bg-[#E6FF2A]/20"
                       : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20"
                   }`}
                 >
@@ -199,8 +199,8 @@ export function LeadsManager({ initialMessages }: LeadsManagerProps) {
             {/* Direct Email Action */}
             <div className="mt-3 flex items-center justify-end">
               <a
-                href={`mailto:${msg.email}?subject=Respuesta de Stellaris Dev - ${encodeURIComponent(msg.projectType || "Proyecto")}`}
-                className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] hover:underline font-semibold"
+                href={`mailto:${msg.email}?subject=Respuesta de Kano Dev - ${encodeURIComponent(msg.projectType || "Proyecto")}`}
+                className="inline-flex items-center gap-1.5 text-xs text-[#E6FF2A] hover:underline font-semibold"
               >
                 <Mail className="w-3.5 h-3.5" />
                 Responder por correo a {msg.name} →

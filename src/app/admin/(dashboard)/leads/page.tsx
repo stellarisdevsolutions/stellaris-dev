@@ -3,7 +3,7 @@ import { getAllContactMessages } from "@/db/service";
 import { LeadsManager } from "@/components/admin/LeadsManager";
 
 export const metadata = {
-  title: "Bandeja de Leads | Admin Stellaris",
+  title: "Bandeja de Leads | Admin Kano Dev",
 };
 
 export default async function AdminLeadsPage() {

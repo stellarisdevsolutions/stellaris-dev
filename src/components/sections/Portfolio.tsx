@@ -72,9 +72,9 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
         transition={{ duration: 0.45 }}
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12"
       >
-        <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#171717] m-0 max-w-[540px]">
+        <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#0C4651] m-0 max-w-[540px]">
           {lang === "es" ? "Echa un vistazo a nuestro " : "Have a Look at our "}
-          <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
+          <span className="inline-block relative text-[#0C4651] bg-[#E6FF2A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#E6FF2A]/30 -rotate-1 mx-1 border border-[#0C4651]/20">
             {lang === "es" ? "Portafolio" : "Portfolio"}
           </span>
         </h2>
@@ -82,7 +82,7 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
         {/* Top-Right "Cotizar" Button */}
         <Link
           href="#contact"
-          className="self-start sm:self-auto inline-flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white text-sm font-semibold px-6 py-3 rounded-full shadow-lg shadow-[#FF532A]/25 transition-all hover:scale-105 active:scale-95"
+          className="self-start sm:self-auto inline-flex items-center gap-1.5 bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-sm font-bold px-6 py-3 rounded-full shadow-lg shadow-[#0C4651]/20 transition-all hover:scale-105 active:scale-95"
         >
           <span>{lang === "es" ? "Cotizar Proyecto" : "Hire Us"}</span>
           <ArrowUpRight className="w-4 h-4" />
@@ -104,7 +104,7 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
             type="button"
             className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
               activeTab === cat.id
-                ? "bg-[#171717] text-white shadow-md"
+                ? "bg-[#0C4651] text-[#E6FF2A] shadow-md font-bold"
                 : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
             }`}
           >
@@ -169,12 +169,12 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
                 {/* Información debajo de la imagen (limpio, sin nada sobre la foto) */}
                 <div className="flex flex-col">
                   {/* Etiqueta de Categoría */}
-                  <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1">
+                  <span className="text-xs font-semibold text-[#0C4651] uppercase tracking-wider mb-1">
                     {catLabel}
                   </span>
 
                   {/* Título del proyecto */}
-                  <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                  <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#0C4651] group-hover:text-[#145C6A] transition-colors line-clamp-2 leading-snug m-0">
                     {title}
                   </h3>
                 </div>
@@ -195,7 +195,7 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
         >
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 bg-[#171717] hover:bg-[#FF532A] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 hover:scale-105 active:scale-95 group"
+            className="inline-flex items-center gap-2 bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-sm sm:text-base font-bold px-8 py-3.5 rounded-full shadow-lg shadow-[#0C4651]/20 transition-all duration-300 hover:scale-105 active:scale-95 group"
           >
             <span>
               {lang === "es" ? "Ver todos los proyectos" : "View All Projects"}

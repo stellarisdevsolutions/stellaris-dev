@@ -33,7 +33,7 @@ export default async function AdminDashboardPage() {
       {/* Top greeting banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#FF532A]/10 border border-[#FF532A]/20 text-[#FF532A] text-xs font-medium mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#E6FF2A]/10 border border-[#E6FF2A]/20 text-[#E6FF2A] text-xs font-medium mb-2">
             <Sparkles className="w-3.5 h-3.5" />
             Vercel Fullstack Admin
           </div>
@@ -51,12 +51,12 @@ export default async function AdminDashboardPage() {
             href="/admin/projects"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white transition-all border border-white/10"
           >
-            <Plus className="w-4 h-4 text-[#FF532A]" />
+            <Plus className="w-4 h-4 text-[#E6FF2A]" />
             Nuevo Proyecto
           </Link>
           <Link
             href="/admin/marketplace"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#FF532A] hover:bg-[#e0451e] text-white transition-all shadow-lg shadow-[#FF532A]/20"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] font-bold transition-all shadow-lg shadow-[#E6FF2A]/20"
           >
             <Plus className="w-4 h-4" />
             Nueva Solución
@@ -93,7 +93,7 @@ export default async function AdminDashboardPage() {
         >
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-medium text-neutral-400">Soluciones en Venta</span>
-            <div className="w-9 h-9 rounded-xl bg-[#FF532A]/10 border border-[#FF532A]/20 text-[#FF532A] flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-[#E6FF2A]/10 border border-[#E6FF2A]/20 text-[#E6FF2A] flex items-center justify-center group-hover:scale-105 transition-transform">
               <ShoppingBag className="w-4 h-4" />
             </div>
           </div>
@@ -112,7 +112,7 @@ export default async function AdminDashboardPage() {
           className="bg-[#171719] border border-white/10 hover:border-white/20 p-5 rounded-2xl transition-all group block relative overflow-hidden"
         >
           {unreadMessagesCount > 0 && (
-            <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FF532A] text-white">
+            <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E6FF2A] text-[#0C4651] font-bold">
               {unreadMessagesCount} nuevo{unreadMessagesCount > 1 ? "s" : ""}
             </span>
           )}
@@ -171,7 +171,7 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center justify-between pb-4 border-b border-white/5 mb-4">
             <div>
               <h2 className="text-base font-bold text-white flex items-center gap-2">
-                <Inbox className="w-4 h-4 text-[#FF532A]" />
+                <Inbox className="w-4 h-4 text-[#E6FF2A]" />
                 Últimas Consultas de Clientes
               </h2>
               <p className="text-xs text-neutral-400 mt-0.5">
@@ -180,7 +180,7 @@ export default async function AdminDashboardPage() {
             </div>
             <Link
               href="/admin/leads"
-              className="text-xs font-semibold text-[#FF532A] hover:underline"
+              className="text-xs font-semibold text-[#E6FF2A] hover:underline"
             >
               Ver todos ({messagesList.length}) →
             </Link>
@@ -199,7 +199,7 @@ export default async function AdminDashboardPage() {
                     <span
                       className={`px-2 py-0.5 rounded-full text-[10px] font-medium border ${
                         msg.status === "unread"
-                          ? "bg-[#FF532A]/10 border-[#FF532A]/30 text-[#FF532A]"
+                          ? "bg-[#E6FF2A]/10 border-[#E6FF2A]/30 text-[#E6FF2A]"
                           : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
                       }`}
                     >
@@ -207,7 +207,7 @@ export default async function AdminDashboardPage() {
                     </span>
                   </div>
                   <p className="text-xs text-neutral-300 line-clamp-1">
-                    <span className="text-[#FF532A] font-semibold">{msg.projectType}: </span>
+                    <span className="text-[#E6FF2A] font-semibold">{msg.projectType}: </span>
                     {msg.details}
                   </p>
                 </div>
@@ -239,21 +239,21 @@ export default async function AdminDashboardPage() {
                 className="w-full flex items-center justify-between p-3 rounded-xl bg-[#202024]/80 hover:bg-[#202024] border border-white/5 hover:border-white/15 text-xs text-neutral-200 transition-all"
               >
                 <span>Administrar Proyectos</span>
-                <span className="text-[#FF532A] font-semibold">→</span>
+                <span className="text-[#E6FF2A] font-semibold">→</span>
               </Link>
               <Link
                 href="/admin/marketplace"
                 className="w-full flex items-center justify-between p-3 rounded-xl bg-[#202024]/80 hover:bg-[#202024] border border-white/5 hover:border-white/15 text-xs text-neutral-200 transition-all"
               >
                 <span>Editar Precios Marketplace</span>
-                <span className="text-[#FF532A] font-semibold">→</span>
+                <span className="text-[#E6FF2A] font-semibold">→</span>
               </Link>
               <Link
                 href="/admin/settings"
                 className="w-full flex items-center justify-between p-3 rounded-xl bg-[#202024]/80 hover:bg-[#202024] border border-white/5 hover:border-white/15 text-xs text-neutral-200 transition-all"
               >
                 <span>Sincronizar Base de Datos Vercel</span>
-                <span className="text-[#FF532A] font-semibold">→</span>
+                <span className="text-[#E6FF2A] font-semibold">→</span>
               </Link>
             </div>
           </div>
@@ -261,7 +261,7 @@ export default async function AdminDashboardPage() {
           {/* Vercel Integration Tip */}
           <div className="bg-gradient-to-br from-[#171719] to-[#202024] border border-white/10 rounded-2xl p-6 relative overflow-hidden">
             <div className="flex items-center gap-2 mb-2 text-xs font-semibold text-white">
-              <Sparkles className="w-4 h-4 text-[#FF532A]" />
+              <Sparkles className="w-4 h-4 text-[#E6FF2A]" />
               Despliegue en Vercel
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed mb-4">
@@ -269,7 +269,7 @@ export default async function AdminDashboardPage() {
             </p>
             <Link
               href="/admin/settings"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#FF532A] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#E6FF2A] hover:underline"
             >
               Ver instrucciones de conexión <ExternalLink className="w-3.5 h-3.5" />
             </Link>

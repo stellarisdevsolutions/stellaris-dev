@@ -18,7 +18,7 @@ import bcrypt from "bcryptjs";
 // Local in-memory store for dev when DB is not yet connected
 let localProjects: ProjectItem[] = [...PROJECTS];
 let localMarketplace: MarketplaceProduct[] = [...MARKETPLACE_PRODUCTS];
-let localMessages: Array<{
+const localMessages: Array<{
   id: number;
   name: string;
   email: string;

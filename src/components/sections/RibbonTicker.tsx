@@ -31,14 +31,14 @@ export function RibbonTicker() {
 
   return (
     <div className="relative w-full overflow-hidden my-12 sm:my-16 select-none bg-white">
-      <div className="hd bg-[#FF532A] text-white py-4 sm:py-4.5 flex items-center justify-center shadow-md">
+      <div className="hd bg-[#E6FF2A] text-[#0C4651] py-4 sm:py-4.5 flex items-center justify-center shadow-md border-y border-[#145C6A]/20">
         <div className="animate-ribbon flex items-center gap-8 sm:gap-10">
           {loop.map((w, idx) => (
             <React.Fragment key={idx}>
               <span className="text-lg sm:text-xl font-bold tracking-tight uppercase">
                 {w}
               </span>
-              <span className="text-lg sm:text-xl font-bold text-white/70">
+              <span className="text-lg sm:text-xl font-bold text-[#0C4651]/60">
                 +
               </span>
             </React.Fragment>

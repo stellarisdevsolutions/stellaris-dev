@@ -8,7 +8,7 @@ import { Footer } from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "Política de Privacidad",
   description:
-    "Conoce cómo protegemos y gestionamos tus datos personales y empresariales en Stellaris Dev Solutions.",
+    "Conoce cómo protegemos y gestionamos tus datos personales y empresariales en Kano Dev Solutions.",
   alternates: {
     canonical: "/privacy-policy",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-24">
@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           <div className="mb-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#0C4651] transition-colors group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               <span>Volver al inicio</span>
@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
 
           <div className="mb-10 pb-8 border-b border-neutral-100">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
-              <Shield className="w-3.5 h-3.5 text-[#FF532A]" />
+              <Shield className="w-3.5 h-3.5 text-[#0C4651]" />
               <span>LEGAL & TRANSPARENCIA</span>
             </div>
             <h1 className="hd text-3xl sm:text-5xl font-bold tracking-tight text-[#171717] m-0">
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
                 1. Información que Recopilamos
               </h2>
               <p>
-                En <strong>Stellaris Dev Solutions</strong> valoramos y respetamos tu privacidad. Únicamente recopilamos la información que tú decides proporcionarnos de forma voluntaria al completar nuestro formulario de contacto, solicitar una cotización o adquirir una plantilla en nuestro Marketplace (nombre, dirección de correo electrónico, detalles generales del proyecto y número de contacto).
+                En <strong>Kano Dev Solutions</strong> valoramos y respetamos tu privacidad. Únicamente recopilamos la información que tú decides proporcionarnos de forma voluntaria al completar nuestro formulario de contacto, solicitar una cotización o adquirir una plantilla en nuestro Marketplace (nombre, dirección de correo electrónico, detalles generales del proyecto y número de contacto).
               </p>
             </section>
 

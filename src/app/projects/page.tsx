@@ -8,7 +8,7 @@ import { ProjectsCatalog } from "@/components/sections/ProjectsCatalog";
 export const metadata: Metadata = {
   title: "Proyectos & Casos de Éxito",
   description:
-    "Explora nuestros casos de éxito y aplicaciones web desarrolladas con Next.js, React y arquitecturas en la nube por Stellaris Dev Solutions.",
+    "Explora nuestros casos de éxito y aplicaciones web desarrolladas con Next.js, React y arquitecturas en la nube por Kano Dev Solutions.",
   alternates: {
     canonical: "/projects",
   },
@@ -18,7 +18,7 @@ export default async function ProyectosListPage() {
   const projects = await getAllProjects();
 
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-24">

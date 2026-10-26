@@ -73,7 +73,7 @@ export const TRANSLATIONS = {
     },
     whyUs: {
       titlePart1: "Why choose ",
-      titleHighlight: "Stellaris Dev",
+      titleHighlight: "Kano Dev",
       subtitle: "A digital partner focused on tangible business growth, not tech headaches.",
       pillars: [
         {
@@ -394,7 +394,7 @@ export const TRANSLATIONS = {
     },
     whyUs: {
       titlePart1: "Por qué elegir ",
-      titleHighlight: "Stellaris Dev",
+      titleHighlight: "Kano Dev",
       subtitle: "Un socio digital enfocado en resultados reales, sin tecnicismos confusos.",
       pillars: [
         {

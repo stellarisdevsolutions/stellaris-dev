@@ -83,17 +83,17 @@ export function Navbar() {
   return (
     <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-[880px]">
       {/* Floating Pill Container con sombra sutil y elegante */}
-      <div className="bg-[#171717]/95 backdrop-blur-md border border-neutral-800/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.12)] flex items-center justify-between gap-2 sm:gap-4">
+      <div className="bg-[#0C4651]/95 backdrop-blur-md border border-[#145C6A]/80 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 shadow-[0_4px_24px_rgba(12,70,81,0.25)] flex items-center justify-between gap-2 sm:gap-4">
         {/* Left Navigation Links (Todos en mayúsculas) */}
-        <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[12.5px] font-semibold tracking-wider text-neutral-300">
+        <nav className="hidden md:flex items-center gap-5 sm:gap-6 text-[12.5px] font-semibold tracking-wider text-slate-200">
           {leftNav.map((link) => {
             const active = isLinkActive(link.href);
             return (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`transition-colors hover:text-[#FF532A] ${
-                  active ? "text-[#FF532A] font-bold" : "text-neutral-300"
+                className={`transition-colors hover:text-[#E6FF2A] ${
+                  active ? "text-[#E6FF2A] font-bold" : "text-slate-200"
                 }`}
               >
                 {link.label}
@@ -107,30 +107,30 @@ export function Navbar() {
           href="/#home"
           className="hd flex items-center gap-2.5 font-bold text-[17px] sm:text-[19px] text-white tracking-tight group"
         >
-          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-black/40 ring-1 ring-white/10 group-hover:scale-105 transition-transform shrink-0 shadow-md shadow-[#FF532A]/20">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-[#08343D] ring-1 ring-[#145C6A] group-hover:scale-105 transition-transform shrink-0 shadow-md">
             <Image
               src="/logo.webp"
-              alt="Stellaris Dev Logo"
+              alt="Kano Dev Logo"
               width={32}
               height={32}
               className="w-full h-full object-cover"
               priority
             />
           </div>
-          <span>Stellaris</span>
+          <span>Kano<span className="text-[#E6FF2A]">.dev</span></span>
         </Link>
 
         {/* Right Nav Links & Actions */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <nav className="hidden md:flex items-center gap-5 text-[12.5px] font-semibold tracking-wider text-neutral-300">
+          <nav className="hidden md:flex items-center gap-5 text-[12.5px] font-semibold tracking-wider text-slate-200">
             {rightNav.map((link) => {
               const active = isLinkActive(link.href);
               return (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`transition-colors hover:text-[#FF532A] ${
-                    active ? "text-[#FF532A] font-bold" : "text-neutral-300"
+                  className={`transition-colors hover:text-[#E6FF2A] ${
+                    active ? "text-[#E6FF2A] font-bold" : "text-slate-200"
                   }`}
                 >
                   {link.label}
@@ -140,14 +140,14 @@ export function Navbar() {
           </nav>
 
           {/* Language Switcher Pill */}
-          <div className="flex items-center rounded-full bg-neutral-900 border border-neutral-800 p-0.5 text-xs font-mono">
+          <div className="flex items-center rounded-full bg-[#08343D] border border-[#145C6A] p-0.5 text-xs font-mono">
             <button
               type="button"
               onClick={() => setLang("en")}
               className={`px-2 py-0.5 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                 lang === "en"
-                  ? "bg-[#FF532A] text-white shadow-xs"
-                  : "text-neutral-400 hover:text-white"
+                  ? "bg-[#E6FF2A] text-[#0C4651] shadow-xs"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               EN
@@ -157,8 +157,8 @@ export function Navbar() {
               onClick={() => setLang("es")}
               className={`px-2 py-0.5 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                 lang === "es"
-                  ? "bg-[#FF532A] text-white shadow-xs"
-                  : "text-neutral-400 hover:text-white"
+                  ? "bg-[#E6FF2A] text-[#0C4651] shadow-xs"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               ES
@@ -168,7 +168,7 @@ export function Navbar() {
           {/* CTA: Botón de Contacto */}
           <Link
             href="/#contact"
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#FF532A] hover:bg-[#E5451D] text-white text-[12.5px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-md shadow-[#FF532A]/25 transition-all hover:scale-105"
+            className="hidden sm:inline-flex items-center gap-1.5 bg-[#E6FF2A] hover:bg-[#d8f219] text-[#0C4651] text-[12.5px] font-extrabold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-md shadow-[#E6FF2A]/20 transition-all hover:scale-105 font-mono"
           >
             <span>{lang === "es" ? "CONTACTO" : "CONTACT"}</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -177,7 +177,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 text-neutral-200 hover:text-white rounded-full hover:bg-neutral-800 transition-colors"
+            className="md:hidden p-1.5 text-slate-200 hover:text-white rounded-full hover:bg-[#08343D] transition-colors"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -193,7 +193,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mt-3 rounded-3xl border border-neutral-800 bg-[#171717]/98 p-6 backdrop-blur-2xl shadow-2xl text-white"
+            className="md:hidden mt-3 rounded-3xl border border-[#145C6A] bg-[#0C4651]/98 p-6 backdrop-blur-2xl shadow-2xl text-white"
           >
             <div className="flex flex-col gap-3.5">
               {allNavItems.map((link) => {
@@ -205,8 +205,8 @@ export function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-sm font-semibold tracking-wider py-1 transition-colors ${
                       active
-                        ? "text-[#FF532A] font-bold"
-                        : "text-neutral-200 hover:text-[#FF532A]"
+                        ? "text-[#E6FF2A] font-bold"
+                        : "text-slate-200 hover:text-[#E6FF2A]"
                     }`}
                   >
                     {link.label}
@@ -214,16 +214,16 @@ export function Navbar() {
                 );
               })}
 
-              <div className="pt-3 border-t border-neutral-800 flex items-center justify-between">
-                <span className="text-xs text-neutral-400">
+              <div className="pt-3 border-t border-[#145C6A] flex items-center justify-between">
+                <span className="text-xs text-slate-300">
                   Idioma / Language
                 </span>
-                <div className="flex items-center rounded-full bg-neutral-900 border border-neutral-800 p-0.5 text-xs font-mono">
+                <div className="flex items-center rounded-full bg-[#08343D] border border-[#145C6A] p-0.5 text-xs font-mono">
                   <button
                     type="button"
                     onClick={() => setLang("en")}
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      lang === "en" ? "bg-[#FF532A] text-white" : "text-neutral-400"
+                      lang === "en" ? "bg-[#E6FF2A] text-[#0C4651]" : "text-slate-300"
                     }`}
                   >
                     EN
@@ -232,7 +232,7 @@ export function Navbar() {
                     type="button"
                     onClick={() => setLang("es")}
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      lang === "es" ? "bg-[#FF532A] text-white" : "text-neutral-400"
+                      lang === "es" ? "bg-[#E6FF2A] text-[#0C4651]" : "text-slate-300"
                     }`}
                   >
                     ES
@@ -244,7 +244,7 @@ export function Navbar() {
                 <Link
                   href="/#contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold tracking-wider uppercase text-sm rounded-full shadow-lg block"
+                  className="w-full text-center py-3 bg-[#E6FF2A] hover:bg-[#d8f219] text-[#0C4651] font-extrabold tracking-wider uppercase text-sm rounded-full shadow-lg block font-mono"
                 >
                   {lang === "es" ? "CONTACTO ↗" : "CONTACT ↗"}
                 </Link>

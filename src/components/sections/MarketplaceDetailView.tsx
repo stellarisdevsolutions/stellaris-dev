@@ -70,7 +70,7 @@ export function MarketplaceDetailView({
   const specsList = getProductSpecs(product);
 
   const getWhatsAppBuyLink = () => {
-    const message = `¡Hola Stellaris Dev! Me interesa adquirir el sistema "${title}" (${product.price}). ¿Cuáles son los métodos de pago y el proceso de entrega del repositorio y despliegue?`;
+    const message = `¡Hola Kano Dev! Me interesa adquirir el sistema "${title}" (${product.price}). ¿Cuáles son los métodos de pago y el proceso de entrega del repositorio y despliegue?`;
     return `https://wa.me/59169991245?text=${encodeURIComponent(message)}`;
   };
 
@@ -136,10 +136,10 @@ export function MarketplaceDetailView({
   ];
 
   const cardPresets: Record<string, { blockColor: string; pillColor: string }> = {
-    "saas-starter-pro": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
-    "omnistore-ecommerce": { blockColor: "bg-[#171717]", pillColor: "bg-[#171717]" },
-    "nova-agency-template": { blockColor: "bg-[#737373]", pillColor: "bg-[#737373]" },
-    "leadmagnet-funnel": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
+    "saas-starter-pro": { blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]" },
+    "omnistore-ecommerce": { blockColor: "bg-[#0C4651]", pillColor: "bg-[#0C4651]" },
+    "nova-agency-template": { blockColor: "bg-[#145C6A]", pillColor: "bg-[#145C6A]" },
+    "leadmagnet-funnel": { blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]" },
   };
 
   const isCoverBlob =
@@ -151,7 +151,7 @@ export function MarketplaceDetailView({
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="flex items-center justify-between mb-8 sm:mb-10">
         <Link
           href="/marketplace"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#0C4651] transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>
@@ -160,7 +160,7 @@ export function MarketplaceDetailView({
         </Link>
 
         {categoryLabel && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0C4651]/10 text-[#0C4651] text-xs font-bold uppercase tracking-wider">
             {categoryLabel}
           </span>
         )}
@@ -229,7 +229,7 @@ export function MarketplaceDetailView({
                         type="button"
                         onClick={handlePrevImage}
                         aria-label={lang === "es" ? "Imagen anterior" : "Previous image"}
-                        className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                        className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
@@ -237,7 +237,7 @@ export function MarketplaceDetailView({
                         type="button"
                         onClick={handleNextImage}
                         aria-label={lang === "es" ? "Siguiente imagen" : "Next image"}
-                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                        className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-black/60 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
                       >
                         <ChevronRight className="w-5 h-5" />
                       </button>
@@ -245,15 +245,15 @@ export function MarketplaceDetailView({
                   )}
                 </div>
               ) : (
-                <div className="relative p-6 sm:p-10 bg-[#171717] text-white">
+                <div className="relative p-6 sm:p-10 bg-[#0C4651] text-white border border-[#145C6A]">
                   <div className="py-8 sm:py-12 flex flex-col items-center justify-center text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-[#FF532A] flex items-center justify-center text-white mb-4 shadow-lg shadow-[#FF532A]/30">
+                    <div className="w-16 h-16 rounded-2xl bg-[#E6FF2A] text-[#0C4651] flex items-center justify-center mb-4 shadow-lg shadow-[#E6FF2A]/20">
                       <Code2 className="w-8 h-8" />
                     </div>
-                    <h3 className="hd text-2xl sm:text-3xl font-bold mb-2">
+                    <h3 className="hd text-2xl sm:text-3xl font-bold mb-2 text-white">
                       {title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-neutral-400 max-w-[480px] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-300 max-w-[480px] leading-relaxed">
                       {shortDesc}
                     </p>
                   </div>
@@ -278,7 +278,7 @@ export function MarketplaceDetailView({
                       }
                       className={`relative shrink-0 w-24 sm:w-28 aspect-[16/10] rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
                         isSelected
-                          ? "border-[#FF532A] shadow-md shadow-[#FF532A]/20 scale-102 ring-2 ring-[#FF532A]/20"
+                          ? "border-[#E6FF2A] shadow-md shadow-[#E6FF2A]/20 scale-102 ring-2 ring-[#E6FF2A]/20"
                           : "border-neutral-200 hover:border-neutral-400 opacity-70 hover:opacity-100"
                       }`}
                     >
@@ -323,7 +323,7 @@ export function MarketplaceDetailView({
           {specsList.length > 0 && (
             <div className="rounded-[32px] border border-neutral-200 bg-neutral-50 p-6 sm:p-8">
               <div className="flex items-center gap-2 mb-6">
-                <Cpu className="w-5 h-5 text-[#FF532A]" />
+                <Cpu className="w-5 h-5 text-[#0C4651]" />
                 <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">
                   {lang === "es"
                     ? "Ficha Técnica & Arquitectura"
@@ -342,7 +342,7 @@ export function MarketplaceDetailView({
                       key={idx}
                       className="p-4 sm:p-5 rounded-2xl bg-white border border-neutral-200/80 shadow-2xs hover:border-neutral-300 transition-all"
                     >
-                      <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF532A] mb-1.5">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-[#0C4651] mb-1.5">
                         {specTitle}
                       </div>
                       <div className="text-sm sm:text-[15px] font-semibold text-[#171717] leading-snug">
@@ -359,7 +359,7 @@ export function MarketplaceDetailView({
           {featuresList.length > 0 && (
             <div className="rounded-[32px] border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs">
               <div className="flex items-center gap-2 mb-6">
-                <Layers className="w-5 h-5 text-[#FF532A]" />
+                <Layers className="w-5 h-5 text-[#0C4651]" />
                 <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">
                   {lang === "es"
                     ? "Características Principales"
@@ -373,7 +373,7 @@ export function MarketplaceDetailView({
                     key={idx}
                     className="flex items-start gap-3 p-3.5 rounded-2xl bg-neutral-50 border border-neutral-100"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-[#FF532A] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#0C4651] shrink-0 mt-0.5" />
                     <span className="text-xs sm:text-sm text-neutral-800 font-medium leading-relaxed">
                       {feat}
                     </span>
@@ -387,7 +387,7 @@ export function MarketplaceDetailView({
           {includedFilesList.length > 0 && (
             <div className="rounded-[32px] border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs">
               <div className="flex items-center gap-2 mb-6">
-                <ShieldCheck className="w-5 h-5 text-[#FF532A]" />
+                <ShieldCheck className="w-5 h-5 text-[#0C4651]" />
                 <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">
                   {lang === "es"
                     ? "Qué Recibirás con tu Compra"
@@ -401,7 +401,7 @@ export function MarketplaceDetailView({
                     key={idx}
                     className="flex items-start gap-3 p-3.5 rounded-2xl bg-neutral-50 border border-neutral-100"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-[#FF532A] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-[#0C4651] shrink-0 mt-0.5" />
                     <span className="text-sm text-neutral-800 font-medium">
                       {item}
                     </span>
@@ -415,7 +415,7 @@ export function MarketplaceDetailView({
           {faqsList.length > 0 && (
             <div className="rounded-[32px] border border-neutral-200 bg-white p-6 sm:p-8 shadow-xs">
               <div className="flex items-center gap-2 mb-6">
-                <HelpCircle className="w-5 h-5 text-[#FF532A]" />
+                <HelpCircle className="w-5 h-5 text-[#0C4651]" />
                 <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">
                   {lang === "es"
                     ? "Preguntas Frecuentes"
@@ -444,7 +444,7 @@ export function MarketplaceDetailView({
                         <span>{question}</span>
                         <ChevronDown
                           className={`w-4 h-4 text-neutral-400 transition-transform ${
-                            isOpen ? "rotate-180 text-[#FF532A]" : ""
+                            isOpen ? "rotate-180 text-[#0C4651]" : ""
                           }`}
                         />
                       </button>
@@ -480,7 +480,7 @@ export function MarketplaceDetailView({
                     {product.originalPrice}
                   </span>
                 )}
-                <span className="px-2 py-0.5 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold">
+                <span className="px-2 py-0.5 rounded-full bg-[#0C4651]/10 text-[#0C4651] text-xs font-bold">
                   {lang === "es" ? "Ahorra 35%" : "Save 35%"}
                 </span>
               </div>
@@ -498,7 +498,7 @@ export function MarketplaceDetailView({
                   href={getWhatsAppBuyLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-4 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
+                  className="w-full py-4 px-6 rounded-full bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] font-bold text-sm shadow-lg shadow-[#0C4651]/20 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Comprar vía WhatsApp</span>
@@ -507,7 +507,7 @@ export function MarketplaceDetailView({
                 <button
                   type="button"
                   onClick={() => setIsBuyModalOpen(true)}
-                  className="w-full py-4 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
+                  className="w-full py-4 px-6 rounded-full bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] font-bold text-sm shadow-lg shadow-[#0C4651]/20 flex items-center justify-center gap-2 transition-all hover:scale-102 cursor-pointer text-center"
                 >
                   <Lock className="w-4 h-4" />
                   <span>Buy Now</span>
@@ -532,7 +532,7 @@ export function MarketplaceDetailView({
             {/* Garantías de Compra & Confianza Comercial */}
             <div className="space-y-3 pt-6 pb-6 border-t border-neutral-100">
               <div className="flex items-center gap-2.5 text-xs text-neutral-700">
-                <Zap className="w-4 h-4 text-[#FF532A] shrink-0" />
+                <Zap className="w-4 h-4 text-[#0C4651] shrink-0" />
                 <span className="font-medium">
                   {lang === "es"
                     ? "Entrega inmediata del código tras el pago"
@@ -540,7 +540,7 @@ export function MarketplaceDetailView({
                 </span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-neutral-700">
-                <Lock className="w-4 h-4 text-[#FF532A] shrink-0" />
+                <Lock className="w-4 h-4 text-[#0C4651] shrink-0" />
                 <span className="font-medium">
                   {lang === "es"
                     ? "Licencia de por vida sin cuotas mensuales"
@@ -548,7 +548,7 @@ export function MarketplaceDetailView({
                 </span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-neutral-700">
-                <ShieldCheck className="w-4 h-4 text-[#FF532A] shrink-0" />
+                <ShieldCheck className="w-4 h-4 text-[#0C4651] shrink-0" />
                 <span className="font-medium">
                   {lang === "es"
                     ? "100% código propio sin ataduras externas"
@@ -556,7 +556,7 @@ export function MarketplaceDetailView({
                 </span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-neutral-700">
-                <Headphones className="w-4 h-4 text-[#FF532A] shrink-0" />
+                <Headphones className="w-4 h-4 text-[#0C4651] shrink-0" />
                 <span className="font-medium">
                   {lang === "es"
                     ? "Soporte post-compra directo de nuestro equipo"
@@ -579,7 +579,7 @@ export function MarketplaceDetailView({
               </p>
               <Link
                 href="/#contact"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold shadow-md transition-all hover:scale-102"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-full bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-xs font-bold shadow-md transition-all hover:scale-102"
               >
                 <span>
                   {lang === "es"
@@ -595,23 +595,18 @@ export function MarketplaceDetailView({
 
       {/* SECCIÓN: LO QUE DICEN QUIENES LA COMPRARON */}
       <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.5 }} className="rounded-[36px] sm:rounded-[44px] bg-[#171717] text-white p-8 sm:p-12 mb-16 border border-neutral-800 shadow-2xl relative overflow-hidden">
-        <div
-          className="absolute -top-10 -right-10 w-[300px] h-[300px] bg-[#FF532A]/20 rounded-full blur-[70px] pointer-events-none"
-          aria-hidden="true"
-        />
-
         <div className="relative z-10 flex flex-col gap-8">
           <div>
             <h2 className="hd text-2xl sm:text-4xl font-bold text-white tracking-tight m-0">
               {lang === "es" ? (
                 <>
                   Lo que dicen quienes la{" "}
-                  <span className="text-[#FF532A]">compraron</span>
+                  <span className="text-[#E6FF2A]">compraron</span>
                 </>
               ) : (
                 <>
                   What verified buyers{" "}
-                  <span className="text-[#FF532A]">are saying</span>
+                  <span className="text-[#E6FF2A]">are saying</span>
                 </>
               )}
             </h2>
@@ -621,12 +616,12 @@ export function MarketplaceDetailView({
             {buyerReviews.map((rev, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl bg-[#242427] border border-neutral-800 p-6 flex flex-col justify-between hover:border-[#FF532A]/50 transition-colors"
+                className="rounded-2xl bg-[#08343D] border border-[#145C6A] p-6 flex flex-col justify-between hover:border-[#E6FF2A]/50 transition-colors"
               >
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-center gap-1 text-[#FF532A]">
+                  <div className="flex items-center gap-1 text-[#E6FF2A]">
                     {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-[#FF532A]" />
+                      <Star key={i} className="w-3.5 h-3.5 fill-[#E6FF2A]" />
                     ))}
                   </div>
                   <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed italic m-0">
@@ -651,7 +646,7 @@ export function MarketplaceDetailView({
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.45 }} className="pt-4 mb-16">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF532A] block mb-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#0C4651] block mb-1">
                 MARKETPLACE
               </span>
               <h3 className="hd text-2xl sm:text-3xl font-bold text-[#171717] m-0">
@@ -662,7 +657,7 @@ export function MarketplaceDetailView({
             </div>
             <Link
               href="/marketplace"
-              className="text-xs sm:text-sm font-semibold text-[#FF532A] hover:text-[#E5451D] inline-flex items-center gap-1 transition-colors"
+              className="text-xs sm:text-sm font-bold text-[#0C4651] hover:text-[#145C6A] inline-flex items-center gap-1 transition-colors"
             >
               <span>{lang === "es" ? "Ver todas" : "View all"}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -679,8 +674,7 @@ export function MarketplaceDetailView({
                 rel.categoryLabel?.es ||
                 rel.category;
               const preset = cardPresets[rel.slug] || {
-                blockColor: "bg-[#FF532A]",
-                pillColor: "bg-[#FF532A]",
+                blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]",
               };
 
               const isRelImage =
@@ -689,12 +683,12 @@ export function MarketplaceDetailView({
               return (
                 <div
                   key={rel.id}
-                  className="rounded-[28px] bg-white border border-neutral-200/90 p-5 sm:p-6 flex flex-col justify-between shadow-xs hover:border-[#FF532A]/50 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5"
+                  className="rounded-[28px] bg-white border border-neutral-200/90 p-5 sm:p-6 flex flex-col justify-between shadow-xs hover:border-[#0C4651]/50 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1.5"
                 >
                   {/* Browser Window UI Preview */}
                   <div className="rounded-2xl bg-[#171717] p-4 sm:p-5 mb-5 flex flex-col gap-3 w-full overflow-hidden">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF532A]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#E6FF2A]" />
                       <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
                       <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
                     </div>
@@ -726,7 +720,7 @@ export function MarketplaceDetailView({
 
                   {/* Content Info */}
                   <div className="flex flex-col gap-1 mb-4">
-                    <h4 className="hd text-lg font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-1 m-0">
+                    <h4 className="hd text-lg font-bold text-[#171717] group-hover:text-[#0C4651] transition-colors line-clamp-1 m-0">
                       {relTitle}
                     </h4>
                     <p className="text-xs text-neutral-500 line-clamp-1 m-0">
@@ -742,7 +736,7 @@ export function MarketplaceDetailView({
 
                     <Link
                       href={`/marketplace/${rel.slug}`}
-                      className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold shadow-md shadow-[#FF532A]/20 transition-all hover:scale-105"
+                      className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-xs font-bold shadow-md shadow-[#0C4651]/20 transition-all hover:scale-105"
                     >
                       <span>
                         {lang === "es" ? "Ver detalle" : "View detail"}
@@ -758,7 +752,7 @@ export function MarketplaceDetailView({
       )}
 
       {/* BANNER CTA NARANJA */}
-      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.5 }} className="rounded-[36px] sm:rounded-[44px] bg-[#FF532A] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl shadow-[#FF532A]/20">
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.5 }} className="rounded-[36px] sm:rounded-[44px] bg-[#0C4651] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl border border-[#145C6A]">
         <h2 className="hd text-2xl sm:text-4xl lg:text-5xl font-extrabold max-w-[700px] leading-[1.15] mb-3">
           {lang === "es"
             ? "¿Tienes una idea en mente? Platiquemos"
@@ -771,14 +765,14 @@ export function MarketplaceDetailView({
         </p>
         <Link
           href="/#contact"
-          className="px-8 py-3.5 rounded-full bg-white text-[#171717] hover:bg-neutral-100 text-sm sm:text-base font-bold shadow-lg transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2"
+          className="px-8 py-3.5 rounded-full bg-[#E6FF2A] text-[#0C4651] hover:bg-[#D8F219] text-sm sm:text-base font-bold shadow-lg transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2 cursor-pointer"
         >
           <span>
             {lang === "es"
               ? "Conversar sobre mi proyecto"
               : "Discuss my project"}
           </span>
-          <ArrowUpRight className="w-4 h-4 text-[#FF532A]" />
+          <ArrowUpRight className="w-4 h-4 text-[#0C4651]" />
         </Link>
       </motion.div>
 
@@ -827,7 +821,7 @@ export function MarketplaceDetailView({
                     <p className="text-sm text-neutral-300 leading-relaxed max-w-[380px] mx-auto">
                       We have received your purchase inquiry for{" "}
                       <strong className="text-white">{title}</strong>. A dedicated project specialist will contact you at{" "}
-                      <strong className="text-[#FF532A]">{buyerEmail}</strong> shortly with payment options and your preferred delivery method (private GitHub repository or direct ZIP download).
+                      <strong className="text-[#E6FF2A]">{buyerEmail}</strong> shortly with payment options and your preferred delivery method (private GitHub repository or direct ZIP download).
                     </p>
                   </div>
 
@@ -850,7 +844,7 @@ export function MarketplaceDetailView({
                 /* Purchase Form */
                 <div>
                   <div className="mb-6">
-                    <span className="text-xs font-bold text-[#FF532A] uppercase tracking-wider block mb-1">
+                    <span className="text-xs font-bold text-[#E6FF2A] uppercase tracking-wider block mb-1">
                       Direct Purchase
                     </span>
                     <h3 className="hd text-2xl font-bold text-white leading-tight">
@@ -867,7 +861,7 @@ export function MarketplaceDetailView({
                   </div>
 
                   <div className="bg-[#202024] border border-neutral-800 rounded-2xl p-4 mb-6 text-xs text-neutral-300 leading-relaxed flex items-start gap-3">
-                    <Lock className="w-4 h-4 text-[#FF532A] shrink-0 mt-0.5" />
+                    <Lock className="w-4 h-4 text-[#0C4651] shrink-0 mt-0.5" />
                     <p className="m-0">
                       Submit your email and a dedicated project specialist will contact you shortly to coordinate payment and deliver the full codebase (via GitHub or direct ZIP archive).
                     </p>
@@ -876,7 +870,7 @@ export function MarketplaceDetailView({
                   <form onSubmit={handleBuyEnglishSubmit} className="space-y-4">
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Your Email Address <span className="text-[#FF532A]">*</span>
+                        Your Email Address <span className="text-[#E6FF2A]">*</span>
                       </label>
                       <input
                         type="email"
@@ -884,7 +878,7 @@ export function MarketplaceDetailView({
                         value={buyerEmail}
                         onChange={(e) => setBuyerEmail(e.target.value)}
                         placeholder="you@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-[#202024] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm"
+                        className="w-full px-4 py-3 rounded-xl bg-[#08343D] border border-[#145C6A] text-white placeholder-slate-400 focus:border-[#E6FF2A] outline-hidden text-sm"
                       />
                       <span className="text-[11px] text-neutral-500 mt-1 block">
                         We will send the checkout link and repository access instructions here.
@@ -900,14 +894,14 @@ export function MarketplaceDetailView({
                         value={buyerNote}
                         onChange={(e) => setBuyerNote(e.target.value)}
                         placeholder="Tell us about your project, timeline, or any questions..."
-                        className="w-full px-4 py-2.5 rounded-xl bg-[#202024] border border-neutral-800 text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden text-sm resize-none"
+                        className="w-full px-4 py-2.5 rounded-xl bg-[#08343D] border border-[#145C6A] text-white placeholder-slate-400 focus:border-[#E6FF2A] outline-hidden text-sm resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmittingOrder}
-                      className="w-full py-3.5 px-6 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white font-semibold text-sm shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2 transition-all hover:scale-101 active:scale-98 cursor-pointer disabled:opacity-50 mt-6"
+                      className="w-full py-3.5 px-6 rounded-full bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] font-bold text-sm shadow-lg shadow-[#E6FF2A]/20 flex items-center justify-center gap-2 transition-all hover:scale-101 active:scale-98 cursor-pointer disabled:opacity-50 mt-6"
                     >
                       {isSubmittingOrder ? (
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

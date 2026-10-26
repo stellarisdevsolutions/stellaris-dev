@@ -24,19 +24,47 @@ import { ProjectItem } from "@/data/projects";
 import { MarketplaceProduct } from "@/data/marketplace";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import {
   sendPurchaseInquiryEmails,
   sendContactNotificationEmails,
 } from "@/lib/email";
 
 const ADMIN_SECRET = process.env.ADMIN_PASSWORD || "stellaris2026";
+const SESSION_SECRET = process.env.SESSION_SECRET || ADMIN_SECRET;
 const COOKIE_NAME = "stellaris_admin_session";
+
+function signSessionToken(payload: string): string {
+  const signature = crypto
+    .createHmac("sha256", SESSION_SECRET)
+    .update(payload)
+    .digest("hex");
+  return `${payload}.${signature}`;
+}
+
+function verifySessionToken(token: string): boolean {
+  if (!token || !token.includes(".")) return false;
+  const lastDot = token.lastIndexOf(".");
+  const payload = token.substring(0, lastDot);
+  const signature = token.substring(lastDot + 1);
+
+  const expectedSignature = crypto
+    .createHmac("sha256", SESSION_SECRET)
+    .update(payload)
+    .digest("hex");
+
+  const sigBuffer = Buffer.from(signature);
+  const expBuffer = Buffer.from(expectedSignature);
+  if (sigBuffer.length !== expBuffer.length) return false;
+  return crypto.timingSafeEqual(sigBuffer, expBuffer);
+}
 
 // ================= AUTH =================
 export async function verifyAdminSession(): Promise<boolean> {
   const cookieStore = await cookies();
   const session = cookieStore.get(COOKIE_NAME);
-  return Boolean(session?.value && session.value.length > 0);
+  if (!session?.value) return false;
+  return verifySessionToken(session.value);
 }
 
 export async function loginAdmin(
@@ -54,7 +82,8 @@ export async function loginAdmin(
         const matches = await bcrypt.compare(passInput, user.passwordHash);
         if (matches) {
           const cookieStore = await cookies();
-          cookieStore.set(COOKIE_NAME, `user:${user.email}:${user.role}`, {
+          const signed = signSessionToken(`user:${user.email}:${user.role}:${Date.now()}`);
+          cookieStore.set(COOKIE_NAME, signed, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             maxAge: 60 * 60 * 24 * 7, // 7 days
@@ -72,7 +101,8 @@ export async function loginAdmin(
   // 2. Master Secret fallback
   if (passInput === ADMIN_SECRET || identifier.trim() === ADMIN_SECRET) {
     const cookieStore = await cookies();
-    cookieStore.set(COOKIE_NAME, "master:admin", {
+    const signed = signSessionToken(`master:admin:${Date.now()}`);
+    cookieStore.set(COOKIE_NAME, signed, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7,

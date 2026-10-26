@@ -7,7 +7,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { ProjectDetailView } from "@/components/sections/ProjectDetailView";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -34,7 +34,7 @@ export async function generateMetadata({
       : "";
   const description =
     rawDesc ||
-    `Conoce el desarrollo y arquitectura web de ${rawTitle} realizado por Stellaris Dev Solutions con Next.js y React.`;
+    `Conoce el desarrollo y arquitectura web de ${rawTitle} realizado por Kano Dev Solutions con Next.js y React.`;
 
   return {
     title,
@@ -43,14 +43,14 @@ export async function generateMetadata({
       canonical: `/projects/${project.slug}`,
     },
     openGraph: {
-      title: `${title} | Stellaris Dev`,
+      title: `${title} | Kano Dev`,
       description,
       url: `https://tiendastellaris.com/projects/${project.slug}`,
       images: project.bgPreview ? [{ url: project.bgPreview, alt: rawTitle }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Stellaris Dev`,
+      title: `${title} | Kano Dev`,
       description,
       images: project.bgPreview ? [project.bgPreview] : undefined,
     },
@@ -82,8 +82,37 @@ export default async function ProjectDetailPage({
   const list = allProjects.length > 0 ? allProjects : PROJECTS;
   const otherProjects = list.filter((p) => p.slug !== slug);
 
+  const rawTitle =
+    typeof project.title === "string"
+      ? project.title
+      : project.title?.es || project.title?.en || "Proyecto";
+  const rawDesc =
+    typeof project.tagline === "object"
+      ? project.tagline?.es || project.tagline?.en
+      : "";
+
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: rawTitle,
+    description: rawDesc,
+    url: `https://tiendastellaris.com/projects/${project.slug}`,
+    image: project.bgPreview ? [project.bgPreview] : [`https://tiendastellaris.com/opengraph-image`],
+    creator: {
+      "@type": "Organization",
+      name: "Kano Dev Solutions",
+      url: "https://tiendastellaris.com",
+    },
+    dateCreated: project.year || "2026",
+    genre: "Desarrollo Web & Software",
+  };
+
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">

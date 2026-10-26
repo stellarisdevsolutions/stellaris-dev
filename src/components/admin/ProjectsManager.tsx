@@ -60,18 +60,18 @@ export function ProjectsManager({ initialProjects }: ProjectsManagerProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <FolderGit2 className="w-6 h-6 text-[#FF532A]" />
+            <FolderGit2 className="w-6 h-6 text-[#E6FF2A]" />
             Gestión de Proyectos
           </h1>
           <p className="text-xs text-neutral-400 mt-1">
             Crea, edita o elimina los casos de éxito visibles en el sitio web y en{" "}
-            <code className="text-[#FF532A]">/projects</code>.
+            <code className="text-[#E6FF2A]">/projects</code>.
           </p>
         </div>
 
         <Link
           href="/admin/projects/new"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#FF532A] hover:bg-[#e0451e] text-white transition-all shadow-lg shadow-[#FF532A]/20 cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] font-bold transition-all shadow-lg shadow-[#E6FF2A]/20 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Añadir Proyecto
@@ -106,7 +106,7 @@ export function ProjectsManager({ initialProjects }: ProjectsManagerProps) {
             placeholder="Buscar por título, cliente o slug..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-[#171719] border border-white/10 focus:border-[#FF532A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none placeholder:text-neutral-500"
+            className="w-full bg-[#171719] border border-white/10 focus:border-[#E6FF2A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none placeholder:text-neutral-500"
           />
         </div>
         <span className="text-xs text-neutral-400 font-mono">

@@ -516,7 +516,7 @@ export function MarketplaceForm({
           </Link>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-[#FF532A]" />
+              <ShoppingBag className="w-5 h-5 text-[#E6FF2A]" />
               {isNew ? "Crear Nueva Solución" : `Editar: ${displayTitle}`}
             </h1>
             <p className="text-xs text-neutral-400 mt-0.5">
@@ -535,7 +535,7 @@ export function MarketplaceForm({
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold transition-all shadow-lg shadow-[#FF532A]/20 disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-all shadow-lg shadow-[#E6FF2A]/20 disabled:opacity-50 cursor-pointer"
           >
             <Save className="w-4 h-4" />
             {loading ? "Guardando..." : "Guardar Solución"}
@@ -557,15 +557,15 @@ export function MarketplaceForm({
           {/* Card 1: Identificación y Datos Básicos (OBLIGATORIO) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <Globe className="w-4 h-4 text-[#FF532A]" />
-              Datos Principales <span className="text-[#FF532A] text-xs">* (Obligatorio)</span>
+              <Globe className="w-4 h-4 text-[#E6FF2A]" />
+              Datos Principales <span className="text-[#E6FF2A] text-xs">* (Obligatorio)</span>
             </h2>
 
             <div className="space-y-4">
               {/* TÍTULO BILINGÜE: EN PRIMERO, LUEGO ES */}
               <div className="space-y-3">
                 <label className="block text-xs font-bold text-white">
-                  Título del Producto / Solución <span className="text-[#FF532A]">*</span>
+                  Título del Producto / Solución <span className="text-[#E6FF2A]">*</span>
                 </label>
 
                 {/* Title EN */}
@@ -586,7 +586,7 @@ export function MarketplaceForm({
                     }
                     onChange={(e) => handleTitleChange("en", e.target.value)}
                     placeholder="e.g. Stellaris SaaS Starter Pro"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A] transition-colors"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A] transition-colors"
                   />
                 </div>
 
@@ -608,7 +608,7 @@ export function MarketplaceForm({
                     }
                     onChange={(e) => handleTitleChange("es", e.target.value)}
                     placeholder="Ej: Stellaris SaaS Starter Pro - Plantilla Completa"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A] transition-colors"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A] transition-colors"
                   />
                 </div>
               </div>
@@ -617,13 +617,13 @@ export function MarketplaceForm({
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-semibold text-neutral-300">
-                    Slug de la URL <span className="text-[#FF532A]">*</span>
+                    Slug de la URL <span className="text-[#E6FF2A]">*</span>
                   </label>
                   {!isNew && (
                     <button
                       type="button"
                       onClick={() => setIsSlugUnlocked(!isSlugUnlocked)}
-                      className="text-[11px] text-[#FF532A] hover:underline flex items-center gap-1 cursor-pointer font-medium"
+                      className="text-[11px] text-[#E6FF2A] hover:underline flex items-center gap-1 cursor-pointer font-medium"
                     >
                       {isSlugUnlocked ? (
                         <>
@@ -656,7 +656,7 @@ export function MarketplaceForm({
                     className={`w-full bg-[#202024] border rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none transition-colors ${
                       !isSlugUnlocked
                         ? "text-neutral-400 border-white/5 bg-neutral-900/50 cursor-not-allowed"
-                        : "text-white border-[#FF532A]/50 focus:border-[#FF532A]"
+                        : "text-white border-[#E6FF2A]/50 focus:border-[#E6FF2A]"
                     }`}
                   />
                   {!isSlugUnlocked && (
@@ -672,7 +672,7 @@ export function MarketplaceForm({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                    Categoría <span className="text-[#FF532A]">*</span>
+                    Categoría <span className="text-[#E6FF2A]">*</span>
                   </label>
                   <select
                     value={formData.category}
@@ -695,7 +695,7 @@ export function MarketplaceForm({
                         },
                       });
                     }}
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                   >
                     <option value="saas">SaaS & Dashboard</option>
                     <option value="ecommerce">Tienda Online / E-Commerce</option>
@@ -708,7 +708,7 @@ export function MarketplaceForm({
 
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                    Precio de Venta <span className="text-[#FF532A]">*</span>
+                    Precio de Venta <span className="text-[#E6FF2A]">*</span>
                   </label>
                   <input
                     type="text"
@@ -718,7 +718,7 @@ export function MarketplaceForm({
                       setFormData({ ...formData, price: e.target.value })
                     }
                     placeholder="$189"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs outline-none focus:border-[#FF532A] font-mono font-bold"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A] font-mono font-bold"
                   />
                 </div>
               </div>
@@ -729,8 +729,8 @@ export function MarketplaceForm({
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-5">
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#FF532A]" />
-                Descripciones <span className="text-[#FF532A] text-xs">* (Obligatorio)</span>
+                <FileText className="w-4 h-4 text-[#E6FF2A]" />
+                Descripciones <span className="text-[#E6FF2A] text-xs">* (Obligatorio)</span>
               </h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2.5 py-1 rounded-md">
                 Bilingüe (EN primero, luego ES)
@@ -740,7 +740,7 @@ export function MarketplaceForm({
             {/* SHORT DESCRIPTION / TAGLINE */}
             <div className="space-y-3">
               <label className="text-xs font-bold text-white">
-                Descripción Corta / Tagline <span className="text-[#FF532A]">*</span>
+                Descripción Corta / Tagline <span className="text-[#E6FF2A]">*</span>
               </label>
 
               {/* ShortDesc EN */}
@@ -765,7 +765,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="Production-ready SaaS boilerplate with Auth, Stripe subscriptions, and modern user dashboard."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -791,7 +791,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="Plataforma SaaS lista para producción con autenticación, suscripciones Stripe y panel de control."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
             </div>
@@ -799,7 +799,7 @@ export function MarketplaceForm({
             {/* FULL DESCRIPTION */}
             <div className="space-y-3 pt-3 border-t border-white/5">
               <label className="text-xs font-bold text-white">
-                Descripción Completa y Visión General <span className="text-[#FF532A]">*</span>
+                Descripción Completa y Visión General <span className="text-[#E6FF2A]">*</span>
               </label>
 
               {/* FullDesc EN */}
@@ -824,7 +824,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="Launch your startup weeks faster. Includes Google and Email authentication, monthly/annual Stripe subscription billing..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3.5 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3.5 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                 />
               </div>
 
@@ -850,7 +850,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="Acelera el lanzamiento de tu startup semanas antes. Incluye autenticación completa con Google y Email, planes de suscripción..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3.5 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3.5 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                 />
               </div>
             </div>
@@ -861,7 +861,7 @@ export function MarketplaceForm({
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#FF532A]" />
+                  <Layers className="w-4 h-4 text-[#E6FF2A]" />
                   Características Principales <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
                 <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -874,7 +874,7 @@ export function MarketplaceForm({
                 onClick={addFeature}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-colors cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5 text-[#FF532A]" />
+                <Plus className="w-3.5 h-3.5 text-[#E6FF2A]" />
                 Añadir Característica
               </button>
             </div>
@@ -904,7 +904,7 @@ export function MarketplaceForm({
                           handleFeatureChange(idx, "en", e.target.value)
                         }
                         placeholder="Complete sign up & login flow (Google, GitHub, Magic Links)..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
 
@@ -922,7 +922,7 @@ export function MarketplaceForm({
                           handleFeatureChange(idx, "es", e.target.value)
                         }
                         placeholder="Flujo completo de registro y login (Google, GitHub, Email)..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -951,7 +951,7 @@ export function MarketplaceForm({
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#FF532A]" />
+                  <ShieldCheck className="w-4 h-4 text-[#E6FF2A]" />
                   Qué Recibe el Comprador <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
                 <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -964,7 +964,7 @@ export function MarketplaceForm({
                 onClick={addIncludedFile}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-colors cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5 text-[#FF532A]" />
+                <Plus className="w-3.5 h-3.5 text-[#E6FF2A]" />
                 Añadir Entregable
               </button>
             </div>
@@ -994,7 +994,7 @@ export function MarketplaceForm({
                           handleIncludedFileChange(idx, "en", e.target.value)
                         }
                         placeholder="Complete clean TypeScript source code..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
 
@@ -1012,7 +1012,7 @@ export function MarketplaceForm({
                           handleIncludedFileChange(idx, "es", e.target.value)
                         }
                         placeholder="Código fuente completo en TypeScript sin dependencias ocultas..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -1042,7 +1042,7 @@ export function MarketplaceForm({
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-[#FF532A]" />
+                  <Cpu className="w-4 h-4 text-[#E6FF2A]" />
                   Ficha Técnica & Arquitectura{" "}
                   <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
@@ -1053,7 +1053,7 @@ export function MarketplaceForm({
               <button
                 type="button"
                 onClick={addSpec}
-                className="px-3 py-1.5 rounded-lg bg-[#FF532A] hover:bg-[#e0451e] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Añadir</span>
@@ -1067,8 +1067,8 @@ export function MarketplaceForm({
                   className="bg-[#202024] p-4 rounded-xl border border-white/5 space-y-3"
                 >
                   <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                    <span className="text-xs font-bold text-[#FF532A] flex items-center gap-1.5">
-                      <span className="w-5 h-5 rounded-md bg-[#FF532A]/10 flex items-center justify-center text-[10px]">
+                    <span className="text-xs font-bold text-[#E6FF2A] flex items-center gap-1.5">
+                      <span className="w-5 h-5 rounded-md bg-[#E6FF2A]/10 flex items-center justify-center text-[10px]">
                         #{idx + 1}
                       </span>
                       <span>Especificación Técnica</span>
@@ -1096,7 +1096,7 @@ export function MarketplaceForm({
                           handleSpecTitleChange(idx, "en", e.target.value)
                         }
                         placeholder="e.g. Frontend Core, Database..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                     <div>
@@ -1110,7 +1110,7 @@ export function MarketplaceForm({
                           handleSpecTitleChange(idx, "es", e.target.value)
                         }
                         placeholder="ej. Frontend Core, Base de Datos..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -1128,7 +1128,7 @@ export function MarketplaceForm({
                           handleSpecDetailChange(idx, "en", e.target.value)
                         }
                         placeholder="e.g. Next.js 16 (App Router) + React 19..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                     <div>
@@ -1142,7 +1142,7 @@ export function MarketplaceForm({
                           handleSpecDetailChange(idx, "es", e.target.value)
                         }
                         placeholder="ej. Next.js 16 (App Router) + React 19..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -1162,7 +1162,7 @@ export function MarketplaceForm({
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <HelpCircle className="w-4 h-4 text-[#FF532A]" />
+                  <HelpCircle className="w-4 h-4 text-[#E6FF2A]" />
                   Preguntas Frecuentes (FAQs) <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
                 <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -1175,7 +1175,7 @@ export function MarketplaceForm({
                 onClick={addFaq}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-colors cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5 text-[#FF532A]" />
+                <Plus className="w-3.5 h-3.5 text-[#E6FF2A]" />
                 Añadir Pregunta
               </button>
             </div>
@@ -1188,7 +1188,7 @@ export function MarketplaceForm({
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-white flex items-center gap-2">
-                      <span className="w-5 h-5 rounded-md bg-[#FF532A]/20 text-[#FF532A] flex items-center justify-center text-[10px] font-mono">
+                      <span className="w-5 h-5 rounded-md bg-[#E6FF2A]/20 text-[#E6FF2A] flex items-center justify-center text-[10px] font-mono">
                         Q{idx + 1}
                       </span>
                       Pregunta #{idx + 1}
@@ -1218,7 +1218,7 @@ export function MarketplaceForm({
                         handleFaqChange(idx, "q", "en", e.target.value)
                       }
                       placeholder="Does it include the full source code?"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                     />
                   </div>
 
@@ -1237,7 +1237,7 @@ export function MarketplaceForm({
                         handleFaqChange(idx, "q", "es", e.target.value)
                       }
                       placeholder="¿Incluye el código fuente completo?"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                     />
                   </div>
 
@@ -1256,7 +1256,7 @@ export function MarketplaceForm({
                         handleFaqChange(idx, "a", "en", e.target.value)
                       }
                       placeholder="Yes, you will receive the complete clean TypeScript repository..."
-                      className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-white text-xs outline-none focus:border-[#FF532A] resize-none"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none"
                     />
                   </div>
 
@@ -1275,7 +1275,7 @@ export function MarketplaceForm({
                         handleFaqChange(idx, "a", "es", e.target.value)
                       }
                       placeholder="Sí, recibirás el repositorio completo de código fuente en TypeScript..."
-                      className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-white text-xs outline-none focus:border-[#FF532A] resize-none"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg p-2 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none"
                     />
                   </div>
                 </div>
@@ -1295,8 +1295,8 @@ export function MarketplaceForm({
           {/* Card: Imagen Principal (OBLIGATORIA) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <Sparkles className="w-4 h-4 text-[#FF532A]" />
-              Portada Principal <span className="text-[#FF532A] text-xs">* (Obligatorio)</span>
+              <Sparkles className="w-4 h-4 text-[#E6FF2A]" />
+              Portada Principal <span className="text-[#E6FF2A] text-xs">* (Obligatorio)</span>
             </h2>
 
             <ImageUploader
@@ -1324,7 +1324,7 @@ export function MarketplaceForm({
           {/* Card: Datos Comerciales & Badges (OPCIONAL - BILINGÜE) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <Tag className="w-4 h-4 text-[#FF532A]" />
+              <Tag className="w-4 h-4 text-[#E6FF2A]" />
               Configuración Comercial <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
             </h2>
 
@@ -1354,7 +1354,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="🔥 Best Seller"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -1378,7 +1378,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="🔥 Más Vendido"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
             </div>
@@ -1395,7 +1395,7 @@ export function MarketplaceForm({
                   setFormData({ ...formData, originalPrice: e.target.value })
                 }
                 placeholder="$299"
-                className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A] font-mono"
+                className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A] font-mono"
               />
             </div>
 
@@ -1412,7 +1412,7 @@ export function MarketplaceForm({
                     setFormData({ ...formData, rating: e.target.value })
                   }
                   placeholder="4.9"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -1430,7 +1430,7 @@ export function MarketplaceForm({
                     })
                   }
                   placeholder="84"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A] font-mono"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A] font-mono"
                 />
               </div>
             </div>
@@ -1439,7 +1439,7 @@ export function MarketplaceForm({
           {/* Card: Enlace de Demostración (OPCIONAL) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <ExternalLink className="w-4 h-4 text-[#FF532A]" />
+              <ExternalLink className="w-4 h-4 text-[#E6FF2A]" />
               Demo en Vivo <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
             </h2>
 
@@ -1454,7 +1454,7 @@ export function MarketplaceForm({
                   setFormData({ ...formData, demoUrl: e.target.value })
                 }
                 placeholder="https://saas-demo.stellaris.dev..."
-                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#FF532A]"
+                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#E6FF2A]"
               />
               <p className="text-[10px] text-neutral-500 mt-1">
                 Aparecerá como botón secundario &ldquo;Ver Demo en Vivo&rdquo;.

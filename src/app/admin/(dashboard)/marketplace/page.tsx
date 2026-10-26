@@ -3,7 +3,7 @@ import { getAllMarketplaceProducts } from "@/db/service";
 import { MarketplaceManager } from "@/components/admin/MarketplaceManager";
 
 export const metadata = {
-  title: "Gestión Marketplace | Admin Stellaris",
+  title: "Gestión Marketplace | Admin Kano Dev",
 };
 
 export default async function AdminMarketplacePage() {

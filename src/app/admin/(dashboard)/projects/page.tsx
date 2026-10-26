@@ -3,7 +3,7 @@ import { getAllProjects } from "@/db/service";
 import { ProjectsManager } from "@/components/admin/ProjectsManager";
 
 export const metadata = {
-  title: "Gestión de Proyectos | Admin Stellaris",
+  title: "Gestión de Proyectos | Admin Kano Dev",
 };
 
 export default async function AdminProjectsPage() {

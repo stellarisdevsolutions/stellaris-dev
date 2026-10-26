@@ -47,14 +47,8 @@ export function Process() {
       {/* Dark Bento Container matching current palette & previous step pipeline */}
       <section
         id="process"
-        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-16 sm:p-14 lg:p-16 shadow-2xl overflow-hidden relative"
+        className="w-full max-w-[1240px] mx-auto bg-[#0C4651] text-white rounded-none sm:rounded-[48px] px-6 py-16 sm:p-14 lg:p-16 shadow-2xl overflow-hidden relative border border-[#145C6A]"
       >
-        {/* Resplandor sutil idéntico al de la sección Marketplace */}
-        <div
-          className="absolute -top-8 -right-8 sm:-top-16 sm:-right-16 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[#FF532A]/25 sm:bg-[#FF532A]/35 rounded-full blur-[45px] sm:blur-[65px] pointer-events-none"
-          aria-hidden="true"
-        />
-
         <div className="relative z-10 flex flex-col gap-12 sm:gap-16">
           {/* Header */}
           <motion.div
@@ -66,19 +60,19 @@ export function Process() {
           >
             <h2 className="hd text-3xl sm:text-5xl lg:text-[48px] font-bold tracking-tight text-white m-0">
               {lang === "es" ? "Cómo " : "How we "}
-              <span className="text-[#FF532A]">
+              <span className="text-[#E6FF2A]">
                 {lang === "es" ? "trabajamos" : "work"}
               </span>
             </h2>
 
-            <p className="text-neutral-400 text-sm sm:text-base max-w-[540px] mx-auto leading-relaxed m-0">
+            <p className="text-slate-300 text-sm sm:text-base max-w-[540px] mx-auto leading-relaxed m-0">
               {lang === "es"
                 ? "Un flujo claro, transparente y sin sorpresas desde la idea inicial hasta el lanzamiento en producción."
                 : "A transparent, milestone-driven development process from concept to live production."}
             </p>
           </motion.div>
 
-          {/* 4 Steps with Connector Lines and Orange Badges */}
+          {/* 4 Steps with Connector Lines and Lime Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-7 relative">
             {steps.map((item, index) => {
               const isLast = index === steps.length - 1;
@@ -94,25 +88,25 @@ export function Process() {
                 >
                   {/* Top: Step Number Badge + Connector Line */}
                   <div className="flex items-center gap-3">
-                    <div className="hd w-[52px] h-[52px] rounded-2xl sm:rounded-full bg-[#FF532A] text-white font-extrabold text-[22px] flex items-center justify-center shrink-0 shadow-lg shadow-[#FF532A]/30 group-hover:scale-105 group-hover:bg-[#E5451D] transition-all">
+                    <div className="hd w-[52px] h-[52px] rounded-2xl sm:rounded-full bg-[#E6FF2A] text-[#0C4651] font-black text-[22px] flex items-center justify-center shrink-0 shadow-lg shadow-[#E6FF2A]/20 group-hover:scale-105 group-hover:bg-[#D8F219] transition-all">
                       {item.number}
                     </div>
 
                     {/* Connector line (visible on desktop between steps) */}
                     {!isLast && (
-                      <div className="flex-1 h-[2px] bg-neutral-800 hidden lg:block relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#FF532A]/50 to-transparent" />
+                      <div className="flex-1 h-[2px] bg-[#145C6A] hidden lg:block relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#E6FF2A]/50 to-transparent" />
                       </div>
                     )}
                   </div>
 
                   {/* Step Title */}
-                  <h3 className="hd text-xl sm:text-[22px] font-bold text-white m-0 group-hover:text-[#FF532A] transition-colors">
+                  <h3 className="hd text-xl sm:text-[22px] font-bold text-white m-0 group-hover:text-[#E6FF2A] transition-colors">
                     {item.title}
                   </h3>
 
                   {/* Step Description */}
-                  <p className="text-neutral-400 leading-[1.6] text-xs sm:text-[14px] m-0">
+                  <p className="text-slate-300 leading-[1.6] text-xs sm:text-[14px] m-0">
                     {item.desc}
                   </p>
                 </motion.div>

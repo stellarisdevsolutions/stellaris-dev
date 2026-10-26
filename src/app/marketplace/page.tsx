@@ -18,7 +18,7 @@ export default async function MarketplaceListPage() {
   const products = await getAllMarketplaceProducts();
 
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-24 relative overflow-hidden">

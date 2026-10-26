@@ -8,7 +8,7 @@ import { Footer } from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "Términos y Condiciones",
   description:
-    "Términos generales de contratación de servicios y adquisición de software en Stellaris Dev Solutions.",
+    "Términos generales de contratación de servicios y adquisición de software en Kano Dev Solutions.",
   alternates: {
     canonical: "/terms-and-conditions",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-24">
@@ -25,7 +25,7 @@ export default function TermsPage() {
           <div className="mb-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#0C4651] transition-colors group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               <span>Volver al inicio</span>
@@ -34,7 +34,7 @@ export default function TermsPage() {
 
           <div className="mb-10 pb-8 border-b border-neutral-100">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
-              <FileText className="w-3.5 h-3.5 text-[#FF532A]" />
+              <FileText className="w-3.5 h-3.5 text-[#0C4651]" />
               <span>CONDICIONES DE SERVICIO</span>
             </div>
             <h1 className="hd text-3xl sm:text-5xl font-bold tracking-tight text-[#171717] m-0">
@@ -51,7 +51,7 @@ export default function TermsPage() {
                 1. Aceptación de los Términos
               </h2>
               <p>
-                Al acceder y utilizar este sitio web o contratar los servicios de desarrollo web y software de <strong>Stellaris Dev Solutions</strong>, aceptas cumplir con los presentes Términos y Condiciones de Servicio.
+                Al acceder y utilizar este sitio web o contratar los servicios de desarrollo web y software de <strong>Kano Dev Solutions</strong>, aceptas cumplir con los presentes Términos y Condiciones de Servicio.
               </p>
             </section>
 

@@ -39,33 +39,33 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen bg-[#0D0D0E] text-white flex flex-col justify-center items-center px-4 relative overflow-hidden font-sans">
       {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[250px] bg-[#FF532A]/15 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[250px] bg-[#0C4651]/30 rounded-full blur-[90px] pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo badge */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-3 group">
-            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-lg shadow-[#FF532A]/25">
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-lg shadow-[#0C4651]/25">
               <Image
                 src="/logo.webp"
-                alt="Stellaris Dev"
+                alt="Kano Dev"
                 width={32}
                 height={32}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            <span className="font-bold text-xl tracking-tight text-white group-hover:text-[#FF532A] transition-colors">
-              STELLARIS<span className="text-[#FF532A]">.</span>DEV
+            <span className="font-bold text-xl tracking-tight text-white group-hover:text-[#E6FF2A] transition-colors">
+              KANO<span className="text-[#E6FF2A]">.</span>DEV
             </span>
           </Link>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-neutral-300">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#FF532A]" />
+            <ShieldCheck className="w-3.5 h-3.5 text-[#E6FF2A]" />
             Panel de Control Privado
           </div>
           <h1 className="text-2xl font-bold mt-4 tracking-tight">Acceso Administrativo</h1>
           <p className="text-sm text-neutral-400 mt-1">
-            Ingresa tus credenciales seguras para acceder a la gestión de Stellaris Dev.
+            Ingresa tus credenciales seguras para acceder a la gestión de Kano Dev.
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@stellaris.dev"
-                  className="w-full bg-[#202024] border border-white/10 focus:border-[#FF532A] focus:ring-1 focus:ring-[#FF532A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none transition-all placeholder:text-neutral-500"
+                  className="w-full bg-[#202024] border border-white/10 focus:border-[#E6FF2A] focus:ring-1 focus:ring-[#E6FF2A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none transition-all placeholder:text-neutral-500"
                   required
                 />
               </div>
@@ -111,7 +111,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Introduce tu contraseña..."
-                  className="w-full bg-[#202024] border border-white/10 focus:border-[#FF532A] focus:ring-1 focus:ring-[#FF532A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none transition-all placeholder:text-neutral-500"
+                  className="w-full bg-[#202024] border border-white/10 focus:border-[#E6FF2A] focus:ring-1 focus:ring-[#E6FF2A] text-white text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none transition-all placeholder:text-neutral-500"
                   required
                 />
               </div>
@@ -120,10 +120,10 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3 px-4 rounded-xl font-semibold text-xs bg-[#FF532A] hover:bg-[#e0451e] text-white transition-all shadow-lg shadow-[#FF532A]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className="w-full mt-2 py-3 px-4 rounded-xl font-bold text-xs bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] transition-all shadow-lg shadow-[#E6FF2A]/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               {loading ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-[#0C4651]/30 border-t-[#0C4651] rounded-full animate-spin" />
               ) : (
                 <>
                   Entrar al Panel
@@ -135,7 +135,7 @@ export default function AdminLoginPage() {
 
           {/* Quick info tip */}
           <div className="mt-5 pt-4 border-t border-white/5 flex items-start gap-2.5 text-xs text-neutral-400">
-            <Sparkles className="w-4 h-4 text-[#FF532A] shrink-0 mt-0.5" />
+            <Sparkles className="w-4 h-4 text-[#E6FF2A] shrink-0 mt-0.5" />
             <p>
               Credenciales iniciales: <code className="text-white bg-white/10 px-1 py-0.5 rounded font-mono">admin@stellaris.dev</code> / <code className="text-white bg-white/10 px-1 py-0.5 rounded font-mono">stellaris2026</code> (Cifrado con <strong className="text-neutral-300">bcrypt</strong> en Neon Postgres).
             </p>

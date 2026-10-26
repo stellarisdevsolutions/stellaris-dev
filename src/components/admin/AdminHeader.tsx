@@ -34,10 +34,10 @@ export function AdminHeader({ isDbConnected }: AdminHeaderProps) {
       {/* Right admin profile badge */}
       <div className="flex items-center gap-3">
         <div className="text-right hidden sm:block">
-          <p className="text-xs font-semibold text-white">Stellaris Admin</p>
+          <p className="text-xs font-semibold text-white">Kano Admin</p>
           <p className="text-[10px] text-neutral-400">Master Control</p>
         </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF532A] to-amber-500 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-[#FF532A]/20">
+        <div className="w-8 h-8 rounded-full bg-[#0C4651] border border-[#145C6A] flex items-center justify-center text-[#E6FF2A] font-bold text-xs shadow-md shadow-[#0C4651]/20">
           <ShieldCheck className="w-4 h-4" />
         </div>
       </div>

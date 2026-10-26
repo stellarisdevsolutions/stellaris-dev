@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ProjectItem } from "@/data/projects";
@@ -78,7 +79,7 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
       <div className="mb-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#0C4651] transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>{lang === "es" ? "Volver al inicio" : "Back to home"}</span>
@@ -88,13 +89,13 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
       {/* Header Principal con título y párrafo al lado derecho */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-neutral-100">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-[#0C4651] mb-3 shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0C4651]" />
             <span>{lang === "es" ? "CASOS DE ÉXITO & PORTAFOLIO" : "CASE STUDIES & PORTFOLIO"}</span>
           </div>
-          <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#171717] leading-[1.08] m-0">
+          <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0C4651] leading-[1.08] m-0">
             {lang === "es" ? "Nuestros " : "Our "}
-            <span className="inline-block relative text-white bg-[#FF532A] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
+            <span className="inline-block relative text-[#0C4651] bg-[#E6FF2A] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-sm shadow-[#E6FF2A]/30 -rotate-1 mx-1 border border-[#0C4651]/20">
               {lang === "es" ? "Proyectos" : "Projects"}
             </span>
           </h1>
@@ -119,7 +120,7 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
               type="button"
               className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeTab === cat.id
-                  ? "bg-[#171717] text-white shadow-md shadow-neutral-900/20"
+                  ? "bg-[#0C4651] text-[#E6FF2A] shadow-md shadow-[#0C4651]/20 font-bold"
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
               }`}
             >
@@ -129,7 +130,7 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
         </div>
 
         {/* Buscador Tipo Pill */}
-        <div className="w-full md:w-[380px] lg:w-[420px] flex items-center bg-white border border-neutral-200 rounded-full p-1.5 shadow-sm shadow-neutral-100 focus-within:border-[#FF532A] focus-within:shadow-md transition-all shrink-0">
+        <div className="w-full md:w-[380px] lg:w-[420px] flex items-center bg-white border border-neutral-200 rounded-full p-1.5 shadow-sm shadow-neutral-100 focus-within:border-[#0C4651] focus-within:shadow-md transition-all shrink-0">
           <input
             type="text"
             value={searchQuery}
@@ -139,11 +140,11 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
                 ? "Buscar por nombre, cliente o tecnología..."
                 : "Search by project, client or stack..."
             }
-            className="flex-1 bg-transparent border-0 px-4 py-2 text-xs sm:text-sm text-[#171717] placeholder-neutral-400 outline-none"
+            className="flex-1 bg-transparent border-0 px-4 py-2 text-xs sm:text-sm text-[#0C4651] placeholder-neutral-400 outline-none"
           />
           <button
             type="button"
-            className="px-5 py-2.5 bg-[#FF532A] hover:bg-[#e0451e] text-white text-xs sm:text-sm font-semibold rounded-full transition-all shrink-0 shadow-sm shadow-[#FF532A]/25 cursor-pointer"
+            className="px-5 py-2.5 bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-xs sm:text-sm font-bold rounded-full transition-all shrink-0 shadow-sm shadow-[#0C4651]/20 cursor-pointer"
           >
             {lang === "es" ? "Buscar" : "Search"}
           </button>
@@ -177,10 +178,12 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
               {/* Imagen/Preview Limpia - SIN NADA ENCIMA */}
               <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-3 shadow-xs">
                 {imageSrc ? (
-                  <img
+                  <Image
                     src={imageSrc}
                     alt={title}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div
@@ -198,12 +201,12 @@ export function ProjectsCatalog({ initialProjects }: ProjectsCatalogProps) {
               {/* Información debajo de la imagen (limpio, sin nada sobre la foto) */}
               <div className="flex flex-col">
                 {/* Etiqueta de Categoría - NO diseño cápsula (tipográfica, minimalista) */}
-                <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1">
+                <span className="text-xs font-semibold text-[#0C4651] uppercase tracking-wider mb-1">
                   {catLabel}
                 </span>
 
                 {/* Título del proyecto - Máximo 2 filas */}
-                <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#0C4651] group-hover:text-[#145C6A] transition-colors line-clamp-2 leading-snug m-0">
                   {title}
                 </h3>
               </div>

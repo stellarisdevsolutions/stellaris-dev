@@ -41,8 +41,8 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
   const [manualSlugEdited, setManualSlugEdited] = useState(!isNew);
   const [pendingBlobDeletions, setPendingBlobDeletions] = useState<string[]>([]);
 
-  const [formData, setFormData] = useState<ProjectItem>(
-    initialData
+  const [formData, setFormData] = useState<ProjectItem>(() => {
+    return initialData
       ? {
           ...initialData,
           title:
@@ -146,8 +146,8 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             role: { en: "", es: "" },
           },
           bgPreview: "",
-        }
-  );
+        };
+  });
 
   // Auto-generate slug from English title (or Spanish) if creating and not manually modified
   const handleTitleChange = (lang: "en" | "es", val: string) => {
@@ -412,7 +412,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           </Link>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#FF532A]" />
+              <Sparkles className="w-5 h-5 text-[#E6FF2A]" />
               {isNew ? "Crear Nuevo Proyecto" : `Editar Proyecto: ${displayTitle}`}
             </h1>
             <p className="text-xs text-neutral-400 mt-0.5">
@@ -431,7 +431,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold transition-all shadow-lg shadow-[#FF532A]/20 disabled:opacity-50 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-all shadow-lg shadow-[#E6FF2A]/20 disabled:opacity-50 cursor-pointer"
           >
             <Save className="w-4 h-4" />
             {loading ? "Guardando..." : "Guardar Proyecto"}
@@ -453,7 +453,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           {/* Card 1: Identificación y Datos Básicos */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <Globe className="w-4 h-4 text-[#FF532A]" />
+              <Globe className="w-4 h-4 text-[#E6FF2A]" />
               Datos Principales
             </h2>
 
@@ -461,7 +461,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
               {/* TÍTULO BILINGÜE: EN PRIMERO, LUEGO ES */}
               <div className="space-y-3">
                 <label className="block text-xs font-bold text-white">
-                  Título del Proyecto <span className="text-[#FF532A]">*</span>
+                  Título del Proyecto <span className="text-[#E6FF2A]">*</span>
                 </label>
 
                 {/* Title EN */}
@@ -482,7 +482,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     }
                     onChange={(e) => handleTitleChange("en", e.target.value)}
                     placeholder="e.g. Food Express - Delivery & Restaurant App"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A] transition-colors"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A] transition-colors"
                   />
                 </div>
 
@@ -504,7 +504,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     }
                     onChange={(e) => handleTitleChange("es", e.target.value)}
                     placeholder="Ej: Food Express - App de Delivery & Restaurantes"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#FF532A] transition-colors"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs outline-none focus:border-[#E6FF2A] transition-colors"
                   />
                 </div>
               </div>
@@ -513,13 +513,13 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="block text-xs font-semibold text-neutral-300">
-                    Slug de la URL <span className="text-[#FF532A]">*</span>
+                    Slug de la URL <span className="text-[#E6FF2A]">*</span>
                   </label>
                   {!isNew && (
                     <button
                       type="button"
                       onClick={() => setIsSlugUnlocked(!isSlugUnlocked)}
-                      className="text-[11px] text-[#FF532A] hover:underline flex items-center gap-1 cursor-pointer font-medium"
+                      className="text-[11px] text-[#E6FF2A] hover:underline flex items-center gap-1 cursor-pointer font-medium"
                     >
                       {isSlugUnlocked ? (
                         <>
@@ -552,7 +552,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     className={`w-full bg-[#202024] border rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none transition-colors ${
                       !isSlugUnlocked
                         ? "text-neutral-400 border-white/5 bg-neutral-900/50 cursor-not-allowed"
-                        : "text-white border-[#FF532A]/50 focus:border-[#FF532A]"
+                        : "text-white border-[#E6FF2A]/50 focus:border-[#E6FF2A]"
                     }`}
                   />
                   {!isSlugUnlocked && (
@@ -577,7 +577,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     value={formData.client}
                     onChange={(e) => setFormData({ ...formData, client: e.target.value })}
                     placeholder="Ej: Food Express Latam"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                   />
                 </div>
 
@@ -590,7 +590,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     value={formData.year}
                     onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                     placeholder="2026"
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                   />
                 </div>
 
@@ -641,7 +641,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                         },
                       });
                     }}
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                   >
                     <option value="web">Sitio Web / Website</option>
                     <option value="ecommerce">Tienda Online / E-Commerce</option>
@@ -660,7 +660,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-5">
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <Layers className="w-4 h-4 text-[#FF532A]" />
+                <Layers className="w-4 h-4 text-[#E6FF2A]" />
                 Resumen & Visión General
               </h2>
               <span className="text-[10px] font-mono text-neutral-400 bg-white/5 px-2.5 py-1 rounded-md">
@@ -672,7 +672,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold text-white">
-                  Tagline (Resumen de Impacto en 1 frase) <span className="text-[#FF532A]">*</span>
+                  Tagline (Resumen de Impacto en 1 frase) <span className="text-[#E6FF2A]">*</span>
                 </label>
               </div>
 
@@ -695,7 +695,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="High-speed online delivery platform with direct kitchen order routing..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -718,7 +718,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Plataforma de delivery ultrarrápida con pedidos automatizados a cocina..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3.5 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
             </div>
@@ -726,7 +726,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             {/* OVERVIEW */}
             <div className="space-y-3 pt-3 border-t border-white/5">
               <label className="block text-xs font-bold text-white">
-                Visión General / Contexto Completo <span className="text-[#FF532A]">*</span>
+                Visión General / Contexto Completo <span className="text-[#E6FF2A]">*</span>
               </label>
 
               {/* Overview EN */}
@@ -748,7 +748,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Explain what the client needed, the initial scope, and why development started..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                 />
               </div>
 
@@ -771,7 +771,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Explica qué necesitaba el cliente, el alcance inicial y por qué se inició el desarrollo..."
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                 />
               </div>
             </div>
@@ -781,7 +781,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <div className="border-b border-white/5 pb-3">
               <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-[#FF532A]" />
+                <BarChart3 className="w-4 h-4 text-[#E6FF2A]" />
                 El Desafío & Nuestra Solución <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
               </h2>
               <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -815,7 +815,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                       })
                     }
                     placeholder="The legacy site was slow and lost 40% of mobile users..."
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                   />
                 </div>
 
@@ -839,7 +839,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                       })
                     }
                     placeholder="El sitio web anterior tardaba más de 4s en cargar y perdía clientes..."
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                   />
                 </div>
               </div>
@@ -871,7 +871,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                       })
                     }
                     placeholder="We engineered an ultra-fast Web App using Next.js 16 and Server Actions..."
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                   />
                 </div>
 
@@ -895,7 +895,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                       })
                     }
                     placeholder="Desarrollamos una Web App con Next.js 16 y React 19 optimizada con Server Actions..."
-                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                    className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
                   />
                 </div>
               </div>
@@ -907,7 +907,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-[#FF532A]" />
+                  <BarChart3 className="w-4 h-4 text-[#E6FF2A]" />
                   Métricas de Impacto <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
                 <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -917,7 +917,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
               <button
                 type="button"
                 onClick={addMetric}
-                className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] hover:underline font-semibold cursor-pointer shrink-0"
+                className="inline-flex items-center gap-1.5 text-xs text-[#E6FF2A] hover:underline font-semibold cursor-pointer shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" /> Añadir Métrica
               </button>
@@ -938,7 +938,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                       value={m.value}
                       onChange={(e) => handleMetricChange(idx, "value", e.target.value)}
                       placeholder="+100%"
-                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white font-bold text-sm outline-none focus:border-[#FF532A]"
+                      className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white font-bold text-sm outline-none focus:border-[#E6FF2A]"
                     />
                   </div>
 
@@ -955,7 +955,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                         value={m.label.en}
                         onChange={(e) => handleMetricChange(idx, "labelEn", e.target.value)}
                         placeholder="Increase in mobile sales"
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                     <div>
@@ -970,7 +970,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                         value={m.label.es}
                         onChange={(e) => handleMetricChange(idx, "labelEs", e.target.value)}
                         placeholder="Incremento en ventas móviles"
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -998,7 +998,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <ListChecks className="w-4 h-4 text-[#FF532A]" />
+                  <ListChecks className="w-4 h-4 text-[#E6FF2A]" />
                   Características Funcionales Incluidas <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
                 </h2>
                 <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -1008,7 +1008,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
               <button
                 type="button"
                 onClick={addFeature}
-                className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] hover:underline font-semibold cursor-pointer shrink-0"
+                className="inline-flex items-center gap-1.5 text-xs text-[#E6FF2A] hover:underline font-semibold cursor-pointer shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" /> Añadir Característica
               </button>
@@ -1037,7 +1037,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                         value={formData.features.en?.[idx] || ""}
                         onChange={(e) => handleFeatureChange(idx, "en", e.target.value)}
                         placeholder="Interactive food catalog with custom addons & sizes..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
 
@@ -1053,7 +1053,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                         value={formData.features.es?.[idx] || ""}
                         onChange={(e) => handleFeatureChange(idx, "es", e.target.value)}
                         placeholder="Catálogo interactivo con variantes e ingredientes..."
-                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                        className="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                       />
                     </div>
                   </div>
@@ -1080,7 +1080,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <div className="border-b border-white/5 pb-3">
               <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <Quote className="w-4 h-4 text-[#FF532A]" />
+                <Quote className="w-4 h-4 text-[#E6FF2A]" />
                 Comentario / Reseña del Cliente <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
               </h2>
               <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -1118,8 +1118,8 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     },
                   })
                 }
-                placeholder="Stellaris Dev understood our business urgency. In less than two weeks our system was running 100%..."
-                className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                placeholder="Kano Dev understood our business urgency. In less than two weeks our system was running 100%..."
+                className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
               />
             </div>
 
@@ -1153,8 +1153,8 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     },
                   })
                 }
-                placeholder="Stellaris Dev entendió exactamente la urgencia de nuestro negocio. En menos de dos semanas..."
-                className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#FF532A] resize-none leading-relaxed"
+                placeholder="Kano Dev entendió exactamente la urgencia de nuestro negocio. En menos de dos semanas..."
+                className="w-full bg-[#202024] border border-white/10 rounded-xl p-3 text-white text-xs outline-none focus:border-[#E6FF2A] resize-none leading-relaxed"
               />
             </div>
 
@@ -1176,7 +1176,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Ej: Rodrigo Morales"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -1210,7 +1210,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Operations Director"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
 
@@ -1244,7 +1244,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     })
                   }
                   placeholder="Director de Operaciones"
-                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#FF532A]"
+                  className="w-full bg-[#202024] border border-white/10 rounded-xl px-3 py-2 text-white text-xs outline-none focus:border-[#E6FF2A]"
                 />
               </div>
             </div>
@@ -1256,8 +1256,8 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           {/* Card: Imagen Principal (Obligatoria) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <Sparkles className="w-4 h-4 text-[#FF532A]" />
-              Imagen Principal del Proyecto <span className="text-[#FF532A]">*</span>
+              <Sparkles className="w-4 h-4 text-[#E6FF2A]" />
+              Imagen Principal del Proyecto <span className="text-[#E6FF2A]">*</span>
             </h2>
 
             <ImageUploader
@@ -1285,7 +1285,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
           {/* Card: URL del Proyecto & Selector de Botón (Opcional) */}
           <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
             <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-white/5 pb-3">
-              <ExternalLink className="w-4 h-4 text-[#FF532A]" />
+              <ExternalLink className="w-4 h-4 text-[#E6FF2A]" />
               Enlace del Proyecto <span className="text-neutral-500 font-normal text-xs">(Opcional)</span>
             </h2>
 
@@ -1298,7 +1298,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                 value={formData.liveUrl || ""}
                 onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
                 placeholder="https://cliente.com..."
-                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#FF532A]"
+                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#E6FF2A]"
               />
             </div>
 
@@ -1314,7 +1314,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     liveUrlLabel: e.target.value as "Demo en Vivo" | "Ver Diseño",
                   })
                 }
-                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#FF532A]"
+                className="w-full bg-[#202024] border border-white/10 text-white text-xs rounded-xl px-3 py-2.5 outline-none focus:border-[#E6FF2A]"
               >
                 <option value="Demo en Vivo">Demo en Vivo / Live Demo</option>
                 <option value="Ver Diseño">Ver Diseño / View Design</option>
@@ -1330,7 +1330,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div>
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Code2 className="w-4 h-4 text-[#FF532A]" />
+                  <Code2 className="w-4 h-4 text-[#E6FF2A]" />
                   Stack Tecnológico
                 </h2>
                 <p className="text-[10px] text-neutral-400 mt-0.5">
@@ -1340,7 +1340,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
               <button
                 type="button"
                 onClick={addStackTech}
-                className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] hover:underline font-semibold cursor-pointer shrink-0"
+                className="inline-flex items-center gap-1.5 text-xs text-[#E6FF2A] hover:underline font-semibold cursor-pointer shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" /> Añadir
               </button>
@@ -1358,7 +1358,7 @@ export function ProjectForm({ initialData, isNew = false }: ProjectFormProps) {
                     value={tech}
                     onChange={(e) => handleStackChange(idx, e.target.value)}
                     placeholder="Ej. Next.js 16"
-                    className="flex-1 bg-[#202024] border border-white/10 rounded-xl px-3 py-1.5 text-white text-xs outline-none focus:border-[#FF532A]"
+                    className="flex-1 bg-[#202024] border border-white/10 rounded-xl px-3 py-1.5 text-white text-xs outline-none focus:border-[#E6FF2A]"
                   />
                   <button
                     type="button"

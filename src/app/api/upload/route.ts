@@ -9,7 +9,19 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const { searchParams } = new URL(request.url);
-  const filename = searchParams.get("filename") || `upload-${Date.now()}.png`;
+  const rawFilename = searchParams.get("filename") || `upload-${Date.now()}.webp`;
+  // Sanitize filename to prevent directory traversal
+  const filename = rawFilename.replace(/[^a-zA-Z0-9._-]/g, "_");
+
+  // Validate allowed image extensions
+  const ALLOWED_EXTS = [".webp", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".gif"];
+  const isAllowedExt = ALLOWED_EXTS.some((ext) => filename.toLowerCase().endsWith(ext));
+  if (!isAllowedExt) {
+    return NextResponse.json(
+      { error: "Formato no permitido. Solo se permiten imágenes (.webp, .png, .jpg, .jpeg, .svg, .gif, .ico)." },
+      { status: 400 }
+    );
+  }
 
   if (!request.body) {
     return NextResponse.json({ error: "No se proporcionó ningún archivo." }, { status: 400 });

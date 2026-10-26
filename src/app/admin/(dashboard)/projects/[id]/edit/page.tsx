@@ -4,7 +4,7 @@ import { getAllProjects } from "@/db/service";
 import { ProjectForm } from "@/components/admin/ProjectForm";
 
 export const metadata = {
-  title: "Editar Proyecto | Admin Stellaris",
+  title: "Editar Proyecto | Admin Kano Dev",
 };
 
 export default async function EditProjectPage({

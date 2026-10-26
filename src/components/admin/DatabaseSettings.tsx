@@ -46,7 +46,7 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
       {/* Header */}
       <div className="pb-4 border-b border-white/10">
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <Database className="w-6 h-6 text-[#FF532A]" />
+          <Database className="w-6 h-6 text-[#E6FF2A]" />
           Base de Datos & Sincronización Vercel
         </h1>
         <p className="text-xs text-neutral-400 mt-1">
@@ -93,7 +93,7 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
           <button
             onClick={handleSeed}
             disabled={loading || !isConfigured}
-            className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#FF532A] hover:bg-[#e0451e] disabled:opacity-40 disabled:hover:bg-[#FF532A] text-white transition-all shadow-lg shadow-[#FF532A]/20 flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#E6FF2A] hover:bg-[#D8F219] disabled:opacity-40 disabled:hover:bg-[#E6FF2A] text-[#0C4651] transition-all shadow-lg shadow-[#E6FF2A]/20 flex items-center gap-2 cursor-pointer"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
             Sembrar Datos Iniciales (Seed)
@@ -117,13 +117,13 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
       {/* Guide: How to connect Vercel Postgres */}
       <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
         <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#FF532A]" />
+          <Sparkles className="w-4 h-4 text-[#E6FF2A]" />
           ¿Cómo activar la base de datos en Vercel con 1 clic?
         </h2>
 
         <div className="space-y-3 text-xs text-neutral-300 leading-relaxed">
           <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202024]/60 border border-white/5">
-            <span className="w-6 h-6 rounded-full bg-[#FF532A] text-white font-bold flex items-center justify-center shrink-0 text-xs">
+            <span className="w-6 h-6 rounded-full bg-[#E6FF2A] text-[#0C4651] font-bold flex items-center justify-center shrink-0 text-xs">
               1
             </span>
             <div>
@@ -135,19 +135,19 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
           </div>
 
           <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202024]/60 border border-white/5">
-            <span className="w-6 h-6 rounded-full bg-[#FF532A] text-white font-bold flex items-center justify-center shrink-0 text-xs">
+            <span className="w-6 h-6 rounded-full bg-[#E6FF2A] text-[#0C4651] font-bold flex items-center justify-center shrink-0 text-xs">
               2
             </span>
             <div>
               <p className="font-semibold text-white">Variables Automáticas</p>
               <p className="text-neutral-400 mt-0.5">
-                Vercel inyecta automáticamente <code className="text-[#FF532A] bg-white/5 px-1 py-0.5 rounded font-mono">POSTGRES_URL</code> en tus variables de entorno de producción.
+                Vercel inyecta automáticamente <code className="text-[#E6FF2A] bg-white/5 px-1 py-0.5 rounded font-mono">POSTGRES_URL</code> en tus variables de entorno de producción.
               </p>
             </div>
           </div>
 
           <div className="flex items-start gap-3 p-3.5 rounded-xl bg-[#202024]/60 border border-white/5">
-            <span className="w-6 h-6 rounded-full bg-[#FF532A] text-white font-bold flex items-center justify-center shrink-0 text-xs">
+            <span className="w-6 h-6 rounded-full bg-[#E6FF2A] text-[#0C4651] font-bold flex items-center justify-center shrink-0 text-xs">
               3
             </span>
             <div>
@@ -155,7 +155,7 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
               <p className="text-neutral-400 mt-0.5">
                 Para sincronizar las tablas de Drizzle con Vercel, ejecuta en la terminal:
               </p>
-              <div className="mt-2 p-2.5 rounded-lg bg-black/60 font-mono text-[#FF532A] text-[11px] flex items-center justify-between">
+              <div className="mt-2 p-2.5 rounded-lg bg-black/60 font-mono text-[#E6FF2A] text-[11px] flex items-center justify-between">
                 <code>pnpm db:push</code>
               </div>
             </div>
@@ -166,25 +166,25 @@ export function DatabaseSettings({ isConfigured }: DatabaseSettingsProps) {
       {/* Drizzle Kit Commands Reference */}
       <div className="bg-[#171719] border border-white/10 rounded-2xl p-6 space-y-4">
         <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-[#FF532A]" />
+          <Terminal className="w-4 h-4 text-[#E6FF2A]" />
           Comandos CLI de Drizzle ORM
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
           <div className="p-4 rounded-xl bg-[#202024] border border-white/5 space-y-1.5">
-            <span className="font-mono text-[#FF532A] font-bold">pnpm db:push</span>
+            <span className="font-mono text-[#E6FF2A] font-bold">pnpm db:push</span>
             <p className="text-neutral-400 text-[11px]">
               Aplica el esquema de `schema.ts` a tu base de datos Vercel al instante.
             </p>
           </div>
           <div className="p-4 rounded-xl bg-[#202024] border border-white/5 space-y-1.5">
-            <span className="font-mono text-[#FF532A] font-bold">pnpm db:seed</span>
+            <span className="font-mono text-[#E6FF2A] font-bold">pnpm db:seed</span>
             <p className="text-neutral-400 text-[11px]">
               Inserta los proyectos y productos iniciales de demostración en Postgres.
             </p>
           </div>
           <div className="p-4 rounded-xl bg-[#202024] border border-white/5 space-y-1.5">
-            <span className="font-mono text-[#FF532A] font-bold">pnpm db:studio</span>
+            <span className="font-mono text-[#E6FF2A] font-bold">pnpm db:studio</span>
             <p className="text-neutral-400 text-[11px]">
               Abre el visualizador visual interactivo de Drizzle en tu navegador.
             </p>

@@ -131,7 +131,7 @@ export function ImageUploader({
                 <CheckCircle2 className="w-3.5 h-3.5" /> Imagen lista en CDN
               </p>
               {compressionBadge && (
-                <span className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#FF532A]/15 text-[#FF532A] font-bold">
+                <span className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#E6FF2A]/15 text-[#E6FF2A] font-bold">
                   <Sparkles className="w-2.5 h-2.5" />
                   {compressionBadge}
                 </span>
@@ -154,7 +154,7 @@ export function ImageUploader({
         <div>
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="border-2 border-dashed border-white/15 hover:border-[#FF532A]/50 rounded-xl p-4 text-center cursor-pointer transition-all bg-[#202024]/40 hover:bg-[#202024]/80 group"
+            className="border-2 border-dashed border-white/15 hover:border-[#E6FF2A]/50 rounded-xl p-4 text-center cursor-pointer transition-all bg-[#202024]/40 hover:bg-[#202024]/80 group"
           >
             <input
               ref={fileInputRef}
@@ -165,7 +165,7 @@ export function ImageUploader({
             />
             {uploading ? (
               <div className="flex flex-col items-center justify-center py-2">
-                <Loader2 className="w-6 h-6 text-[#FF532A] animate-spin mb-2" />
+                <Loader2 className="w-6 h-6 text-[#E6FF2A] animate-spin mb-2" />
                 <span className="text-xs text-neutral-200 font-medium">
                   {statusMessage || "Procesando imagen..."}
                 </span>
@@ -175,7 +175,7 @@ export function ImageUploader({
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-1">
-                <UploadCloud className="w-6 h-6 text-neutral-400 group-hover:text-[#FF532A] transition-colors mb-1.5" />
+                <UploadCloud className="w-6 h-6 text-neutral-400 group-hover:text-[#E6FF2A] transition-colors mb-1.5" />
                 <span className="text-xs text-neutral-300 font-medium group-hover:text-white">
                   Haz clic para subir imagen (conversión automática a WebP)
                 </span>
@@ -199,7 +199,7 @@ export function ImageUploader({
                 onChange(e.target.value);
               }}
               placeholder="https://..."
-              className="flex-1 bg-[#202024] border border-white/10 text-white text-[11px] rounded-lg px-2.5 py-1.5 outline-none focus:border-[#FF532A]"
+              className="flex-1 bg-[#202024] border border-white/10 text-white text-[11px] rounded-lg px-2.5 py-1.5 outline-none focus:border-[#E6FF2A]"
             />
           </div>
         </div>

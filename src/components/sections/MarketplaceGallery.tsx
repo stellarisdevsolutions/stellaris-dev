@@ -17,6 +17,8 @@ export function MarketplaceGallery({
   title,
   lang = "es",
 }: MarketplaceGalleryProps) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   // If there are no additional images in gallery, do not render the section at all
   if (!gallery || gallery.length === 0) {
     return null;
@@ -24,7 +26,6 @@ export function MarketplaceGallery({
 
   // Combine main image + gallery items for full browsing
   const allImages = [mainImage, ...gallery].filter(Boolean);
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const activeImage = allImages[selectedIndex] || mainImage;
   const isImageBlob =
@@ -42,17 +43,17 @@ export function MarketplaceGallery({
     <div className="mb-16">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-bold uppercase tracking-widest text-[#FF532A] block mb-1">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#0C4651] block mb-1">
             {lang === "es" ? "✦ GALERÍA & CAPTURAS" : "✦ GALLERY & SCREENSHOTS"}
           </span>
-          <h2 className="hd text-3xl sm:text-4xl font-bold tracking-tight text-[#171717]">
+          <h2 className="hd text-3xl sm:text-4xl font-bold tracking-tight text-[#0C4651]">
             {lang === "es" ? (
               <>
-                Así <span className="text-[#FF532A]">se ve el sistema</span>
+                Así <span className="text-[#0C4651] bg-[#E6FF2A] px-2 py-0.5 rounded-lg border border-[#0C4651]/20">se ve el sistema</span>
               </>
             ) : (
               <>
-                What the system <span className="text-[#FF532A]">looks like</span>
+                What the system <span className="text-[#0C4651] bg-[#E6FF2A] px-2 py-0.5 rounded-lg border border-[#0C4651]/20">looks like</span>
               </>
             )}
           </h2>
@@ -65,7 +66,7 @@ export function MarketplaceGallery({
       </div>
 
       {/* Imagen Grande Seleccionada (Visor Principal) */}
-      <div className="w-full rounded-3xl sm:rounded-[36px] bg-[#171717] overflow-hidden border border-neutral-800 shadow-xl relative mb-6 group">
+      <div className="w-full rounded-3xl sm:rounded-[36px] bg-[#0C4651] overflow-hidden border border-[#145C6A] shadow-xl relative mb-6 group">
         <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full flex items-center justify-center bg-black/60">
           {isImageBlob ? (
             /* eslint-disable-next-line @next/next/no-img-element */
@@ -78,12 +79,12 @@ export function MarketplaceGallery({
           ) : (
             <div
               className={`w-full h-full ${
-                activeImage || "bg-gradient-to-br from-neutral-900 to-[#171717]"
+                activeImage || "bg-gradient-to-br from-[#0C4651] to-[#08343D]"
               } flex flex-col items-center justify-center text-center p-8 text-white`}
             >
-              <Eye className="w-12 h-12 text-[#FF532A] mb-3" />
+              <Eye className="w-12 h-12 text-[#E6FF2A] mb-3" />
               <span className="font-semibold text-lg">{title}</span>
-              <span className="text-xs font-mono text-neutral-400 mt-1">
+              <span className="text-xs font-mono text-slate-300 mt-1">
                 {lang === "es"
                   ? `Captura ${selectedIndex + 1} de ${allImages.length}`
                   : `Screenshot ${selectedIndex + 1} of ${allImages.length}`}
@@ -93,7 +94,7 @@ export function MarketplaceGallery({
 
           {/* Indicator pill */}
           <div className="absolute top-4 left-4 z-10 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md text-white text-xs font-medium border border-white/10 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#FF532A]" />
+            <span className="w-2 h-2 rounded-full bg-[#E6FF2A]" />
             <span>
               {selectedIndex === 0
                 ? lang === "es"
@@ -117,7 +118,7 @@ export function MarketplaceGallery({
                 type="button"
                 onClick={handlePrev}
                 aria-label={lang === "es" ? "Imagen anterior" : "Previous image"}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -125,7 +126,7 @@ export function MarketplaceGallery({
                 type="button"
                 onClick={handleNext}
                 aria-label={lang === "es" ? "Siguiente imagen" : "Next image"}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#FF532A] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white border border-white/15 backdrop-blur-md flex items-center justify-center transition-all opacity-80 hover:opacity-100 hover:scale-105 cursor-pointer shadow-lg z-20"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -153,7 +154,7 @@ export function MarketplaceGallery({
                 }
                 className={`relative shrink-0 w-28 sm:w-36 aspect-[16/10] rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${
                   isSelected
-                    ? "border-[#FF532A] shadow-md shadow-[#FF532A]/25 scale-102 ring-2 ring-[#FF532A]/20"
+                    ? "border-[#E6FF2A] shadow-md shadow-[#E6FF2A]/25 scale-102 ring-2 ring-[#E6FF2A]/20"
                     : "border-neutral-200 hover:border-neutral-400 opacity-70 hover:opacity-100"
                 }`}
               >

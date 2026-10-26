@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { MarketplaceProduct, getMarketplaceTitle } from "@/data/marketplace";
@@ -53,9 +54,9 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
 
   // Preset mockup colors matching the cards
   const cardPresets: Record<string, { blockColor: string; pillColor: string }> = {
-    "saas-starter-pro": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
-    "omnistore-ecommerce": { blockColor: "bg-[#171717]", pillColor: "bg-[#171717]" },
-    "nova-agency-template": { blockColor: "bg-[#737373]", pillColor: "bg-[#737373]" },
+    "saas-starter-pro": { blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]" },
+    "omnistore-ecommerce": { blockColor: "bg-[#0C4651]", pillColor: "bg-[#0C4651]" },
+    "nova-agency-template": { blockColor: "bg-[#145C6A]", pillColor: "bg-[#145C6A]" },
   };
 
   // Filtrado de productos por categoría y búsqueda
@@ -92,7 +93,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
       <div className="mb-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#0C4651] transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>{lang === "es" ? "Volver al inicio" : "Back to home"}</span>
@@ -102,13 +103,13 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
       {/* Header Principal con título y párrafo al lado derecho */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-neutral-100">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-[#0C4651] mb-3 shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0C4651]" />
             <span>{lang === "es" ? "CATÁLOGO DE PLANTILLAS & SISTEMAS" : "TEMPLATES & SYSTEMS CATALOG"}</span>
           </div>
-          <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#171717] leading-[1.08] m-0">
+          <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0C4651] leading-[1.08] m-0">
             {lang === "es" ? "Marketplace de " : "Marketplace of "}
-            <span className="inline-block relative text-white bg-[#FF532A] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
+            <span className="inline-block relative text-[#0C4651] bg-[#E6FF2A] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-sm shadow-[#E6FF2A]/30 -rotate-1 mx-1 border border-[#0C4651]/20">
               {lang === "es" ? "Sistemas Web" : "Web Systems"}
             </span>
           </h1>
@@ -135,7 +136,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                 type="button"
                 className={`px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   active
-                    ? "bg-[#171717] text-white shadow-md shadow-neutral-900/20"
+                    ? "bg-[#0C4651] text-[#E6FF2A] shadow-md shadow-[#0C4651]/20 font-bold"
                     : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
                 }`}
               >
@@ -146,7 +147,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
         </div>
 
         {/* Buscador Tipo Pill */}
-        <div className="w-full md:w-[380px] lg:w-[420px] flex items-center bg-white border border-neutral-200 rounded-full p-1.5 shadow-sm shadow-neutral-100 focus-within:border-[#FF532A] focus-within:shadow-md transition-all shrink-0">
+        <div className="w-full md:w-[380px] lg:w-[420px] flex items-center bg-white border border-neutral-200 rounded-full p-1.5 shadow-sm shadow-neutral-100 focus-within:border-[#0C4651] focus-within:shadow-md transition-all shrink-0">
           <input
             type="text"
             value={searchQuery}
@@ -156,11 +157,11 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                 ? "Buscar plantilla o tecnología..."
                 : "Search template or tech..."
             }
-            className="flex-1 bg-transparent border-0 px-4 py-2 text-xs sm:text-sm text-[#171717] placeholder-neutral-400 outline-none"
+            className="flex-1 bg-transparent border-0 px-4 py-2 text-xs sm:text-sm text-[#0C4651] placeholder-neutral-400 outline-none"
           />
           <button
             type="button"
-            className="px-5 py-2.5 bg-[#FF532A] hover:bg-[#e0451e] text-white text-xs sm:text-sm font-semibold rounded-full transition-all shrink-0 shadow-sm shadow-[#FF532A]/25 cursor-pointer"
+            className="px-5 py-2.5 bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-xs sm:text-sm font-bold rounded-full transition-all shrink-0 shadow-sm shadow-[#0C4651]/20 cursor-pointer"
           >
             {lang === "es" ? "Buscar" : "Search"}
           </button>
@@ -171,8 +172,8 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {filteredProducts.map((product) => {
           const preset = cardPresets[product.slug] || {
-            blockColor: "bg-[#FF532A]",
-            pillColor: "bg-[#FF532A]",
+            blockColor: "bg-[#0C4651]",
+            pillColor: "bg-[#E6FF2A]",
           };
 
           const catLabel =
@@ -193,19 +194,21 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                 >
                   {product.image ? (
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100">
-                      <img
+                      <Image
                         src={product.image}
                         alt={getMarketplaceTitle(product.title, lang)}
-                        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   ) : (
-                    <div className="p-4 sm:p-5 bg-neutral-900 text-white">
-                      {/* 3 Window Top Dots (1 orange, 2 grey) */}
+                    <div className="p-4 sm:p-5 bg-[#0C4651] text-white">
+                      {/* 3 Window Top Dots (1 lime, 2 teal) */}
                       <div className="flex items-center gap-1.5 mb-4">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF532A]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#E6FF2A]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#145C6A]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#145C6A]" />
                       </div>
 
                       {/* Window UI Layout (Left Bars + Right Solid Block) */}
@@ -213,7 +216,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                         {/* Left: Wireframe Bars */}
                         <div className="col-span-7 flex flex-col justify-center">
                           <div className="w-[90%] h-3.5 bg-white rounded-full mb-2" />
-                          <div className="w-[70%] h-2 bg-neutral-600 rounded-full mb-3" />
+                          <div className="w-[70%] h-2 bg-[#145C6A] rounded-full mb-3" />
                           <div className={`w-20 h-5 rounded-full ${preset.pillColor} opacity-90`} />
                         </div>
 
@@ -224,7 +227,7 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                       </div>
 
                       {/* Full-width bottom bar */}
-                      <div className="w-full h-4 rounded-lg bg-neutral-800/90 mt-4" />
+                      <div className="w-full h-4 rounded-lg bg-[#08343D] mt-4" />
                     </div>
                   )}
                 </Link>
@@ -232,13 +235,13 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
                 {/* Title & Category with Short Description */}
                 <div className="mb-6 flex flex-col">
                   {/* Etiqueta de Categoría - Tipográfica y limpia (NO cápsula) */}
-                  <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1.5">
+                  <span className="text-xs font-semibold text-[#0C4651] uppercase tracking-wider mb-1.5">
                     {catLabel}
                   </span>
 
                   {/* Título - Máximo 2 filas */}
                   <Link href={`/marketplace/${product.slug}`}>
-                    <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] tracking-tight mb-2 group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                    <h3 className="hd text-xl sm:text-2xl font-bold text-[#0C4651] tracking-tight mb-2 group-hover:text-[#145C6A] transition-colors line-clamp-2 leading-snug m-0">
                       {getMarketplaceTitle(product.title, lang)}
                     </h3>
                   </Link>
@@ -253,14 +256,14 @@ export function MarketplaceCatalog({ initialProducts }: MarketplaceCatalogProps)
               {/* Bottom Row: Price + Single Action Button */}
               <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
                 {/* Price */}
-                <div className="hd text-2xl sm:text-[26px] font-extrabold text-[#171717]">
+                <div className="hd text-2xl sm:text-[26px] font-extrabold text-[#0C4651]">
                   {product.price}
                 </div>
 
                 {/* Single Action Button: Ver detalle */}
                 <Link
                   href={`/marketplace/${product.slug}`}
-                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#171717] hover:bg-[#FF532A] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-xs cursor-pointer whitespace-nowrap group/btn"
+                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#0C4651] hover:bg-[#145C6A] text-[#E6FF2A] text-xs sm:text-[13px] font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap group/btn"
                 >
                   <span>{lang === "es" ? "Ver detalle" : "View details"}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />

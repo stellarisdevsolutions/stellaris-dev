@@ -80,8 +80,8 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     id: "saas-starter-pro",
     slug: "saas-starter-pro",
     title: {
-      en: "Stellaris SaaS Starter Pro",
-      es: "Stellaris SaaS Starter Pro",
+      en: "Kano SaaS Starter Pro",
+      es: "Kano SaaS Starter Pro",
     },
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
     gallery: [

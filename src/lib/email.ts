@@ -5,7 +5,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Remitente verificado en Cloudflare
 const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "Stellaris Dev <contact@tiendastellaris.com>";
+  process.env.RESEND_FROM_EMAIL || "Kano Dev <contact@tiendastellaris.com>";
 
 // Correo donde recibirás las alertas de compra y contacto
 const ADMIN_EMAIL =
@@ -53,7 +53,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
             body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 24px; color: #171717; }
             .card { background: #ffffff; max-width: 580px; margin: 0 auto; border-radius: 16px; border: 1px solid #e4e4e7; overflow: hidden; }
             .header { background: #171717; padding: 24px 32px; color: #ffffff; }
-            .badge { display: inline-block; background: #FF532A; color: #ffffff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+            .badge { display: inline-block; background: #0C4651; color: #E6FF2A; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
             .lang-badge { display: inline-block; background: #27272a; color: #a1a1aa; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-left: 6px; }
             .title { margin: 12px 0 0 0; font-size: 20px; font-weight: bold; color: #ffffff; }
             .content { padding: 32px; }
@@ -62,7 +62,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
             .value { font-size: 15px; font-weight: 600; color: #171717; }
             .note-box { background: #fafafa; border: 1px solid #e4e4e7; border-radius: 12px; padding: 14px; font-size: 14px; color: #3f3f46; line-height: 1.5; margin-top: 6px; }
             .delivery-options { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 14px; font-size: 13px; color: #9a3412; margin-top: 14px; }
-            .btn { display: inline-block; background: #FF532A; color: #ffffff !important; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 20px; }
+            .btn { display: inline-block; background: #0C4651; color: #E6FF2A !important; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 20px; }
             .footer { padding: 20px 32px; background: #fafafa; border-top: 1px solid #e4e4e7; font-size: 12px; color: #71717a; text-align: center; }
           </style>
         </head>
@@ -76,7 +76,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
             <div class="content">
               <div class="row">
                 <div class="label">Correo del Comprador</div>
-                <div class="value"><a href="mailto:${buyerEmail}" style="color: #FF532A;">${buyerEmail}</a></div>
+                <div class="value"><a href="mailto:${buyerEmail}" style="color: #0C4651;">${buyerEmail}</a></div>
               </div>
               <div class="row">
                 <div class="label">Producto Solicitado</div>
@@ -110,7 +110,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
               </div>
             </div>
             <div class="footer">
-              Recibido a través de Stellaris Dev Marketplace • tiendastellaris.com
+              Recibido a través de Kano Dev Marketplace • tiendastellaris.com
             </div>
           </div>
         </body>
@@ -119,8 +119,8 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
 
     // 2. Confirmación al Comprador (versión Inglés o Español)
     const buyerSubject = isEn
-      ? `Purchase Request Received: ${productTitle} | Stellaris Dev`
-      : `Solicitud de Compra Recibida: ${productTitle} | Stellaris Dev`;
+      ? `Purchase Request Received: ${productTitle} | Kano Dev`
+      : `Solicitud de Compra Recibida: ${productTitle} | Kano Dev`;
 
     const buyerHtml = isEn
       ? `
@@ -148,7 +148,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
         <body>
           <div class="card">
             <div class="header">
-              <div class="brand">✦ Stellaris Dev</div>
+              <div class="brand">✦ Kano Dev</div>
               <h1 class="title">Purchase Request Received</h1>
               <p class="subtitle">Thank you for your interest in our production software</p>
             </div>
@@ -160,7 +160,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
               <div class="summary-box">
                 <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #71717a; letter-spacing: 0.5px; margin-bottom: 8px;">Order Summary</div>
                 <div style="font-size: 16px; font-weight: 700; color: #171717; margin-bottom: 4px;">${productTitle}</div>
-                <div style="font-size: 20px; font-weight: 800; color: #FF532A; margin-bottom: 8px;">${productPrice} <span style="font-size: 12px; font-weight: normal; color: #71717a;">• One-time payment</span></div>
+                <div style="font-size: 20px; font-weight: 800; color: #0C4651; margin-bottom: 8px;">${productPrice} <span style="font-size: 12px; font-weight: normal; color: #71717a;">• One-time payment</span></div>
                 <div style="font-size: 12px; color: #71717a;">Includes lifetime commercial license, production-ready codebase, and complete deployment architecture.</div>
               </div>
 
@@ -186,7 +186,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
               </div>
             </div>
             <div class="footer">
-              © ${new Date().getFullYear()} Stellaris Dev. All rights reserved. • tiendastellaris.com
+              © ${new Date().getFullYear()} Kano Dev. All rights reserved. • tiendastellaris.com
             </div>
           </div>
         </body>
@@ -217,7 +217,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
         <body>
           <div class="card">
             <div class="header">
-              <div class="brand">✦ Stellaris Dev</div>
+              <div class="brand">✦ Kano Dev</div>
               <h1 class="title">¡Solicitud de Compra Recibida!</h1>
               <p class="subtitle">Gracias por tu interés en nuestro software de producción</p>
             </div>
@@ -229,7 +229,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
               <div class="summary-box">
                 <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #71717a; letter-spacing: 0.5px; margin-bottom: 8px;">Resumen del Pedido</div>
                 <div style="font-size: 16px; font-weight: 700; color: #171717; margin-bottom: 4px;">${productTitle}</div>
-                <div style="font-size: 20px; font-weight: 800; color: #FF532A; margin-bottom: 8px;">${productPrice} <span style="font-size: 12px; font-weight: normal; color: #71717a;">• Pago único</span></div>
+                <div style="font-size: 20px; font-weight: 800; color: #0C4651; margin-bottom: 8px;">${productPrice} <span style="font-size: 12px; font-weight: normal; color: #71717a;">• Pago único</span></div>
                 <div style="font-size: 12px; color: #71717a;">Incluye licencia comercial de por vida, código fuente completo y documentación de despliegue.</div>
               </div>
 
@@ -255,7 +255,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
               </div>
             </div>
             <div class="footer">
-              © ${new Date().getFullYear()} Stellaris Dev. Todos los derechos reservados. • tiendastellaris.com
+              © ${new Date().getFullYear()} Kano Dev. Todos los derechos reservados. • tiendastellaris.com
             </div>
           </div>
         </body>
@@ -315,14 +315,14 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
             body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f4f4f5; padding: 24px; color: #171717; }
             .card { background: #fff; max-width: 580px; margin: 0 auto; border-radius: 16px; border: 1px solid #e4e4e7; overflow: hidden; }
             .header { background: #171717; padding: 24px 32px; color: #fff; }
-            .badge { display: inline-block; background: #FF532A; color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+            .badge { display: inline-block; background: #0C4651; color: #E6FF2A; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
             .lang-badge { display: inline-block; background: #27272a; color: #a1a1aa; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-left: 6px; }
             .content { padding: 32px; }
             .row { margin-bottom: 16px; }
             .label { font-size: 11px; font-weight: bold; text-transform: uppercase; color: #71717a; margin-bottom: 4px; }
             .value { font-size: 15px; font-weight: 600; color: #171717; }
             .message-box { background: #fafafa; border: 1px solid #e4e4e7; border-radius: 12px; padding: 14px; font-size: 14px; color: #3f3f46; line-height: 1.5; margin-top: 6px; }
-            .btn { display: inline-block; background: #FF532A; color: #ffffff !important; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 20px; }
+            .btn { display: inline-block; background: #0C4651; color: #E6FF2A !important; padding: 12px 24px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; margin-top: 20px; }
           </style>
         </head>
         <body>
@@ -339,7 +339,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
               </div>
               <div class="row">
                 <div class="label">Correo Electrónico</div>
-                <div class="value"><a href="mailto:${email}" style="color: #FF532A;">${email}</a></div>
+                <div class="value"><a href="mailto:${email}" style="color: #0C4651;">${email}</a></div>
               </div>
               <div class="row">
                 <div class="label">Tipo de Proyecto</div>
@@ -362,8 +362,8 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
 
     // 2. Acuse de recibo al Cliente (Sin WhatsApp si es inglés, Con WhatsApp si es español)
     const clientSubject = isEn
-      ? "We received your inquiry | Stellaris Dev"
-      : "Hemos recibido tu mensaje | Stellaris Dev";
+      ? "We received your inquiry | Kano Dev"
+      : "Hemos recibido tu mensaje | Kano Dev";
 
     const clientHtml = isEn
       ? `
@@ -382,7 +382,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
         <body>
           <div class="card">
             <div class="header">
-              <div style="font-size: 18px; font-weight: bold; color: #fff;">✦ Stellaris Dev</div>
+              <div style="font-size: 18px; font-weight: bold; color: #fff;">✦ Kano Dev</div>
               <h1 style="margin: 14px 0 0 0; font-size: 22px; font-weight: bold; color: #fff;">
                 Thank you for reaching out!
               </h1>
@@ -405,7 +405,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
               </p>
             </div>
             <div class="footer">
-              © ${new Date().getFullYear()} Stellaris Dev • tiendastellaris.com
+              © ${new Date().getFullYear()} Kano Dev • tiendastellaris.com
             </div>
           </div>
         </body>
@@ -427,7 +427,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
         <body>
           <div class="card">
             <div class="header">
-              <div style="font-size: 18px; font-weight: bold; color: #fff;">✦ Stellaris Dev</div>
+              <div style="font-size: 18px; font-weight: bold; color: #fff;">✦ Kano Dev</div>
               <h1 style="margin: 14px 0 0 0; font-size: 22px; font-weight: bold; color: #fff;">
                 ¡Gracias por contactarnos!
               </h1>
@@ -450,7 +450,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
               </p>
             </div>
             <div class="footer">
-              © ${new Date().getFullYear()} Stellaris Dev • tiendastellaris.com
+              © ${new Date().getFullYear()} Kano Dev • tiendastellaris.com
             </div>
           </div>
         </body>

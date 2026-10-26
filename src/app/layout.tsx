@@ -1,14 +1,27 @@
 import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space",
+});
 
 const siteUrl = "https://tiendastellaris.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Stellaris Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
-    template: "%s | Stellaris Dev",
+    default: "Kano Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
+    template: "%s | Kano Dev",
   },
   description:
     "Agencia especializada en desarrollo web de alto rendimiento, aplicaciones a medida, e-commerce y marketplace de plantillas listas para producción con Next.js y React.",
@@ -22,12 +35,12 @@ export const metadata: Metadata = {
     "Marketplace de plantillas web",
     "Software a medida",
     "SaaS para empresas",
-    "Stellaris Dev Solutions",
+    "Kano Dev Solutions",
     "tiendastellaris.com",
   ],
-  authors: [{ name: "Stellaris Dev Solutions", url: siteUrl }],
-  creator: "Stellaris Dev Solutions",
-  publisher: "Stellaris Dev Solutions",
+  authors: [{ name: "Kano Dev Solutions", url: siteUrl }],
+  creator: "Kano Dev Solutions",
+  publisher: "Kano Dev Solutions",
   alternates: {
     canonical: "/",
   },
@@ -43,14 +56,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_ES",
     url: siteUrl,
-    siteName: "Stellaris Dev Solutions",
-    title: "Stellaris Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
+    siteName: "Kano Dev Solutions",
+    title: "Kano Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
     description:
       "Diseñamos y desarrollamos páginas web ultrarrápidas, modernas y listas para convertir visitas en clientes.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Stellaris Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
+    title: "Kano Dev | Desarrollo Web a Medida & Sistemas de Alto Rendimiento",
     description:
       "Diseñamos y desarrollamos páginas web ultrarrápidas, modernas y listas para convertir visitas en clientes.",
   },
@@ -73,30 +86,40 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
-      name: "Stellaris Dev Solutions",
+      name: "Kano Dev Solutions",
       url: siteUrl,
-      logo: `${siteUrl}/opengraph-image`,
+      logo: `${siteUrl}/icon.png`,
+      image: `${siteUrl}/opengraph-image`,
       email: "contact@tiendastellaris.com",
+      telephone: "+59169991245",
       description:
         "Agencia de desarrollo web y software de alto rendimiento, comercio electrónico y marketplace de código fuente profesional.",
       sameAs: ["https://github.com/stellarisdevsolutions"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        "telephone": "+59169991245",
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish", "English"],
+      },
     },
     {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
-      name: "Stellaris Dev",
+      name: "Kano Dev",
       publisher: {
         "@id": `${siteUrl}/#organization`,
       },
-      inLanguage: "es-ES",
+      inLanguage: ["es-ES", "en-US"],
     },
     {
       "@type": "ProfessionalService",
       "@id": `${siteUrl}/#service`,
       name: "Stellaris Dev Solutions",
       url: siteUrl,
+      image: `${siteUrl}/opengraph-image`,
       email: "contact@tiendastellaris.com",
+      telephone: "+59169991245",
       priceRange: "$$",
       serviceType: [
         "Desarrollo Web Full-Stack",
@@ -114,18 +137,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="h-full antialiased">
+    <html lang="es" className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

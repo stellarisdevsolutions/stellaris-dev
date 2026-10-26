@@ -50,10 +50,10 @@ export function AdminSidebar() {
         {/* Brand */}
         <div className="h-16 px-6 flex items-center justify-between border-b border-white/10">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-md shadow-[#FF532A]/20">
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-black/40 ring-1 ring-white/10 shrink-0 shadow-md shadow-[#E6FF2A]/20">
               <Image
                 src="/logo.webp"
-                alt="Stellaris Admin"
+                alt="Kano Admin"
                 width={32}
                 height={32}
                 className="w-full h-full object-cover"
@@ -61,7 +61,7 @@ export function AdminSidebar() {
               />
             </div>
             <span className="font-bold text-sm tracking-tight text-white">
-              STELLARIS <span className="text-[#FF532A] text-xs font-mono ml-1 px-1.5 py-0.5 rounded bg-[#FF532A]/10 border border-[#FF532A]/20">ADMIN</span>
+              KANO <span className="text-[#0C4651] text-xs font-mono font-bold ml-1 px-1.5 py-0.5 rounded bg-[#E6FF2A]">ADMIN</span>
             </span>
           </Link>
         </div>
@@ -84,11 +84,11 @@ export function AdminSidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                   isActive
-                    ? "bg-[#FF532A] text-white shadow-md shadow-[#FF532A]/20 font-semibold"
+                    ? "bg-[#0C4651] text-[#E6FF2A] border border-[#145C6A] shadow-md font-bold"
                     : "text-neutral-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-neutral-400"}`} />
+                <Icon className={`w-4 h-4 ${isActive ? "text-[#E6FF2A]" : "text-neutral-400"}`} />
                 <span className="flex-1">{item.label}</span>
                 {item.badge && (
                   <span className="px-1.5 py-0.5 text-[10px] rounded-full bg-white/10 font-mono">
@@ -125,7 +125,7 @@ export function AdminSidebar() {
 
         {/* Small badge */}
         <div className="pt-2 text-[10px] text-neutral-400 text-center flex items-center justify-center gap-1 font-mono">
-          <Sparkles className="w-3 h-3 text-[#FF532A]" />
+          <Sparkles className="w-3 h-3 text-[#E6FF2A]" />
           Vercel + Next.js 16
         </div>
       </div>

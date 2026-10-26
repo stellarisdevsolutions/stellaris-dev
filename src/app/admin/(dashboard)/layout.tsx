@@ -6,8 +6,8 @@ import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 
 export const metadata = {
-  title: "Admin Panel | Stellaris Dev",
-  description: "Panel de administración y control de Stellaris Dev",
+  title: "Admin Panel | Kano Dev",
+  description: "Panel de administración y control de Kano Dev",
   robots: {
     index: false,
     follow: false,
@@ -25,7 +25,7 @@ export default async function AdminDashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0E] text-white flex font-sans selection:bg-[#FF532A]/30 selection:text-white">
+    <div className="min-h-screen bg-[#0D0D0E] text-white flex font-sans selection:bg-[#E6FF2A]/30 selection:text-[#0C4651]">
       {/* Sidebar */}
       <AdminSidebar />
 

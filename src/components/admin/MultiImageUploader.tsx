@@ -146,7 +146,7 @@ export function MultiImageUploader({
         <button
           type="button"
           onClick={() => setShowUrlInput(!showUrlInput)}
-          className="text-xs text-neutral-400 hover:text-[#FF532A] flex items-center gap-1.5 transition-colors self-start sm:self-auto cursor-pointer"
+          className="text-xs text-neutral-400 hover:text-[#E6FF2A] flex items-center gap-1.5 transition-colors self-start sm:self-auto cursor-pointer"
         >
           <LinkIcon className="w-3.5 h-3.5" />
           <span>{showUrlInput ? "Ocultar URL manual" : "Añadir por URL"}</span>
@@ -161,11 +161,11 @@ export function MultiImageUploader({
             value={manualUrl}
             onChange={(e) => setManualUrl(e.target.value)}
             placeholder="https://ejemplo.com/captura.webp"
-            className="flex-1 px-3 py-2 rounded-lg bg-[#141416] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden font-mono"
+            className="flex-1 px-3 py-2 rounded-lg bg-[#141416] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#E6FF2A] outline-hidden font-mono"
           />
           <button
             type="submit"
-            className="px-4 py-2 rounded-lg bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold cursor-pointer transition-colors"
+            className="px-4 py-2 rounded-lg bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold cursor-pointer transition-colors"
           >
             Añadir
           </button>
@@ -186,7 +186,7 @@ export function MultiImageUploader({
           {images.map((imgUrl, idx) => (
             <div
               key={`${imgUrl}-${idx}`}
-              className="relative aspect-video rounded-xl bg-black/40 border border-white/10 overflow-hidden group shadow-sm hover:border-[#FF532A]/50 transition-all"
+              className="relative aspect-video rounded-xl bg-black/40 border border-white/10 overflow-hidden group shadow-sm hover:border-[#E6FF2A]/50 transition-all"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -200,7 +200,7 @@ export function MultiImageUploader({
                 <button
                   type="button"
                   onClick={() => setPreviewModalUrl(imgUrl)}
-                  className="p-1.5 rounded-lg bg-black/70 hover:bg-black text-white hover:text-[#FF532A] transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg bg-black/70 hover:bg-black text-white hover:text-[#E6FF2A] transition-colors cursor-pointer"
                   title="Ampliar vista previa"
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -222,7 +222,7 @@ export function MultiImageUploader({
                     <button
                       type="button"
                       onClick={() => onReorderImage(idx, idx - 1)}
-                      className="p-1 rounded bg-black/80 hover:bg-[#FF532A] text-white transition-colors cursor-pointer"
+                      className="p-1 rounded bg-black/80 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white transition-colors cursor-pointer"
                       title="Mover a la izquierda"
                     >
                       <ArrowLeft className="w-3 h-3" />
@@ -232,7 +232,7 @@ export function MultiImageUploader({
                     <button
                       type="button"
                       onClick={() => onReorderImage(idx, idx + 1)}
-                      className="p-1 rounded bg-black/80 hover:bg-[#FF532A] text-white transition-colors cursor-pointer"
+                      className="p-1 rounded bg-black/80 hover:bg-[#E6FF2A] hover:text-[#0C4651] text-white transition-colors cursor-pointer"
                       title="Mover a la derecha"
                     >
                       <ArrowRight className="w-3 h-3" />
@@ -267,8 +267,8 @@ export function MultiImageUploader({
         onClick={() => !uploading && fileInputRef.current?.click()}
         className={`relative rounded-2xl border-2 border-dashed p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all cursor-pointer group ${
           isDragging
-            ? "border-[#FF532A] bg-[#FF532A]/10 scale-[1.01]"
-            : "border-white/15 hover:border-[#FF532A]/60 bg-[#141416]/50 hover:bg-[#141416]"
+            ? "border-[#E6FF2A] bg-[#E6FF2A]/10 scale-[1.01]"
+            : "border-white/15 hover:border-[#E6FF2A]/60 bg-[#141416]/50 hover:bg-[#141416]"
         } ${uploading ? "pointer-events-none opacity-80" : ""}`}
       >
         <input
@@ -286,7 +286,7 @@ export function MultiImageUploader({
 
         {uploading ? (
           <div className="flex flex-col items-center gap-3 py-2">
-            <Loader2 className="w-8 h-8 text-[#FF532A] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#E6FF2A] animate-spin" />
             <div className="space-y-1">
               <p className="text-xs font-bold text-white">
                 Optimizando y subiendo ({progressInfo?.current}/{progressInfo?.total})
@@ -295,7 +295,7 @@ export function MultiImageUploader({
                 {progressInfo?.fileName}
               </p>
               {progressInfo?.savingsBadge && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF532A]/15 text-[#FF532A] font-bold mt-1">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#E6FF2A]/15 text-[#E6FF2A] font-bold mt-1">
                   <Sparkles className="w-3 h-3" />
                   {progressInfo.savingsBadge}
                 </span>
@@ -304,11 +304,11 @@ export function MultiImageUploader({
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2">
-            <div className="w-12 h-12 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-[#E6FF2A]/10 text-[#E6FF2A] border border-[#E6FF2A]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
               <UploadCloud className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm font-bold text-white group-hover:text-[#FF532A] transition-colors">
+              <p className="text-xs sm:text-sm font-bold text-white group-hover:text-[#E6FF2A] transition-colors">
                 Arrastra aquí múltiples imágenes o haz clic para seleccionarlas
               </p>
               <p className="text-[11px] text-neutral-400 mt-0.5">
@@ -329,7 +329,7 @@ export function MultiImageUploader({
             <button
               type="button"
               onClick={() => setPreviewModalUrl(null)}
-              className="absolute -top-12 right-0 p-2 text-white hover:text-[#FF532A] text-xs font-semibold flex items-center gap-1 cursor-pointer"
+              className="absolute -top-12 right-0 p-2 text-white hover:text-[#E6FF2A] text-xs font-semibold flex items-center gap-1 cursor-pointer"
             >
               <X className="w-5 h-5" />
               <span>Cerrar</span>

@@ -318,6 +318,17 @@ export default function OutreachPage() {
     setTimeout(() => setToastMessage(null), 4000);
   };
 
+  // Cargar muestra dental inicial
+  const loadSampleData = () => {
+    const formatted: LeadItem[] = SAMPLE_DENTAL_LEADS.map((item, idx) => ({
+      ...item,
+      id: `sample-${idx + 1}-${Date.now()}`,
+      status: "pending",
+    }));
+    setLeads(formatted);
+    setSelectedLeadId(formatted[0].id);
+  };
+
   // Cargar datos persistentes
   useEffect(() => {
     // 1. Leads pendientes
@@ -419,17 +430,6 @@ export default function OutreachPage() {
       setIsEditingAsset(false);
     }
   }, [selectedAssetId, selectedAsset]);
-
-  // Cargar muestra dental inicial
-  const loadSampleData = () => {
-    const formatted: LeadItem[] = SAMPLE_DENTAL_LEADS.map((item, idx) => ({
-      ...item,
-      id: `sample-${idx + 1}-${Date.now()}`,
-      status: "pending",
-    }));
-    setLeads(formatted);
-    setSelectedLeadId(formatted[0].id);
-  };
 
   // Parsear CSV subido
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -923,8 +923,8 @@ export default function OutreachPage() {
     <div className="space-y-6">
       {/* Toast flotante */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-70 bg-[#171717] border border-[#FF532A]/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-200">
-          <CheckCircle2 className="w-5 h-5 text-[#FF532A] shrink-0" />
+        <div className="fixed bottom-6 right-6 z-70 bg-[#171717] border border-[#E6FF2A]/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-200">
+          <CheckCircle2 className="w-5 h-5 text-[#E6FF2A] shrink-0" />
           <span className="text-xs font-semibold">{toastMessage}</span>
         </div>
       )}
@@ -932,7 +932,7 @@ export default function OutreachPage() {
       {/* Top Header con EXACTAMENTE 3 botones principales */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#E6FF2A]/10 text-[#E6FF2A] text-xs font-bold uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Módulo de Prospección B2B</span>
           </div>
@@ -957,9 +957,9 @@ export default function OutreachPage() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#FF532A]/40"
+            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#E6FF2A]/40"
           >
-            <Upload className="w-4 h-4 text-[#FF532A]" />
+            <Upload className="w-4 h-4 text-[#E6FF2A]" />
             <span>Subir Archivo CSV</span>
           </button>
 
@@ -971,9 +971,9 @@ export default function OutreachPage() {
               setGalleryTab("gallery");
               setIsGalleryOpen(true);
             }}
-            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#FF532A]/40"
+            className="px-4 py-2.5 rounded-xl bg-[#202024] hover:bg-[#27272a] text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:border-[#E6FF2A]/40"
           >
-            <ImageIcon className="w-4 h-4 text-[#FF532A]" />
+            <ImageIcon className="w-4 h-4 text-[#E6FF2A]" />
             <span>Galería de Maquetas</span>
           </button>
 
@@ -996,7 +996,7 @@ export default function OutreachPage() {
             type="button"
             disabled={isBatchSending || leads.length === 0}
             onClick={() => setSwalBatchSend(true)}
-            className="px-5 py-2.5 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-md shadow-[#FF532A]/25 cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] disabled:opacity-50 text-[#0C4651] text-xs font-bold flex items-center gap-2 transition-all shadow-md shadow-[#E6FF2A]/25 cursor-pointer"
           >
             {isBatchSending ? (
               <>
@@ -1023,7 +1023,7 @@ export default function OutreachPage() {
             onClick={() => setActiveView("queue")}
             className={`px-3.5 py-1.5 rounded-lg font-semibold flex items-center gap-2 transition-all cursor-pointer ${
               activeView === "queue"
-                ? "bg-[#FF532A] text-white shadow-sm"
+                ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                 : "text-neutral-400 hover:text-white"
             }`}
           >
@@ -1036,7 +1036,7 @@ export default function OutreachPage() {
             onClick={() => setActiveView("history")}
             className={`px-3.5 py-1.5 rounded-lg font-semibold flex items-center gap-2 transition-all cursor-pointer ${
               activeView === "history"
-                ? "bg-[#FF532A] text-white shadow-sm"
+                ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                 : "text-neutral-400 hover:text-white"
             }`}
           >
@@ -1062,7 +1062,7 @@ export default function OutreachPage() {
               <button
                 type="button"
                 onClick={loadSampleData}
-                className="text-xs text-[#FF532A] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#E6FF2A] hover:underline flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <RefreshCw className="w-3 h-3" />
                 <span>Cargar prospectos de prueba (dentistas)</span>
@@ -1086,7 +1086,7 @@ export default function OutreachPage() {
                   placeholder="Buscar en la cola..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                  className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#E6FF2A] outline-hidden"
                 />
               </div>
             </div>
@@ -1112,7 +1112,7 @@ export default function OutreachPage() {
                       onClick={() => setSelectedLeadId(lead.id)}
                       className={`group p-3.5 rounded-xl cursor-pointer transition-all flex items-start justify-between gap-3 ${
                         isSelected
-                          ? "bg-[#FF532A]/15 border border-[#FF532A]/30 text-white"
+                          ? "bg-[#E6FF2A]/15 border border-[#E6FF2A]/30 text-white"
                           : "hover:bg-white/5 text-neutral-300"
                       }`}
                     >
@@ -1122,7 +1122,7 @@ export default function OutreachPage() {
                             {lead.companyName}
                           </span>
                           {lead.image_url && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#FF532A]/15 text-[#FF532A] border border-[#FF532A]/30 shrink-0 font-medium">
+                            <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#E6FF2A]/15 text-[#E6FF2A] border border-[#E6FF2A]/30 shrink-0 font-medium">
                               🖼️ Con maqueta
                             </span>
                           )}
@@ -1165,7 +1165,7 @@ export default function OutreachPage() {
                       onClick={() => setActiveTab("preview")}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                         activeTab === "preview"
-                          ? "bg-[#FF532A] text-white shadow-sm"
+                          ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                           : "text-neutral-400 hover:text-white"
                       }`}
                     >
@@ -1177,7 +1177,7 @@ export default function OutreachPage() {
                       onClick={() => setActiveTab("editor")}
                       className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                         activeTab === "editor"
-                          ? "bg-[#FF532A] text-white shadow-sm"
+                          ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                           : "text-neutral-400 hover:text-white"
                       }`}
                     >
@@ -1206,7 +1206,7 @@ export default function OutreachPage() {
                       className="px-3 py-1.5 rounded-xl bg-[#27272a] hover:bg-[#323238] text-neutral-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all border border-white/10 cursor-pointer disabled:opacity-50"
                     >
                       {testSendLoading ? (
-                        <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#FF532A]" />
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#E6FF2A]" />
                       ) : (
                         <Mail className="w-3.5 h-3.5 text-amber-400" />
                       )}
@@ -1218,7 +1218,7 @@ export default function OutreachPage() {
                       type="button"
                       disabled={singleSendLoading}
                       onClick={() => setSwalSingleSend(activeLead)}
-                      className="px-4 py-1.5 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md shadow-[#FF532A]/20 cursor-pointer disabled:opacity-50"
+                      className="px-4 py-1.5 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold flex items-center gap-1.5 transition-all shadow-md shadow-[#E6FF2A]/20 cursor-pointer disabled:opacity-50"
                     >
                       {singleSendLoading ? (
                         <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -1238,7 +1238,7 @@ export default function OutreachPage() {
                       <div className="bg-[#f8f9fa] border-b border-neutral-200 px-6 py-4 space-y-1.5 text-xs font-mono">
                         <div>
                           <span className="text-neutral-500 font-sans font-semibold">De:</span>{" "}
-                          <span className="font-bold text-[#FF532A]">
+                          <span className="font-bold text-[#E6FF2A]">
                             Stellaris Dev &lt;contact@tiendastellaris.com&gt;
                           </span>
                         </div>
@@ -1284,7 +1284,7 @@ export default function OutreachPage() {
                                   href={activeLead.demo_url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#FF532A] text-white text-xs font-bold shadow-md shadow-[#FF532A]/20 hover:bg-[#E5451D] transition-colors"
+                                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#E6FF2A] text-[#0C4651] text-xs font-bold shadow-md shadow-[#E6FF2A]/20 hover:bg-[#D8F219] transition-colors"
                                 >
                                   <span>Ver Demo en Vivo en Pantalla Completa</span>
                                   <ExternalLink className="w-3.5 h-3.5" />
@@ -1328,7 +1328,7 @@ export default function OutreachPage() {
                           type="text"
                           value={activeLead.companyName}
                           onChange={(e) => updateActiveLead({ companyName: e.target.value })}
-                          className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden"
+                          className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden"
                         />
                       </div>
                       <div>
@@ -1339,7 +1339,7 @@ export default function OutreachPage() {
                           type="email"
                           value={activeLead.email}
                           onChange={(e) => updateActiveLead({ email: e.target.value })}
-                          className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden"
+                          className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden"
                         />
                       </div>
                     </div>
@@ -1352,7 +1352,7 @@ export default function OutreachPage() {
                         type="text"
                         value={activeLead.subject}
                         onChange={(e) => updateActiveLead({ subject: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden font-semibold"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden font-semibold"
                       />
                     </div>
 
@@ -1364,7 +1364,7 @@ export default function OutreachPage() {
                         type="text"
                         value={activeLead.greeting}
                         onChange={(e) => updateActiveLead({ greeting: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden"
                       />
                     </div>
 
@@ -1376,7 +1376,7 @@ export default function OutreachPage() {
                         rows={3}
                         value={activeLead.intro_and_need}
                         onChange={(e) => updateActiveLead({ intro_and_need: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden resize-none"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden resize-none"
                       />
                     </div>
 
@@ -1388,7 +1388,7 @@ export default function OutreachPage() {
                         rows={2}
                         value={activeLead.pitch}
                         onChange={(e) => updateActiveLead({ pitch: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden resize-none"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden resize-none"
                       />
                     </div>
 
@@ -1424,7 +1424,7 @@ export default function OutreachPage() {
                           setGalleryTab("gallery");
                           setIsGalleryOpen(true);
                         }}
-                        className="px-3.5 py-1.5 rounded-lg bg-[#FF532A]/15 text-[#FF532A] border border-[#FF532A]/30 text-xs font-semibold hover:bg-[#FF532A]/25 transition-colors shrink-0 cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-lg bg-[#E6FF2A]/15 text-[#E6FF2A] border border-[#E6FF2A]/30 text-xs font-semibold hover:bg-[#E6FF2A]/25 transition-colors shrink-0 cursor-pointer"
                       >
                         Cambiar Maqueta
                       </button>
@@ -1438,7 +1438,7 @@ export default function OutreachPage() {
                         rows={2}
                         value={activeLead.closing}
                         onChange={(e) => updateActiveLead({ closing: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#FF532A] outline-hidden resize-none"
+                        className="w-full px-3.5 py-2 rounded-xl bg-[#202024] border border-white/10 text-white text-xs focus:border-[#E6FF2A] outline-hidden resize-none"
                       />
                     </div>
                   </div>
@@ -1521,7 +1521,7 @@ export default function OutreachPage() {
                             href={item.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#FF532A] hover:underline inline-flex items-center gap-1 font-mono text-[11px]"
+                            className="text-[#E6FF2A] hover:underline inline-flex items-center gap-1 font-mono text-[11px]"
                           >
                             <span>Link</span>
                             <ExternalLink className="w-3 h-3" />
@@ -1571,7 +1571,7 @@ export default function OutreachPage() {
             {/* Top Bar Modal con Pestañas idénticas a la 2da imagen de referencia */}
             <div className="p-4 sm:p-5 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-[#141416] shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#E6FF2A]/10 text-[#E6FF2A] border border-[#E6FF2A]/20 flex items-center justify-center shrink-0">
                   <ImageIcon className="w-5 h-5" />
                 </div>
                 <div>
@@ -1590,7 +1590,7 @@ export default function OutreachPage() {
                     onClick={() => setGalleryTab("gallery")}
                     className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                       galleryTab === "gallery"
-                        ? "bg-[#FF532A] text-white shadow-sm"
+                        ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                         : "text-neutral-400 hover:text-white"
                     }`}
                   >
@@ -1602,7 +1602,7 @@ export default function OutreachPage() {
                     onClick={() => setGalleryTab("upload")}
                     className={`px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                       galleryTab === "upload"
-                        ? "bg-[#FF532A] text-white shadow-sm"
+                        ? "bg-[#E6FF2A] text-[#0C4651] font-bold shadow-sm"
                         : "text-neutral-400 hover:text-white"
                     }`}
                   >
@@ -1632,7 +1632,7 @@ export default function OutreachPage() {
                       <span className="text-xs font-bold text-white uppercase tracking-wider">
                         Maquetas del Editor
                       </span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-[10px] font-bold border border-[#FF532A]/20">
+                      <span className="px-2 py-0.5 rounded-full bg-[#E6FF2A]/10 text-[#E6FF2A] text-[10px] font-bold border border-[#E6FF2A]/20">
                         {assets.length} disponibles
                       </span>
                     </div>
@@ -1644,7 +1644,7 @@ export default function OutreachPage() {
                         placeholder="Buscar maqueta..."
                         value={gallerySearch}
                         onChange={(e) => setGallerySearch(e.target.value)}
-                        className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#18181b] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                        className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#18181b] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#E6FF2A] outline-hidden"
                       />
                     </div>
                   </div>
@@ -1659,7 +1659,7 @@ export default function OutreachPage() {
                           onClick={() => setSelectedAssetId(asset.id)}
                           className={`group relative rounded-xl overflow-hidden border cursor-pointer transition-all flex flex-col ${
                             isSelected
-                              ? "border-[#FF532A] shadow-md shadow-[#FF532A]/20 ring-2 ring-[#FF532A]/40"
+                              ? "border-[#E6FF2A] shadow-md shadow-[#E6FF2A]/20 ring-2 ring-[#E6FF2A]/40"
                               : "border-white/10 hover:border-white/30 bg-[#18181b]"
                           }`}
                         >
@@ -1672,7 +1672,7 @@ export default function OutreachPage() {
                             />
                             {/* Checkmark badge naranja si está seleccionado */}
                             {isSelected && (
-                              <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#FF532A] text-white flex items-center justify-center font-bold shadow-md">
+                              <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#E6FF2A] text-[#0C4651] font-bold flex items-center justify-center font-bold shadow-md">
                                 <Check className="w-3.5 h-3.5 stroke-[3]" />
                               </div>
                             )}
@@ -1711,7 +1711,7 @@ export default function OutreachPage() {
                               onClick={() => setIsEditingAsset(true)}
                               className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                             >
-                              <Edit3 className="w-3 h-3 text-[#FF532A]" />
+                              <Edit3 className="w-3 h-3 text-[#E6FF2A]" />
                               <span>Editar Datos</span>
                             </button>
                           ) : (
@@ -1733,7 +1733,7 @@ export default function OutreachPage() {
                               <button
                                 type="button"
                                 onClick={handleSaveAssetEdit}
-                                className="px-2.5 py-1 rounded-lg bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm"
+                                className="px-2.5 py-1 rounded-lg bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm"
                               >
                                 <Save className="w-3 h-3" />
                                 <span>Guardar</span>
@@ -1787,7 +1787,7 @@ export default function OutreachPage() {
                                 type="text"
                                 value={assetDraft.name}
                                 onChange={(e) => setAssetDraft((d) => ({ ...d, name: e.target.value }))}
-                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white focus:border-[#FF532A] outline-hidden"
+                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#E6FF2A]/50 text-xs text-white focus:border-[#E6FF2A] outline-hidden"
                               />
                             ) : (
                               <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-neutral-200 font-semibold truncate">
@@ -1806,7 +1806,7 @@ export default function OutreachPage() {
                                 type="text"
                                 value={assetDraft.category}
                                 onChange={(e) => setAssetDraft((d) => ({ ...d, category: e.target.value }))}
-                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white focus:border-[#FF532A] outline-hidden"
+                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#E6FF2A]/50 text-xs text-white focus:border-[#E6FF2A] outline-hidden"
                               />
                             ) : (
                               <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-neutral-300 truncate">
@@ -1825,10 +1825,10 @@ export default function OutreachPage() {
                                 type="text"
                                 value={assetDraft.demoUrl}
                                 onChange={(e) => setAssetDraft((d) => ({ ...d, demoUrl: e.target.value }))}
-                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#FF532A]/50 text-xs text-white font-mono focus:border-[#FF532A] outline-hidden"
+                                className="w-full px-3 py-1.5 rounded-lg bg-[#202024] border border-[#E6FF2A]/50 text-xs text-white font-mono focus:border-[#E6FF2A] outline-hidden"
                               />
                             ) : (
-                              <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-[#FF532A] font-mono truncate">
+                              <div className="px-3 py-2 rounded-lg bg-[#18181b] border border-white/5 text-xs text-[#E6FF2A] font-mono truncate">
                                 {selectedAsset.demoUrl}
                               </div>
                             )}
@@ -1878,7 +1878,7 @@ export default function OutreachPage() {
                             <button
                               type="button"
                               onClick={applyAssetToCurrentLead}
-                              className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
+                              className="w-full py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#E6FF2A]/25"
                             >
                               Usar solo en {activeLead?.companyName}
                             </button>
@@ -1897,7 +1897,7 @@ export default function OutreachPage() {
                             <button
                               type="button"
                               onClick={applyAssetToAllLeads}
-                              className="w-full py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#FF532A]/25"
+                              className="w-full py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-lg shadow-[#E6FF2A]/25"
                             >
                               Aplicar a todo el lote
                             </button>
@@ -1921,7 +1921,7 @@ export default function OutreachPage() {
                   /* Dropzone idéntico a la 2da imagen de referencia */
                   <div
                     onClick={() => dropzoneInputRef.current?.click()}
-                    className="w-full max-w-xl p-10 rounded-3xl border-2 border-dashed border-white/15 hover:border-[#FF532A] bg-[#141416] transition-all cursor-pointer flex flex-col items-center justify-center text-center group"
+                    className="w-full max-w-xl p-10 rounded-3xl border-2 border-dashed border-white/15 hover:border-[#E6FF2A] bg-[#141416] transition-all cursor-pointer flex flex-col items-center justify-center text-center group"
                   >
                     <input
                       type="file"
@@ -1934,7 +1934,7 @@ export default function OutreachPage() {
                       className="hidden"
                     />
 
-                    <div className="w-16 h-16 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 rounded-2xl bg-[#E6FF2A]/10 text-[#E6FF2A] border border-[#E6FF2A]/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <CloudUpload className="w-8 h-8" />
                     </div>
 
@@ -1994,7 +1994,7 @@ export default function OutreachPage() {
                     <form onSubmit={handleConfirmRegisterMockup} className="space-y-3.5">
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                          Nombre de la Maqueta <span className="text-[#FF532A]">*</span>
+                          Nombre de la Maqueta <span className="text-[#E6FF2A]">*</span>
                         </label>
                         <input
                           type="text"
@@ -2002,13 +2002,13 @@ export default function OutreachPage() {
                           value={newMockupName}
                           onChange={(e) => setNewMockupName(e.target.value)}
                           placeholder="Ej. BrightSmile Dental Clinic HD"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#E6FF2A] outline-hidden"
                         />
                       </div>
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                          Categoría / Nicho <span className="text-[#FF532A]">*</span>
+                          Categoría / Nicho <span className="text-[#E6FF2A]">*</span>
                         </label>
                         <input
                           type="text"
@@ -2016,13 +2016,13 @@ export default function OutreachPage() {
                           value={newMockupCategory}
                           onChange={(e) => setNewMockupCategory(e.target.value)}
                           placeholder="Ej. Clínicas & Odontología / Restaurantes"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#FF532A] outline-hidden"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 focus:border-[#E6FF2A] outline-hidden"
                         />
                       </div>
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                          Enlace a Demo en Vivo <span className="text-[#FF532A]">*</span>
+                          Enlace a Demo en Vivo <span className="text-[#E6FF2A]">*</span>
                         </label>
                         <input
                           type="text"
@@ -2030,7 +2030,7 @@ export default function OutreachPage() {
                           value={newMockupDemoUrl}
                           onChange={(e) => setNewMockupDemoUrl(e.target.value)}
                           placeholder="https://dental.tiendastellaris.com"
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 font-mono focus:border-[#FF532A] outline-hidden"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#202024] border border-white/10 text-xs text-white placeholder-neutral-500 font-mono focus:border-[#E6FF2A] outline-hidden"
                         />
                       </div>
 
@@ -2046,7 +2046,7 @@ export default function OutreachPage() {
                         <button
                           type="submit"
                           disabled={isSubmittingNewMockup}
-                          className="py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-bold transition-all shadow-md shadow-[#FF532A]/25 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+                          className="py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-all shadow-md shadow-[#E6FF2A]/25 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                           {isSubmittingNewMockup ? (
                             <>
@@ -2125,8 +2125,8 @@ export default function OutreachPage() {
             if (e.target === e.currentTarget) setSwalBatchSend(false);
           }}
         >
-          <div className="bg-[#171717] border border-[#FF532A]/30 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
-            <div className="w-14 h-14 rounded-full bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center mx-auto">
+          <div className="bg-[#171717] border border-[#E6FF2A]/30 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="w-14 h-14 rounded-full bg-[#E6FF2A]/10 text-[#E6FF2A] border border-[#E6FF2A]/20 flex items-center justify-center mx-auto">
               <Send className="w-7 h-7" />
             </div>
 
@@ -2151,7 +2151,7 @@ export default function OutreachPage() {
               <button
                 type="button"
                 onClick={handleExecuteBatchSend}
-                className="py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold transition-colors cursor-pointer shadow-lg shadow-[#FF532A]/30"
+                className="py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-[#E6FF2A]/30 flex items-center justify-center gap-2"
               >
                 Sí, iniciar envíos ahora
               </button>
@@ -2170,8 +2170,8 @@ export default function OutreachPage() {
             if (e.target === e.currentTarget) setSwalSingleSend(null);
           }}
         >
-          <div className="bg-[#171717] border border-[#FF532A]/30 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
-            <div className="w-14 h-14 rounded-full bg-[#FF532A]/10 text-[#FF532A] border border-[#FF532A]/20 flex items-center justify-center mx-auto">
+          <div className="bg-[#171717] border border-[#E6FF2A]/30 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="w-14 h-14 rounded-full bg-[#E6FF2A]/10 text-[#E6FF2A] border border-[#E6FF2A]/20 flex items-center justify-center mx-auto">
               <Mail className="w-7 h-7" />
             </div>
 
@@ -2196,7 +2196,7 @@ export default function OutreachPage() {
               <button
                 type="button"
                 onClick={handleExecuteSingleSend}
-                className="py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold transition-colors cursor-pointer shadow-lg shadow-[#FF532A]/30"
+                className="py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-[#E6FF2A]/30 flex items-center justify-center gap-2"
               >
                 Enviar ahora
               </button>
@@ -2227,7 +2227,7 @@ export default function OutreachPage() {
               <p className="text-xs text-neutral-300 leading-relaxed max-w-sm mx-auto">
                 Se enviará una copia exacta con la maqueta y propuesta de{" "}
                 <strong className="text-white">{swalTestSend.companyName}</strong> a{" "}
-                <strong className="text-[#FF532A]">stellarisdevsolutions@gmail.com</strong> para que revises el diseño real en tu bandeja de entrada antes de contactar al cliente.
+                <strong className="text-[#E6FF2A]">stellarisdevsolutions@gmail.com</strong> para que revises el diseño real en tu bandeja de entrada antes de contactar al cliente.
               </p>
             </div>
 
@@ -2247,7 +2247,7 @@ export default function OutreachPage() {
                   setSwalTestSend(null);
                   handleExecuteTestSend(leadToSend);
                 }}
-                className="py-2.5 px-4 rounded-xl bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs font-semibold transition-colors cursor-pointer shadow-lg shadow-[#FF532A]/30 flex items-center justify-center gap-2"
+                className="py-2.5 px-4 rounded-xl bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-[#E6FF2A]/30 flex items-center justify-center gap-2"
               >
                 {testSendLoading ? (
                   <>

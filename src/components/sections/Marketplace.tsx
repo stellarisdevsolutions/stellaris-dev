@@ -63,23 +63,17 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
 
   // Preset mockup colors matching the cards
   const cardPresets: Record<string, { blockColor: string; pillColor: string }> = {
-    "saas-starter-pro": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
+    "saas-starter-pro": { blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]" },
     "omnistore-ecommerce": { blockColor: "bg-white", pillColor: "bg-white" },
     "nova-agency-template": { blockColor: "bg-[#737373]", pillColor: "bg-[#737373]" },
-    "leadmagnet-funnel": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
+    "leadmagnet-funnel": { blockColor: "bg-[#E6FF2A]", pillColor: "bg-[#E6FF2A]" },
   };
 
   return (
     <section
       id="marketplace"
-      className="w-full bg-[#141416] text-white py-20 sm:py-28 relative overflow-hidden"
+      className="w-full bg-[#0C4651] text-white py-20 sm:py-28 relative overflow-hidden border-t border-[#145C6A]"
     >
-      {/* Resplandor cálido en la esquina superior derecha */}
-      <div
-        className="absolute -top-8 -right-8 sm:-top-16 sm:-right-16 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[#FF532A]/25 sm:bg-[#FF532A]/35 rounded-full blur-[45px] sm:blur-[65px] pointer-events-none"
-        aria-hidden="true"
-      />
-
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 relative z-10">
         {/* Section Heading Centrado */}
         <motion.div
@@ -91,11 +85,11 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
         >
           <h2 className="hd text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.12] m-0">
             {lang === "es" ? "Marketplace de " : "Marketplace of "}
-            <span className="text-[#FF532A]">
+            <span className="text-[#E6FF2A]">
               {lang === "es" ? "Sistemas & Plantillas Web" : "Systems & Web Templates"}
             </span>
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-neutral-400 leading-relaxed max-w-[620px]">
+          <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-[620px]">
             {lang === "es"
               ? "Sitios listos para personalizar y lanzar. Elige una solución, cómprala en línea y empieza a usarla hoy mismo."
               : "Production-ready sites to customize and launch. Choose a template, buy online, and deploy today."}
@@ -117,10 +111,10 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                 key={tab.id}
                 onClick={() => setSelectedFilter(tab.id)}
                 type="button"
-                className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                   active
-                    ? "bg-[#FF532A] text-white shadow-md shadow-[#FF532A]/25"
-                    : "bg-[#202024] text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800"
+                    ? "bg-[#E6FF2A] text-[#0C4651] shadow-md shadow-[#E6FF2A]/20"
+                    : "bg-[#08343D] text-slate-300 hover:text-white hover:bg-[#0A3942] border border-[#145C6A]"
                 }`}
               >
                 {tab.label}
@@ -133,8 +127,8 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {displayedProducts.map((product, idx) => {
             const preset = cardPresets[product.id] || {
-              blockColor: "bg-[#FF532A]",
-              pillColor: "bg-[#FF532A]",
+              blockColor: "bg-[#E6FF2A]",
+              pillColor: "bg-[#E6FF2A]",
             };
 
             const catLabel =
@@ -149,16 +143,16 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.4, delay: idx * 0.07 }}
-                className="group rounded-[28px] bg-[#202024] border border-neutral-800/90 p-5 sm:p-6 flex flex-col justify-between hover:border-neutral-700 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                className="group rounded-[28px] bg-[#08343D] border border-[#145C6A] p-5 sm:p-6 flex flex-col justify-between hover:border-[#E6FF2A]/60 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div>
                   {/* Browser Window Mockup o Imagen Real limpia */}
                   <Link
                     href={`/marketplace/${product.slug}`}
-                    className="block rounded-2xl bg-[#171717] border border-neutral-800/90 overflow-hidden mb-5 cursor-pointer group-hover:border-neutral-700 transition-colors"
+                    className="block rounded-2xl bg-[#0C4651] border border-[#145C6A] overflow-hidden mb-5 cursor-pointer group-hover:border-[#E6FF2A]/40 transition-colors"
                   >
                     {product.image ? (
-                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A3942]">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={product.image}
@@ -168,11 +162,11 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                       </div>
                     ) : (
                       <div className="p-4 sm:p-5">
-                        {/* 3 Window Top Dots (1 orange, 2 grey) */}
+                        {/* 3 Window Top Dots (1 lime, 2 slate) */}
                         <div className="flex items-center gap-1.5 mb-4">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#FF532A]" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-neutral-600" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#E6FF2A]" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-600" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-600" />
                         </div>
 
                         {/* Window UI Layout (Left Bars + Right Solid Block) */}
@@ -180,7 +174,7 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                           {/* Left: Wireframe Bars */}
                           <div className="col-span-7 flex flex-col justify-center">
                             <div className="w-[90%] h-3.5 bg-white rounded-full mb-2" />
-                            <div className="w-[70%] h-2 bg-neutral-600 rounded-full mb-3" />
+                            <div className="w-[70%] h-2 bg-slate-500 rounded-full mb-3" />
                             <div className={`w-20 h-5 rounded-full ${preset.pillColor} opacity-90`} />
                           </div>
 
@@ -191,7 +185,7 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                         </div>
 
                         {/* Full-width bottom bar */}
-                        <div className="w-full h-4 rounded-lg bg-neutral-800/90 mt-4" />
+                        <div className="w-full h-4 rounded-lg bg-[#0C4651] mt-4 border border-[#145C6A]" />
                       </div>
                     )}
                   </Link>
@@ -199,35 +193,35 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                   {/* Title & Category with Short Description */}
                   <div className="mb-6 flex flex-col">
                     {/* Etiqueta de Categoría - Tipográfica y limpia */}
-                    <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1.5">
+                    <span className="text-xs font-bold text-[#E6FF2A] uppercase tracking-wider mb-1.5">
                       {catLabel}
                     </span>
 
                     {/* Título */}
                     <Link href={`/marketplace/${product.slug}`}>
-                      <h3 className="hd text-xl sm:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                      <h3 className="hd text-xl sm:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-[#E6FF2A] transition-colors line-clamp-2 leading-snug m-0">
                         {getMarketplaceTitle(product.title, lang)}
                       </h3>
                     </Link>
 
                     {/* Descripción corta */}
-                    <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed line-clamp-2 m-0">
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2 m-0">
                       {product.shortDesc ? product.shortDesc[lang] || product.shortDesc.es : ""}
                     </p>
                   </div>
                 </div>
 
                 {/* Bottom Row: Price + Single Action Button */}
-                <div className="pt-4 border-t border-neutral-800/80 flex items-center justify-between gap-3">
+                <div className="pt-4 border-t border-[#145C6A] flex items-center justify-between gap-3">
                   {/* Price */}
-                  <div className="hd text-2xl sm:text-[26px] font-extrabold text-white">
+                  <div className="hd text-2xl sm:text-[26px] font-extrabold text-[#E6FF2A]">
                     {product.price}
                   </div>
 
                   {/* Single Action Button: Ver detalle */}
                   <Link
                     href={`/marketplace/${product.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs sm:text-sm font-semibold shadow-md shadow-[#FF532A]/20 transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-xs sm:text-sm font-bold shadow-md shadow-[#E6FF2A]/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     <span>{lang === "es" ? "Ver detalle" : "View detail"}</span>
                     <ArrowUpRight className="w-4 h-4" />
@@ -249,7 +243,7 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
           >
             <Link
               href="/marketplace"
-              className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/30 transition-all duration-300 hover:scale-105 active:scale-95 group"
+              className="inline-flex items-center gap-2 bg-[#E6FF2A] hover:bg-[#D8F219] text-[#0C4651] text-sm sm:text-base font-bold px-8 py-3.5 rounded-full shadow-lg shadow-[#E6FF2A]/25 transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
             >
               <span>
                 {lang === "es" ? "Ver todo el marketplace" : "Browse All Templates"}

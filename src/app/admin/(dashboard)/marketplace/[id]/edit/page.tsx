@@ -4,7 +4,7 @@ import { getAllMarketplaceProducts } from "@/db/service";
 import { MarketplaceForm } from "@/components/admin/MarketplaceForm";
 
 export const metadata = {
-  title: "Editar Solución | Admin Stellaris",
+  title: "Editar Solución | Admin Kano Dev",
 };
 
 export default async function EditMarketplacePage({

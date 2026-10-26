@@ -117,8 +117,8 @@ export const PROJECTS: ProjectItem[] = [
     bgPreview: "bg-gradient-to-br from-neutral-900 to-[#171717]",
     testimonial: {
       quote: {
-        en: "Stellaris Dev understood the urgency of our business. In less than two weeks, our online order system was 100% live and direct channel sales grew exponentially.",
-        es: "Stellaris Dev entendió exactamente la urgencia de nuestro negocio. En menos de dos semanas teníamos el sistema de pedidos corriendo al 100% y nuestras ventas por canal propio aumentaron exponencialmente.",
+        en: "Kano Dev understood the urgency of our business. In less than two weeks, our online order system was 100% live and direct channel sales grew exponentially.",
+        es: "Kano Dev entendió exactamente la urgencia de nuestro negocio. En menos de dos semanas teníamos el sistema de pedidos corriendo al 100% y nuestras ventas por canal propio aumentaron exponencialmente.",
       },
       name: "Rodrigo Morales",
       role: {
@@ -284,7 +284,7 @@ export const PROJECTS: ProjectItem[] = [
     stack: ["Next.js 16", "Vercel Blob", "Stripe Checkout", "Framer Motion"],
     liveUrl: "https://stellaris-dev.vercel.app",
     liveUrlLabel: "Demo en Vivo",
-    bgPreview: "bg-gradient-to-br from-[#FF532A] to-[#E0451F]",
+    bgPreview: "bg-gradient-to-br from-[#0C4651] to-[#145C6A]",
     testimonial: {
       quote: {
         en: "We were looking for an editorial eCommerce design competing with top European fashion houses, and they exceeded all expectations. Customer feedback on the buying experience has been stellar.",

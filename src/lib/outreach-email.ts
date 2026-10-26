@@ -5,7 +5,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Remitente oficial
 const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "Stellaris Dev <contact@tiendastellaris.com>";
+  process.env.RESEND_FROM_EMAIL || "Kano Dev <contact@tiendastellaris.com>";
 
 // Correo de respuesta (tu Gmail para que recibas las respuestas de los clientes directamente)
 const REPLY_TO_EMAIL = "stellarisdevsolutions@gmail.com";
@@ -68,7 +68,7 @@ export function buildOutreachHtml(data: OutreachEmailData): string {
               <a 
                 href="${demo_url.trim()}" 
                 target="_blank" 
-                style="display: inline-block; background: #FF532A; color: #ffffff !important; padding: 10px 22px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; letter-spacing: 0.3px; box-shadow: 0 3px 8px rgba(255,83,42,0.25);"
+                style="display: inline-block; background: #0C4651; color: #E6FF2A !important; padding: 10px 22px; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: bold; letter-spacing: 0.3px; box-shadow: 0 3px 8px rgba(12,70,81,0.25);"
               >
                 👉 Ver Demo en Vivo en Pantalla Completa →
               </a>
@@ -157,7 +157,7 @@ export function buildOutreachHtml(data: OutreachEmailData): string {
 
           <!-- Pie de página discreto y anti-spam -->
           <div class="footer-note">
-            Stellaris Dev Solutions • tiendastellaris.com<br/>
+            Kano Dev Solutions • tiendastellaris.com<br/>
             Si no deseas recibir más mensajes de nuestra parte, simplemente responde indicando "dar de baja".
           </div>
         </div>

@@ -61,12 +61,9 @@ const SPANISH_SPEAKING_TIMEZONES = [
 ];
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>("en");
-  const [mounted, setMounted] = useState(false);
+  const [lang, setLangState] = useState<Language>("es");
 
   useEffect(() => {
-    setMounted(true);
-
     // 1. Verificar si el usuario ya seleccionó manualmente un idioma (LocalStorage o Cookie)
     try {
       const savedLocal = localStorage.getItem("stellaris_lang") as Language | null;

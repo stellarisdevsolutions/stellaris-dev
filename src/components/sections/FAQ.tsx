@@ -14,8 +14,8 @@ export function FAQ() {
       id: 1,
       quote:
         lang === "es"
-          ? "Stellaris Dev transformó completamente nuestra presencia online. Nuestro tráfico y ventas se duplicaron tras el rediseño."
-          : "Stellaris Dev completely transformed our online presence. Our conversions doubled right after the launch.",
+          ? "Kano Dev transformó completamente nuestra presencia online. Nuestro tráfico y ventas se duplicaron tras el rediseño."
+          : "Kano Dev completely transformed our online presence. Our conversions doubled right after the launch.",
       name: "Carlos Mendoza",
       role: lang === "es" ? "Fundador, Nova Retail" : "Founder, Nova Retail",
       rating: 5,
@@ -75,7 +75,7 @@ export function FAQ() {
     <div className="w-full px-0 sm:px-6 py-0 sm:py-6 bg-white">
       <section
         id="faq"
-        className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-14 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
+        className="w-full max-w-[1240px] mx-auto bg-[#0C4651] text-white rounded-none sm:rounded-[48px] px-6 py-14 sm:p-14 lg:p-16 shadow-2xl overflow-hidden border border-[#145C6A]"
       >
         {/* Testimonials Header */}
         <motion.div
@@ -85,13 +85,13 @@ export function FAQ() {
           transition={{ duration: 0.45 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <div className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] uppercase font-bold tracking-widest mb-3">
+          <div className="inline-flex items-center gap-1.5 text-xs text-[#E6FF2A] uppercase font-bold tracking-widest mb-3">
             <span>✦</span>
             <span>{lang === "es" ? "PRUEBA SOCIAL" : "SOCIAL PROOF"}</span>
           </div>
           <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white m-0">
             {lang === "es" ? "Testimonios que hablan de " : "Testimonials that Speak to "}
-            <span className="text-[#FF532A]">
+            <span className="text-[#E6FF2A]">
               {lang === "es" ? "Nuestros Resultados" : "My Results"}
             </span>
           </h2>
@@ -106,31 +106,31 @@ export function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-20px" }}
               transition={{ duration: 0.45, delay: idx * 0.1 }}
-              className="rounded-3xl bg-[#242427] border border-neutral-800 p-6 sm:p-8 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300"
+              className="rounded-3xl bg-[#08343D] border border-[#145C6A] p-6 sm:p-8 flex flex-col justify-between hover:border-[#E6FF2A]/50 transition-all duration-300"
             >
               <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-1 text-[#FF532A]">
+                <div className="flex items-center gap-1 text-[#E6FF2A]">
                   {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FF532A]" />
+                    <Star key={i} className="w-4 h-4 fill-[#E6FF2A]" />
                   ))}
                 </div>
-                <p className="text-sm sm:text-base text-neutral-300 italic leading-relaxed m-0">
+                <p className="text-sm sm:text-base text-slate-200 italic leading-relaxed m-0">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between">
+              <div className="mt-6 pt-4 border-t border-[#145C6A] flex items-center justify-between">
                 <div>
                   <div className="font-semibold text-white text-sm">{t.name}</div>
-                  <div className="text-xs text-neutral-400">{t.role}</div>
+                  <div className="text-xs text-slate-300">{t.role}</div>
                 </div>
-                <Quote className="w-6 h-6 text-neutral-700" />
+                <Quote className="w-6 h-6 text-[#145C6A]" />
               </div>
             </motion.div>
           ))}
         </div>
 
         {/* FAQ Accordions Area */}
-        <div className="pt-10 border-t border-neutral-800/80 flex flex-col items-center">
+        <div className="pt-10 border-t border-[#145C6A] flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -153,7 +153,7 @@ export function FAQ() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.05 }}
-                  className="rounded-2xl bg-[#242427] border border-neutral-800 overflow-hidden transition-all"
+                  className="rounded-2xl bg-[#08343D] border border-[#145C6A] overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
@@ -163,7 +163,7 @@ export function FAQ() {
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 text-[#FF532A] shrink-0 transition-transform duration-200 ${
+                      className={`w-5 h-5 text-[#E6FF2A] shrink-0 transition-transform duration-200 ${
                         isOpen ? "rotate-180" : ""
                       }`}
                     />
@@ -175,7 +175,7 @@ export function FAQ() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="px-5 sm:px-6 pb-6 text-neutral-400 text-sm sm:text-[15px] leading-relaxed overflow-hidden"
+                        className="px-5 sm:px-6 pb-6 text-slate-300 text-sm sm:text-[15px] leading-relaxed overflow-hidden"
                       >
                         {faq.a}
                       </motion.div>

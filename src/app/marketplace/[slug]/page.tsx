@@ -41,14 +41,14 @@ export async function generateMetadata({
       canonical: `/marketplace/${product.slug}`,
     },
     openGraph: {
-      title: `${title} | Stellaris Dev`,
+      title: `${title} | Kano Dev`,
       description,
       url: `https://tiendastellaris.com/marketplace/${product.slug}`,
       images: product.image ? [{ url: product.image, alt: rawTitle }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Stellaris Dev`,
+      title: `${title} | Kano Dev`,
       description,
       images: product.image ? [product.image] : undefined,
     },
@@ -79,8 +79,53 @@ export default async function MarketplaceDetailPage({
   const pool = allProducts && allProducts.length > 0 ? allProducts : MARKETPLACE_PRODUCTS;
   const relatedProducts = pool.filter((p) => p.slug !== slug).slice(0, 3);
 
+  const rawTitle =
+    typeof product.title === "string"
+      ? product.title
+      : product.title?.es || product.title?.en || "Plantilla Web";
+  const rawDesc =
+    typeof product.shortDesc === "object"
+      ? product.shortDesc?.es || product.shortDesc?.en
+      : "";
+  const numericPrice = (product.price || "").replace(/[^0-9.]/g, "") || "99";
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: rawTitle,
+    description: rawDesc,
+    image: product.image ? [product.image] : [`https://tiendastellaris.com/opengraph-image`],
+    brand: {
+      "@type": "Brand",
+      name: "Kano Dev Solutions",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://tiendastellaris.com/marketplace/${product.slug}`,
+      priceCurrency: "USD",
+      price: numericPrice,
+      priceValidUntil: "2027-12-31",
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@type": "Organization",
+        name: "Kano Dev Solutions",
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating || "4.9",
+      bestRating: "5",
+      reviewCount: Math.max(product.salesCount || 0, 8),
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#FF532A] selection:text-white">
+    <div className="min-h-screen bg-white text-[#171717] flex flex-col selection:bg-[#E6FF2A] selection:text-[#0C4651]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <Navbar />
 
       <main className="flex-1 pt-28 sm:pt-36 pb-20">
