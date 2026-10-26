@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Check, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -11,7 +12,13 @@ export function Pricing() {
   return (
     <section id="pricing" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
       {/* Header */}
-      <div className="text-center flex flex-col gap-3 items-center mb-12 sm:mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.45 }}
+        className="text-center flex flex-col gap-3 items-center mb-12 sm:mb-16"
+      >
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold tracking-[2px] uppercase bg-neutral-100 text-neutral-700">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
           {lang === "es" ? "PRECIOS TRANSPARENTES" : "TRANSPARENT PRICING"}
@@ -27,12 +34,18 @@ export function Pricing() {
             ? "Inversión clara y sin costos ocultos. Desde páginas de lanzamiento rápido hasta plataformas completas diseñadas para vender."
             : "Clear pricing with zero hidden fees. From fast product launch pages to full platforms engineered to drive sales."}
         </p>
-      </div>
+      </motion.div>
 
       {/* 3 Pricing Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
         {/* Card 1: Landing Page */}
-        <div className="rounded-[28px] border border-neutral-200/90 bg-white p-7 sm:p-8 flex flex-col gap-6 shadow-xs hover:shadow-xl hover:border-[#FF532A]/50 transition-all">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+          className="rounded-[28px] border border-neutral-200/90 bg-white p-7 sm:p-8 flex flex-col gap-6 shadow-xs hover:shadow-xl hover:border-[#FF532A]/50 transition-all hover:-translate-y-1"
+        >
           <div>
             <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">Landing Page</h3>
             <p className="text-xs text-neutral-500 mt-1 m-0">
@@ -81,10 +94,16 @@ export function Pricing() {
             <span>{lang === "es" ? "Cotizar Landing Page" : "Get Quote"}</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Card 2: Featured Charcoal Card */}
-        <div className="rounded-[28px] bg-[#171717] text-white p-7 sm:p-8 flex flex-col gap-6 shadow-2xl relative border border-neutral-800 hover:border-[#FF532A] transition-all -translate-y-1 sm:-translate-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45, delay: 0.12 }}
+          className="rounded-[28px] bg-[#171717] text-white p-7 sm:p-8 flex flex-col gap-6 shadow-2xl relative border border-neutral-800 hover:border-[#FF532A] transition-all -translate-y-1 sm:-translate-y-2 hover:-translate-y-3"
+        >
           <div className="flex items-center justify-between">
             <div>
               <h3 className="hd text-xl sm:text-2xl font-bold text-white m-0">
@@ -140,10 +159,16 @@ export function Pricing() {
             <span>{lang === "es" ? "Empezar Proyecto" : "Get Started"}</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Card 3: E-Commerce */}
-        <div className="rounded-[28px] border border-neutral-200/90 bg-white p-7 sm:p-8 flex flex-col gap-6 shadow-xs hover:shadow-xl hover:border-[#FF532A]/50 transition-all">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45, delay: 0.19 }}
+          className="rounded-[28px] border border-neutral-200/90 bg-white p-7 sm:p-8 flex flex-col gap-6 shadow-xs hover:shadow-xl hover:border-[#FF532A]/50 transition-all hover:-translate-y-1"
+        >
           <div>
             <h3 className="hd text-xl sm:text-2xl font-bold text-[#171717] m-0">E-Commerce</h3>
             <p className="text-xs text-neutral-500 mt-1 m-0">
@@ -192,7 +217,7 @@ export function Pricing() {
             <span>{lang === "es" ? "Cotizar E-Commerce" : "Get Quote"}</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

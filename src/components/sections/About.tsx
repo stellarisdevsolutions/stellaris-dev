@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Code2, Zap, Users } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -14,7 +15,13 @@ export function About() {
     <section id="about" className="w-full bg-white text-[#171717] pt-8 sm:pt-20 pb-16 sm:pb-20 border-b border-neutral-100">
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8">
         {/* Header Eyebrow */}
-        <div className="flex flex-col items-center sm:items-start text-center sm:text-left mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="flex flex-col items-center sm:items-start text-center sm:text-left mb-10"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-3 shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF532A]" />
             <span>{lang === "es" ? "Sobre Nosotros" : "About Us"}</span>
@@ -36,12 +43,18 @@ export function About() {
                 : "We are a boutique software & web engineering studio. We combine modern interface craft with ultra-fast, robust architectures to turn visitors into paying customers."}
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Compact Bento Grid: 3 Pillars */}
+        {/* Compact Bento Grid: 3 Pillars with subtle staggered reveal */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {/* Card 1: Código Propio & Stack Completo */}
-          <div className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs hover:-translate-y-1"
+          >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] flex items-center justify-center mb-5">
                 <Code2 className="w-6 h-6" />
@@ -65,17 +78,23 @@ export function About() {
                 {techChips.map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-neutral-800 border border-neutral-200 shadow-2xs"
+                    className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-neutral-800 border border-neutral-200 shadow-2xs hover:border-[#FF532A]/40 transition-colors"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Obsesión por la Velocidad */}
-          <div className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.12 }}
+            className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs hover:-translate-y-1"
+          >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] flex items-center justify-center mb-5">
                 <Zap className="w-6 h-6" />
@@ -100,10 +119,16 @@ export function About() {
                 <div className="text-xs text-neutral-500">{lang === "es" ? "Tiempo de carga" : "Load time"}</div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Trato Directo sin Vueltas */}
-          <div className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.19 }}
+            className="rounded-[28px] bg-neutral-50 border border-neutral-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300 shadow-xs hover:-translate-y-1"
+          >
             <div>
               <div className="w-12 h-12 rounded-2xl bg-[#FF532A]/10 text-[#FF532A] flex items-center justify-center mb-5">
                 <Users className="w-6 h-6" />
@@ -127,7 +152,7 @@ export function About() {
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

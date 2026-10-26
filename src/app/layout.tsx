@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const siteUrl = "https://tiendastellaris.com";
@@ -134,11 +133,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans bg-[#F4F6FB] text-[#0B1020] relative">
         <LanguageProvider>
-          <SmoothScrollProvider>
-            <div className="relative z-10 flex flex-col min-h-screen">
-              {children}
-            </div>
-          </SmoothScrollProvider>
+          <div className="relative z-10 flex flex-col min-h-screen">
+            {children}
+          </div>
         </LanguageProvider>
       </body>
     </html>

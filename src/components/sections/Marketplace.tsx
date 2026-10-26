@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { MARKETPLACE_PRODUCTS, MarketplaceProduct, getMarketplaceTitle } from "@/data/marketplace";
@@ -60,7 +61,6 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
   // Verificar si hay más productos para mostrar el botón de ver más
   const hasMoreProducts = filteredProducts.length > 6 || productsList.length > 6;
 
-
   // Preset mockup colors matching the cards
   const cardPresets: Record<string, { blockColor: string; pillColor: string }> = {
     "saas-starter-pro": { blockColor: "bg-[#FF532A]", pillColor: "bg-[#FF532A]" },
@@ -82,7 +82,13 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
 
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 relative z-10">
         {/* Section Heading Centrado */}
-        <div className="flex flex-col items-center text-center max-w-[820px] mx-auto mb-10 sm:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="flex flex-col items-center text-center max-w-[820px] mx-auto mb-10 sm:mb-12"
+        >
           <h2 className="hd text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.12] m-0">
             {lang === "es" ? "Marketplace de " : "Marketplace of "}
             <span className="text-[#FF532A]">
@@ -94,10 +100,16 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
               ? "Sitios listos para personalizar y lanzar. Elige una solución, cómprala en línea y empieza a usarla hoy mismo."
               : "Production-ready sites to customize and launch. Choose a template, buy online, and deploy today."}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Filter Pills Flex-Wrap Centradas (Solo categorías que contienen productos) */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10 sm:mb-14 w-full">
+        {/* Filter Pills Flex-Wrap Centradas */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10 sm:mb-14 w-full"
+        >
           {dynamicFilterTabs.map((tab) => {
             const active = selectedFilter === tab.id;
             return (
@@ -115,11 +127,11 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
               </button>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* 3-Column Product Cards Grid (Máximo 2 filas / 6 productos) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {displayedProducts.map((product) => {
+          {displayedProducts.map((product, idx) => {
             const preset = cardPresets[product.id] || {
               blockColor: "bg-[#FF532A]",
               pillColor: "bg-[#FF532A]",
@@ -131,9 +143,13 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                 : categoryLabels[product.category]?.[lang] || categoryLabels[product.category]?.es || product.category;
 
             return (
-              <div
+              <motion.div
                 key={product.id}
-                className="group rounded-[28px] bg-[#202024] border border-neutral-800/90 p-5 sm:p-6 flex flex-col justify-between hover:border-neutral-700 hover:shadow-2xl transition-all duration-300"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: idx * 0.07 }}
+                className="group rounded-[28px] bg-[#202024] border border-neutral-800/90 p-5 sm:p-6 flex flex-col justify-between hover:border-neutral-700 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div>
                   {/* Browser Window Mockup o Imagen Real limpia */}
@@ -143,6 +159,7 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                   >
                     {product.image ? (
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={product.image}
                           alt={getMarketplaceTitle(product.title, lang)}
@@ -186,14 +203,14 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                       {catLabel}
                     </span>
 
-                    {/* Título - Máximo 2 filas */}
+                    {/* Título */}
                     <Link href={`/marketplace/${product.slug}`}>
                       <h3 className="hd text-xl sm:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
                         {getMarketplaceTitle(product.title, lang)}
                       </h3>
                     </Link>
 
-                    {/* Descripción corta - Máximo 2 filas */}
+                    {/* Descripción corta */}
                     <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed line-clamp-2 m-0">
                       {product.shortDesc ? product.shortDesc[lang] || product.shortDesc.es : ""}
                     </p>
@@ -210,30 +227,36 @@ export function Marketplace({ items = MARKETPLACE_PRODUCTS }: { items?: Marketpl
                   {/* Single Action Button: Ver detalle */}
                   <Link
                     href={`/marketplace/${product.slug}`}
-                    className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-white hover:bg-[#FF532A] text-[#171717] hover:text-white text-xs sm:text-[13px] font-semibold transition-all shadow-xs cursor-pointer whitespace-nowrap group/btn"
+                    className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#FF532A] hover:bg-[#E5451D] text-white text-xs sm:text-sm font-semibold shadow-md shadow-[#FF532A]/20 transition-all hover:scale-105 active:scale-95"
                   >
-                    <span>{lang === "es" ? "Ver detalle" : "View details"}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <span>{lang === "es" ? "Ver detalle" : "View detail"}</span>
+                    <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Botón Ver más productos si hay más de 6 */}
+        {/* Bottom CTA / Link para ver todo el catálogo */}
         {hasMoreProducts && (
-          <div className="mt-12 sm:mt-16 flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="mt-12 sm:mt-16 flex justify-center"
+          >
             <Link
               href="/marketplace"
-              className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/25 transition-all duration-300 hover:scale-105 active:scale-95 group"
+              className="inline-flex items-center gap-2 bg-[#FF532A] hover:bg-[#E5451D] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-[#FF532A]/30 transition-all duration-300 hover:scale-105 active:scale-95 group"
             >
               <span>
-                {lang === "es" ? "Ver más productos" : "View All Products"}
+                {lang === "es" ? "Ver todo el marketplace" : "Browse All Templates"}
               </span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -80,7 +81,12 @@ export function ProjectDetailView({
   return (
     <div className="w-full max-w-[1200px] mx-auto px-6 sm:px-8">
       {/* Breadcrumb & Back Link */}
-      <div className="flex items-center justify-between mb-8 sm:mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="flex items-center justify-between mb-8 sm:mb-10"
+      >
         <Link
           href="/projects"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
@@ -92,10 +98,15 @@ export function ProjectDetailView({
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold uppercase tracking-wider">
           {categoryText}
         </span>
-      </div>
+      </motion.div>
 
       {/* Project Title & Tagline */}
-      <div className="max-w-[880px] mb-8 sm:mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.05 }}
+        className="max-w-[880px] mb-8 sm:mb-12"
+      >
         <h1 className="hd text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#171717] leading-[1.08] mb-4">
           {projectTitle}
         </h1>
@@ -104,10 +115,15 @@ export function ProjectDetailView({
             {taglineText}
           </p>
         )}
-      </div>
+      </motion.div>
 
       {/* Project Meta Details Strip (Cliente, Año, Servicio, Enlace) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-neutral-50 border border-neutral-200/80 mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.12 }}
+        className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-neutral-50 border border-neutral-200/80 mb-10"
+      >
         <div>
           <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1 flex items-center gap-1.5">
             <User className="w-3.5 h-3.5 text-[#FF532A]" />
@@ -157,12 +173,17 @@ export function ProjectDetailView({
             </span>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* ══════════════════════════════════════════════════════════════════
           1. IMAGEN PRINCIPAL (Debajo de Cliente / Año / Servicio)
           ══════════════════════════════════════════════════════════════════ */}
-      <div className="rounded-[32px] sm:rounded-[40px] bg-[#171717] overflow-hidden border border-neutral-800 shadow-2xl relative mb-14 group">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.18 }}
+        className="rounded-[32px] sm:rounded-[40px] bg-[#171717] overflow-hidden border border-neutral-800 shadow-2xl relative mb-14 group"
+      >
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF532A]/15 rounded-full blur-3xl pointer-events-none" />
 
         {isImageBlob ? (
@@ -191,13 +212,19 @@ export function ProjectDetailView({
             </span>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* ══════════════════════════════════════════════════════════════════
           2. VISIÓN GENERAL (Debajo de la Imagen Principal)
           ══════════════════════════════════════════════════════════════════ */}
       {hasOverview && (
-        <div className="rounded-[32px] bg-neutral-50 border border-neutral-200/90 p-8 sm:p-12 mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="rounded-[32px] bg-neutral-50 border border-neutral-200/90 p-8 sm:p-12 mb-14"
+        >
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold uppercase tracking-wider mb-4">
             {lang === "es" ? "✦ Visión General" : "✦ Overview"}
           </span>
@@ -207,14 +234,18 @@ export function ProjectDetailView({
           <p className="text-neutral-700 text-base sm:text-lg leading-relaxed font-normal max-w-4xl">
             {overviewText}
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           3. EL DESAFÍO Y LA SOLUCIÓN (Opcionales - si existen)
           ══════════════════════════════════════════════════════════════════ */}
       {(hasChallenge || hasSolution) && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
           className={`grid gap-8 mb-14 ${
             hasChallenge && hasSolution
               ? "grid-cols-1 md:grid-cols-2"
@@ -258,14 +289,20 @@ export function ProjectDetailView({
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           4. STACK TECNOLÓGICO (Debajo de El Desafío y La Solución)
           ══════════════════════════════════════════════════════════════════ */}
       {hasStack && (
-        <div className="rounded-[32px] bg-[#171717] text-white border border-neutral-800 p-8 sm:p-10 mb-14 shadow-xl relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="rounded-[32px] bg-[#171717] text-white border border-neutral-800 p-8 sm:p-10 mb-14 shadow-xl relative overflow-hidden"
+        >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF532A]/20 text-[#FF532A] text-xs font-bold uppercase tracking-wider mb-2">
@@ -295,14 +332,20 @@ export function ProjectDetailView({
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           5. SECCIÓN DE IMPACTO & RESULTADOS (Opcional)
           ══════════════════════════════════════════════════════════════════ */}
       {hasMetrics && (
-        <div className="rounded-[36px] sm:rounded-[44px] bg-[#171717] text-white p-8 sm:p-12 lg:p-14 mb-16 border border-neutral-800 shadow-2xl relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5 }}
+          className="rounded-[36px] sm:rounded-[44px] bg-[#171717] text-white p-8 sm:p-12 lg:p-14 mb-16 border border-neutral-800 shadow-2xl relative overflow-hidden"
+        >
           <div
             className="absolute -top-12 -right-12 w-[320px] h-[320px] bg-[#FF532A]/20 rounded-full blur-[80px] pointer-events-none"
             aria-hidden="true"
@@ -338,14 +381,20 @@ export function ProjectDetailView({
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           6. CARACTERÍSTICAS FUNCIONALES (Opcional)
           ══════════════════════════════════════════════════════════════════ */}
       {hasFeatures && (
-        <div className="rounded-[32px] bg-neutral-50 border border-neutral-200/90 p-8 sm:p-10 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="rounded-[32px] bg-neutral-50 border border-neutral-200/90 p-8 sm:p-10 mb-16"
+        >
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF532A]/10 text-[#FF532A] text-xs font-bold uppercase tracking-wider mb-4">
             {lang === "es" ? "Capacidades" : "Capabilities"}
           </span>
@@ -369,7 +418,7 @@ export function ProjectDetailView({
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
@@ -388,7 +437,13 @@ export function ProjectDetailView({
           8. COMENTARIO / TESTIMONIO DEL CLIENTE (SOLO si tiene quote)
           ══════════════════════════════════════════════════════════════════ */}
       {hasTestimonial && (
-        <div className="rounded-[32px] sm:rounded-[36px] bg-[#171717] text-white p-8 sm:p-12 mb-16 border border-neutral-800 shadow-xl relative overflow-hidden text-center flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5 }}
+          className="rounded-[32px] sm:rounded-[36px] bg-[#171717] text-white p-8 sm:p-12 mb-16 border border-neutral-800 shadow-xl relative overflow-hidden text-center flex flex-col items-center"
+        >
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[200px] bg-[#FF532A]/10 rounded-full blur-[70px] pointer-events-none"
             aria-hidden="true"
@@ -414,14 +469,20 @@ export function ProjectDetailView({
               )}
             </div>
           )}
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           9. CARRUSEL / EXPLORADOR DE LOS DEMÁS PROYECTOS
           ══════════════════════════════════════════════════════════════════ */}
       {otherProjects.length > 0 && (
-        <div className="mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="mb-16"
+        >
           <div className="flex items-center justify-between mb-8">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#FF532A] block mb-1">
@@ -507,13 +568,19 @@ export function ProjectDetailView({
               );
             })}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* ══════════════════════════════════════════════════════════════════
           10. BANNER CTA NARANJA
           ══════════════════════════════════════════════════════════════════ */}
-      <div className="rounded-[36px] sm:rounded-[44px] bg-[#FF532A] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl shadow-[#FF532A]/20">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.5 }}
+        className="rounded-[36px] sm:rounded-[44px] bg-[#FF532A] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl shadow-[#FF532A]/20"
+      >
         <h2 className="hd text-2xl sm:text-4xl lg:text-5xl font-extrabold max-w-[700px] leading-[1.15] mb-3">
           {lang === "es"
             ? "¿Tienes una idea en mente? Platiquemos"
@@ -535,7 +602,7 @@ export function ProjectDetailView({
           </span>
           <ArrowUpRight className="w-4 h-4 text-[#FF532A]" />
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 }

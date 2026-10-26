@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { Mail, Phone, Clock, Send } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
 import { submitContactFormAction } from "@/app/admin/actions";
 
 export function Contact() {
   const { lang } = useLanguage();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [projectType, setProjectType] = useState("Landing Page");
+  const [projectType, setProjectType] = useState("Sitio Web");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleDetailedSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +25,6 @@ export function Contact() {
         email,
         projectType,
         details: message,
-        lang,
       });
       setSubmitted(true);
     } catch (err) {
@@ -44,7 +43,13 @@ export function Contact() {
   return (
     <section id="contact" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
       {/* Top Banner Callout */}
-      <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.45 }}
+        className="flex flex-col items-center text-center mb-12 sm:mb-16"
+      >
         <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#171717] m-0 max-w-[700px]">
           {lang === "es" ? "¿Tienes una idea increíble en mente? " : "Have An Awesome Project Idea? "}
           <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
@@ -56,13 +61,19 @@ export function Contact() {
             ? "Escríbenos directamente o completa el formulario para armar una propuesta personalizada."
             : "Drop us a line or fill out the form to receive a tailor-made proposal."}
         </p>
-      </div>
+      </motion.div>
 
       {/* Grid: Direct Contact Channels & Detailed Form */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-start">
         {/* Left Column: Direct channels */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
-          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4">
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45 }}
+          className="lg:col-span-5 flex flex-col gap-4"
+        >
+          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4 hover:border-[#FF532A]/40 transition-colors">
             <div className="w-12 h-12 rounded-2xl bg-[#FF532A] text-white flex items-center justify-center shrink-0 shadow-md shadow-[#FF532A]/25">
               <Mail className="w-5 h-5" />
             </div>
@@ -79,7 +90,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4">
+          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4 hover:border-[#FF532A]/40 transition-colors">
             <div className="w-12 h-12 rounded-2xl bg-[#171717] text-[#FF532A] flex items-center justify-center shrink-0 shadow-md">
               <Phone className="w-5 h-5" />
             </div>
@@ -98,7 +109,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4">
+          <div className="rounded-3xl border border-neutral-200/90 bg-neutral-50 p-6 flex items-center gap-4 hover:border-[#FF532A]/40 transition-colors">
             <div className="w-12 h-12 rounded-2xl bg-neutral-200 text-neutral-700 flex items-center justify-center shrink-0">
               <Clock className="w-5 h-5" />
             </div>
@@ -111,10 +122,16 @@ export function Contact() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Detailed Contact Form */}
-        <div className="lg:col-span-7 rounded-[32px] bg-[#171717] text-white p-8 sm:p-10 shadow-xl border border-neutral-800">
+        <motion.div
+          initial={{ opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45 }}
+          className="lg:col-span-7 rounded-[32px] bg-[#171717] text-white p-8 sm:p-10 shadow-xl border border-neutral-800"
+        >
           <h3 className="hd text-2xl font-bold text-white mb-6">
             {lang === "es" ? "Cuéntanos sobre tu proyecto" : "Tell us about your project"}
           </h3>
@@ -202,7 +219,7 @@ export function Contact() {
               </p>
             )}
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

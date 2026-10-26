@@ -148,7 +148,7 @@ export function MarketplaceDetailView({
   return (
     <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-8">
       {/* Breadcrumb & Back Link */}
-      <div className="flex items-center justify-between mb-8 sm:mb-10">
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="flex items-center justify-between mb-8 sm:mb-10">
         <Link
           href="/marketplace"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-neutral-600 hover:text-[#FF532A] transition-colors group"
@@ -164,12 +164,12 @@ export function MarketplaceDetailView({
             {categoryLabel}
           </span>
         )}
-      </div>
+      </motion.div>
 
       {/* Main 2-Column Product Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
         {/* Left Column: Product Information & Sections (8 cols) */}
-        <div className="lg:col-span-8 flex flex-col gap-10">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="lg:col-span-8 flex flex-col gap-10">
           {/* Product Header */}
           <div>
             <div className="flex items-center gap-2.5 mb-3">
@@ -459,10 +459,10 @@ export function MarketplaceDetailView({
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Right Column: Sticky Purchase Box (4 cols) */}
-        <div className="lg:col-span-4 sticky top-24">
+        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.12 }} className="lg:col-span-4 sticky top-24">
           <div className="rounded-[32px] border border-neutral-200 bg-white p-6 sm:p-8 shadow-xl shadow-neutral-200/50">
             {/* Price block */}
             <div className="mb-6">
@@ -590,11 +590,11 @@ export function MarketplaceDetailView({
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* SECCIÓN: LO QUE DICEN QUIENES LA COMPRARON */}
-      <div className="rounded-[36px] sm:rounded-[44px] bg-[#171717] text-white p-8 sm:p-12 mb-16 border border-neutral-800 shadow-2xl relative overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.5 }} className="rounded-[36px] sm:rounded-[44px] bg-[#171717] text-white p-8 sm:p-12 mb-16 border border-neutral-800 shadow-2xl relative overflow-hidden">
         <div
           className="absolute -top-10 -right-10 w-[300px] h-[300px] bg-[#FF532A]/20 rounded-full blur-[70px] pointer-events-none"
           aria-hidden="true"
@@ -644,11 +644,11 @@ export function MarketplaceDetailView({
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* OTRAS SOLUCIONES DISPONIBLES */}
       {relatedProducts.length > 0 && (
-        <div className="pt-4 mb-16">
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.45 }} className="pt-4 mb-16">
           <div className="flex items-center justify-between mb-8">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#FF532A] block mb-1">
@@ -754,11 +754,11 @@ export function MarketplaceDetailView({
               );
             })}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* BANNER CTA NARANJA */}
-      <div className="rounded-[36px] sm:rounded-[44px] bg-[#FF532A] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl shadow-[#FF532A]/20">
+      <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.5 }} className="rounded-[36px] sm:rounded-[44px] bg-[#FF532A] text-white p-10 sm:p-14 text-center flex flex-col items-center justify-center shadow-xl shadow-[#FF532A]/20">
         <h2 className="hd text-2xl sm:text-4xl lg:text-5xl font-extrabold max-w-[700px] leading-[1.15] mb-3">
           {lang === "es"
             ? "¿Tienes una idea en mente? Platiquemos"
@@ -780,7 +780,7 @@ export function MarketplaceDetailView({
           </span>
           <ArrowUpRight className="w-4 h-4 text-[#FF532A]" />
         </Link>
-      </div>
+      </motion.div>
 
       {/* English Purchase Request Modal */}
       <AnimatePresence>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { PROJECTS, ProjectItem } from "@/data/projects";
@@ -64,7 +65,13 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
   return (
     <section id="portfolio" className="w-full max-w-[1240px] mx-auto px-6 sm:px-8 py-20 sm:py-24 bg-white">
       {/* Header matching reference layout */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.45 }}
+        className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12"
+      >
         <h2 className="hd text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#171717] m-0 max-w-[540px]">
           {lang === "es" ? "Echa un vistazo a nuestro " : "Have a Look at our "}
           <span className="inline-block relative text-white bg-[#FF532A] px-3 sm:px-4 py-0.5 rounded-xl shadow-sm shadow-[#FF532A]/25 -rotate-1 mx-1">
@@ -80,10 +87,16 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
           <span>{lang === "es" ? "Cotizar Proyecto" : "Hire Us"}</span>
           <ArrowUpRight className="w-4 h-4" />
         </Link>
-      </div>
+      </motion.div>
 
-      {/* Filter Tabs (Solo muestra categorías que contienen proyectos) */}
-      <div className="flex flex-wrap items-center gap-2 mb-10">
+      {/* Filter Tabs */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="flex flex-wrap items-center gap-2 mb-10"
+      >
         {visibleCategories.map((cat) => (
           <button
             key={cat.id}
@@ -98,11 +111,11 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
             {cat.label}
           </button>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Projects Grid / Cards (Imagen completamente limpia, sin nada encima, máx 2 filas / 6 proyectos) */}
+      {/* Projects Grid / Cards with subtle stagger */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {displayedProjects.map((project) => {
+        {displayedProjects.map((project, idx) => {
           const title =
             typeof project.title === "object"
               ? project.title[lang] || project.title.es || project.title.en || ""
@@ -119,52 +132,67 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
               : project.gallery?.[0];
 
           return (
-            <Link
+            <motion.div
               key={project.id}
-              href={`/projects/${project.slug}`}
-              className="group flex flex-col transition-all duration-300"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ duration: 0.4, delay: idx * 0.07 }}
+              className="flex flex-col"
             >
-              {/* Imagen/Preview Limpia - SIN NADA ENCIMA */}
-              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-3 shadow-xs">
-                {imageSrc ? (
-                  <img
-                    src={imageSrc}
-                    alt={title}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <div
-                    className={`w-full h-full ${
-                      project.bgPreview || "bg-neutral-900"
-                    } flex items-center justify-center transition-transform duration-500 group-hover:scale-105`}
-                  >
-                    <span className="text-xl sm:text-2xl font-bold text-white/90 font-mono tracking-tight px-4 text-center">
-                      {project.client}
-                    </span>
-                  </div>
-                )}
-              </div>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="group flex flex-col transition-all duration-300 hover:-translate-y-1"
+              >
+                {/* Imagen/Preview Limpia - SIN NADA ENCIMA */}
+                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-3 shadow-xs">
+                  {imageSrc ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={imageSrc}
+                      alt={title}
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div
+                      className={`w-full h-full ${
+                        project.bgPreview || "bg-neutral-900"
+                      } flex items-center justify-center transition-transform duration-500 group-hover:scale-105`}
+                    >
+                      <span className="text-xl sm:text-2xl font-bold text-white/90 font-mono tracking-tight px-4 text-center">
+                        {project.client}
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-              {/* Información debajo de la imagen (limpio, sin nada sobre la foto) */}
-              <div className="flex flex-col">
-                {/* Etiqueta de Categoría - NO diseño cápsula (tipográfica, minimalista) */}
-                <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1">
-                  {catLabel}
-                </span>
+                {/* Información debajo de la imagen (limpio, sin nada sobre la foto) */}
+                <div className="flex flex-col">
+                  {/* Etiqueta de Categoría */}
+                  <span className="text-xs font-semibold text-[#FF532A] uppercase tracking-wider mb-1">
+                    {catLabel}
+                  </span>
 
-                {/* Título del proyecto - Máximo 2 filas */}
-                <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
-                  {title}
-                </h3>
-              </div>
-            </Link>
+                  {/* Título del proyecto */}
+                  <h3 className="hd text-base sm:text-lg lg:text-xl font-bold text-[#171717] group-hover:text-[#FF532A] transition-colors line-clamp-2 leading-snug m-0">
+                    {title}
+                  </h3>
+                </div>
+              </Link>
+            </motion.div>
           );
         })}
       </div>
 
       {/* Botón Ver todos los proyectos si hay más de 6 proyectos */}
       {hasMoreProjects && (
-        <div className="mt-12 sm:mt-16 flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mt-12 sm:mt-16 flex justify-center"
+        >
           <Link
             href="/projects"
             className="inline-flex items-center gap-2 bg-[#171717] hover:bg-[#FF532A] text-white text-sm sm:text-base font-semibold px-8 py-3.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 hover:scale-105 active:scale-95 group"
@@ -174,7 +202,7 @@ export function Portfolio({ items = PROJECTS }: { items?: ProjectItem[] }) {
             </span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
-        </div>
+        </motion.div>
       )}
     </section>
   );

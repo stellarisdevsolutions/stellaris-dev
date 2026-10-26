@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronDown, Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -76,8 +77,14 @@ export function FAQ() {
         id="faq"
         className="w-full max-w-[1240px] mx-auto bg-[#171717] text-white rounded-none sm:rounded-[48px] px-6 py-14 sm:p-14 lg:p-16 shadow-2xl overflow-hidden"
       >
-        {/* Testimonials Header matching exact reference */}
-        <div className="text-center mb-12 sm:mb-16">
+        {/* Testimonials Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.45 }}
+          className="text-center mb-12 sm:mb-16"
+        >
           <div className="inline-flex items-center gap-1.5 text-xs text-[#FF532A] uppercase font-bold tracking-widest mb-3">
             <span>✦</span>
             <span>{lang === "es" ? "PRUEBA SOCIAL" : "SOCIAL PROOF"}</span>
@@ -88,14 +95,18 @@ export function FAQ() {
               {lang === "es" ? "Nuestros Resultados" : "My Results"}
             </span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* 2 Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
-          {testimonials.map((t) => (
-            <div
+          {testimonials.map((t, idx) => (
+            <motion.div
               key={t.id}
-              className="rounded-3xl bg-[#242427] border border-neutral-800 p-6 sm:p-8 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ duration: 0.45, delay: idx * 0.1 }}
+              className="rounded-3xl bg-[#242427] border border-neutral-800 p-6 sm:p-8 flex flex-col justify-between hover:border-[#FF532A]/50 transition-all duration-300"
             >
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-1 text-[#FF532A]">
@@ -114,24 +125,34 @@ export function FAQ() {
                 </div>
                 <Quote className="w-6 h-6 text-neutral-700" />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* FAQ Accordions Area */}
         <div className="pt-10 border-t border-neutral-800/80 flex flex-col items-center">
-          <div className="text-center mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="text-center mb-8"
+          >
             <h3 className="hd text-2xl sm:text-3xl font-bold text-white m-0">
               {lang === "es" ? "Preguntas Frecuentes" : "Frequently Asked Questions"}
             </h3>
-          </div>
+          </motion.div>
 
           <div className="w-full max-w-[800px] flex flex-col gap-3">
             {faqs.map((faq, idx) => {
               const isOpen = openIndex === idx;
               return (
-                <div
+                <motion.div
                   key={faq.q}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: idx * 0.05 }}
                   className="rounded-2xl bg-[#242427] border border-neutral-800 overflow-hidden transition-all"
                 >
                   <button
@@ -147,12 +168,20 @@ export function FAQ() {
                       }`}
                     />
                   </button>
-                  {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 text-neutral-400 text-sm sm:text-[15px] leading-relaxed">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="px-5 sm:px-6 pb-6 text-neutral-400 text-sm sm:text-[15px] leading-relaxed overflow-hidden"
+                      >
+                        {faq.a}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               );
             })}
           </div>

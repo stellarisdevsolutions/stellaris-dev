@@ -3,11 +3,37 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Footer() {
-  const { lang, t } = useLanguage();
+  const { lang } = useLanguage();
+  const pathname = usePathname();
+
+  const isLinkActive = (href: string) => {
+    if (href === "/marketplace") {
+      return pathname.startsWith("/marketplace");
+    }
+    if (href === "/projects") {
+      return pathname.startsWith("/projects");
+    }
+    if (pathname === "/" && href === "/#home") {
+      return true;
+    }
+    return false;
+  };
+
+  const navItems = [
+    { label: lang === "es" ? "INICIO" : "HOME", href: "/#home" },
+    { label: lang === "es" ? "NOSOTROS" : "ABOUT", href: "/#about" },
+    { label: lang === "es" ? "SERVICIOS" : "SERVICES", href: "/#services" },
+    { label: lang === "es" ? "PROYECTOS" : "PROJECTS", href: "/projects" },
+    { label: "MARKETPLACE", href: "/marketplace" },
+    { label: lang === "es" ? "PROCESO" : "PROCESS", href: "/#process" },
+    { label: lang === "es" ? "PRECIOS" : "PRICING", href: "/#pricing" },
+    { label: lang === "es" ? "CONTACTO" : "CONTACT", href: "/#contact" },
+  ];
 
   return (
     <footer className="w-full bg-[#171717] text-white rounded-t-[36px] sm:rounded-t-[48px] overflow-hidden mt-12 border-t border-neutral-800">
@@ -27,29 +53,23 @@ export function Footer() {
             <span>Stellaris Dev</span>
           </Link>
 
-          <div className="flex gap-6 sm:gap-8 text-sm font-medium flex-wrap text-neutral-300">
-            <Link href="/#about" className="hover:text-[#FF532A] transition-colors">
-              {lang === "es" ? "Nosotros" : "About"}
-            </Link>
-            <Link href="/#services" className="hover:text-[#FF532A] transition-colors">
-              {t.navbar.services}
-            </Link>
-            <Link href="/projects" className="hover:text-[#FF532A] transition-colors">
-              {t.navbar.projects}
-            </Link>
-            <Link href="/marketplace" className="hover:text-[#FF532A] transition-colors">
-              Marketplace
-            </Link>
-            <Link href="/#process" className="hover:text-[#FF532A] transition-colors">
-              {t.navbar.process}
-            </Link>
-            <Link href="/#pricing" className="hover:text-[#FF532A] transition-colors">
-              {t.navbar.pricing}
-            </Link>
-            <Link href="/#contact" className="hover:text-[#FF532A] transition-colors">
-              {t.navbar.contact}
-            </Link>
-          </div>
+          {/* Navigation Links identical in style, order and casing to the Header */}
+          <nav className="flex gap-5 sm:gap-7 text-[12.5px] font-semibold tracking-wider flex-wrap items-center">
+            {navItems.map((item) => {
+              const active = isLinkActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`transition-colors uppercase hover:text-[#FF532A] ${
+                    active ? "text-[#FF532A] font-bold" : "text-neutral-300"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
 
         {/* Middle Call to action */}

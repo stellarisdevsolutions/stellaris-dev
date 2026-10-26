@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Process() {
@@ -55,8 +56,14 @@ export function Process() {
         />
 
         <div className="relative z-10 flex flex-col gap-12 sm:gap-16">
-          {/* Header (Sin etiqueta superior) */}
-          <div className="text-center flex flex-col items-center gap-3">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45 }}
+            className="text-center flex flex-col items-center gap-3"
+          >
             <h2 className="hd text-3xl sm:text-5xl lg:text-[48px] font-bold tracking-tight text-white m-0">
               {lang === "es" ? "Cómo " : "How we "}
               <span className="text-[#FF532A]">
@@ -69,7 +76,7 @@ export function Process() {
                 ? "Un flujo claro, transparente y sin sorpresas desde la idea inicial hasta el lanzamiento en producción."
                 : "A transparent, milestone-driven development process from concept to live production."}
             </p>
-          </div>
+          </motion.div>
 
           {/* 4 Steps with Connector Lines and Orange Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-7 relative">
@@ -77,7 +84,14 @@ export function Process() {
               const isLast = index === steps.length - 1;
 
               return (
-                <div key={item.number} className="flex flex-col gap-4 group">
+                <motion.div
+                  key={item.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.45, delay: index * 0.09 }}
+                  className="flex flex-col gap-4 group"
+                >
                   {/* Top: Step Number Badge + Connector Line */}
                   <div className="flex items-center gap-3">
                     <div className="hd w-[52px] h-[52px] rounded-2xl sm:rounded-full bg-[#FF532A] text-white font-extrabold text-[22px] flex items-center justify-center shrink-0 shadow-lg shadow-[#FF532A]/30 group-hover:scale-105 group-hover:bg-[#E5451D] transition-all">
@@ -101,7 +115,7 @@ export function Process() {
                   <p className="text-neutral-400 leading-[1.6] text-xs sm:text-[14px] m-0">
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
