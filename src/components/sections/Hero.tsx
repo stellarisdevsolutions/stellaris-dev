@@ -133,9 +133,9 @@ export function Hero() {
         >
           <div className="inline-flex items-center gap-1.5 bg-[#F8FAFC] px-3 py-1 rounded-full border border-slate-200 shadow-xs text-[11px]">
             <span className="w-2 h-2 rounded-full bg-[#E6FF2A] border border-[#0C4651]/30 animate-pulse" />
-            <span className="font-bold text-[#0C4651]">450+</span>
+            <span className="font-bold text-[#0C4651]">100%</span>
             <span className="text-slate-500 font-medium">
-              {lang === "es" ? "Proyectos" : "Projects"}
+              {lang === "es" ? "A Medida" : "Custom"}
             </span>
           </div>
           <div className="inline-flex items-center gap-1 bg-[#F8FAFC] px-3 py-1 rounded-full border border-slate-200 shadow-xs text-[11px]">
@@ -144,7 +144,7 @@ export function Hero() {
             </div>
             <span className="font-bold text-[#0C4651]">5.0</span>
             <span className="text-slate-500 font-medium">
-              {lang === "es" ? "(10 Años)" : "(10 Yrs)"}
+              {lang === "es" ? "(2 Años)" : "(2 Yrs)"}
             </span>
           </div>
         </motion.div>
@@ -191,7 +191,7 @@ export function Hero() {
             </p>
           </motion.div>
 
-          {/* Tarjeta Izquierda 2: Contador de Proyectos */}
+          {/* Tarjeta Izquierda 2: Satisfacción y Calidad */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
@@ -199,10 +199,10 @@ export function Hero() {
             className="hidden sm:flex flex-col text-left absolute left-4 lg:left-8 xl:left-12 bottom-5 z-20 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-[0_10px_25px_rgba(12,70,81,0.06)]"
           >
             <div className="hd text-xl sm:text-2xl font-bold text-[#0C4651] tracking-tight">
-              450+
+              100%
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500 font-medium">
-              {lang === "es" ? "Clientes Atendidos" : "Clients Served"}
+              {lang === "es" ? "Satisfacción Garantizada" : "Satisfaction Guaranteed"}
             </div>
           </motion.div>
 
@@ -219,10 +219,10 @@ export function Hero() {
               ))}
             </div>
             <div className="hd text-lg sm:text-xl font-bold text-[#0C4651] tracking-tight">
-              10 {lang === "es" ? "Años" : "Years"}
+              2 {lang === "es" ? "Años" : "Years"}
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500 font-medium">
-              {lang === "es" ? "De Experiencia" : "Experts"}
+              {lang === "es" ? "De Experiencia" : "Experience"}
             </div>
           </motion.div>
 
