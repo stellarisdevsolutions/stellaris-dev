@@ -99,7 +99,7 @@ export default function PrivacyPolicyPage() {
                 Si tienes preguntas sobre nuestras prácticas de privacidad o deseas que eliminemos tus datos de contacto de nuestros registros, contáctanos directamente a:
               </p>
               <p className="font-semibold text-[#171717] mt-2">
-                contact@tiendastellaris.com • WhatsApp: +591 69991245
+                contact@tiendastellaris.com • WhatsApp: +591 75806998
               </p>
             </section>
           </div>

@@ -91,13 +91,13 @@ const jsonLd = {
       logo: `${siteUrl}/icon.png`,
       image: `${siteUrl}/opengraph-image`,
       email: "contact@tiendastellaris.com",
-      telephone: "+59169991245",
+      telephone: "+59175806998",
       description:
         "Agencia de desarrollo web y software de alto rendimiento, comercio electrónico y marketplace de código fuente profesional.",
       sameAs: ["https://github.com/stellarisdevsolutions"],
       contactPoint: {
         "@type": "ContactPoint",
-        "telephone": "+59169991245",
+        "telephone": "+59175806998",
         "contactType": "customer service",
         "availableLanguage": ["Spanish", "English"],
       },
@@ -119,7 +119,7 @@ const jsonLd = {
       url: siteUrl,
       image: `${siteUrl}/opengraph-image`,
       email: "contact@tiendastellaris.com",
-      telephone: "+59169991245",
+      telephone: "+59175806998",
       priceRange: "$$",
       serviceType: [
         "Desarrollo Web Full-Stack",

@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -41,14 +40,8 @@ export function Footer() {
         {/* Top row */}
         <div className="flex justify-between items-center flex-wrap gap-6">
           <Link href="/#home" className="hd flex items-center gap-2.5 font-bold text-xl sm:text-2xl text-white group">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden bg-[#08343D] ring-1 ring-[#145C6A] group-hover:scale-105 transition-transform shrink-0 shadow-md">
-              <Image
-                src="/logo.webp"
-                alt="Kano Dev Logo"
-                width={36}
-                height={36}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-8 h-8 rounded-full bg-[#E6FF2A] text-[#0C4651] font-black text-sm flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 shadow-md font-mono select-none">
+              K
             </div>
             <span>Kano<span className="text-[#E6FF2A]">.dev</span></span>
           </Link>
@@ -87,12 +80,12 @@ export function Footer() {
 
           {lang === "es" ? (
             <Link
-              href="https://wa.me/59169991245"
+              href="https://wa.me/59175806998"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#E6FF2A] hover:bg-[#d8f219] text-[#0C4651] font-black text-sm px-6 py-3.5 rounded-full shadow-lg shadow-[#E6FF2A]/20 transition-all hover:scale-105 font-mono"
             >
-              <span>WhatsApp: +591 69991245</span>
+              <span>WhatsApp: +591 75806998</span>
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </Link>
           ) : (

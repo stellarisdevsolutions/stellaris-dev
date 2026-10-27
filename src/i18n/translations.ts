@@ -289,8 +289,8 @@ export const TRANSLATIONS = {
       subtitle:
         "Ready to build or upgrade your digital presence? Send us a message and receive a free, no-obligation quote today.",
       directWhatsapp: "Direct Phone / Mobile",
-      whatsappNumber: "+591 69991245",
-      whatsappBtn: "Direct Call / Contact (+591 69991245)",
+      whatsappNumber: "+591 75806998",
+      whatsappBtn: "Direct Call / Contact (+591 75806998)",
       emailLabel: "Official Email",
       emailAddress: "contact@tiendastellaris.com",
       guarantees: [
@@ -610,8 +610,8 @@ export const TRANSLATIONS = {
       subtitle:
         "¿Listo para renovar tu presencia digital? Escríbenos y te preparamos una propuesta clara, sin costo y sin compromiso.",
       directWhatsapp: "WhatsApp Oficial",
-      whatsappNumber: "+591 69991245",
-      whatsappBtn: "Chatear al WhatsApp (+591 69991245)",
+      whatsappNumber: "+591 75806998",
+      whatsappBtn: "Chatear al WhatsApp (+591 75806998)",
       emailLabel: "Correo Electrónico",
       emailAddress: "contact@tiendastellaris.com",
       guarantees: [
@@ -624,7 +624,7 @@ export const TRANSLATIONS = {
       nameLabel: "Tu Nombre o Empresa",
       namePlaceholder: "Ej. Carlos Mendoza / Restaurante Los Pinos",
       contactLabel: "Teléfono (WhatsApp) o Correo Electrónico",
-      contactPlaceholder: "Ej. +591 69991245 o carlos@ejemplo.com",
+      contactPlaceholder: "Ej. +591 75806998 o carlos@ejemplo.com",
       planLabel: "Plan o Servicio que te interesa",
       planOptions: [
         "Landing Page ($100 USD)",

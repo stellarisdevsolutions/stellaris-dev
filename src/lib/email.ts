@@ -251,7 +251,7 @@ export async function sendPurchaseInquiryEmails(params: SendPurchaseInquiryParam
 
               <div class="support-box">
                 <strong>¿Tienes alguna duda o requerimiento urgente?</strong><br/>
-                Puedes responder directamente a este correo o escribirnos vía WhatsApp al <strong>+591 69991245</strong> indicando la referencia <em>"${productSlug}"</em>.
+                Puedes responder directamente a este correo o escribirnos vía WhatsApp al <strong>+591 75806998</strong> indicando la referencia <em>"${productSlug}"</em>.
               </div>
             </div>
             <div class="footer">
@@ -446,7 +446,7 @@ export async function sendContactNotificationEmails(params: SendContactNotificat
                 <div style="font-size: 13px; color: #52525b; line-height: 1.5;">${details.replace(/\n/g, "<br/>")}</div>
               </div>
               <p style="font-size: 13px; color: #71717a; margin: 0;">
-                Si tu requerimiento es urgente, también puedes escribirnos a nuestra línea directa de WhatsApp al +591 69991245.
+                Si tu requerimiento es urgente, también puedes escribirnos a nuestra línea directa de WhatsApp al +591 75806998.
               </p>
             </div>
             <div class="footer">

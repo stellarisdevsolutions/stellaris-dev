@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -102,20 +101,13 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Center Brand Logo with Circular Badge */}
+        {/* Center Brand Logo with Monogram Badge */}
         <Link
           href="/#home"
           className="hd flex items-center gap-2.5 font-bold text-[17px] sm:text-[19px] text-white tracking-tight group"
         >
-          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-[#08343D] ring-1 ring-[#145C6A] group-hover:scale-105 transition-transform shrink-0 shadow-md">
-            <Image
-              src="/logo.webp"
-              alt="Kano Dev Logo"
-              width={32}
-              height={32}
-              className="w-full h-full object-cover"
-              priority
-            />
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#E6FF2A] text-[#0C4651] font-black text-xs sm:text-sm flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 shadow-md font-mono select-none">
+            K
           </div>
           <span>Kano<span className="text-[#E6FF2A]">.dev</span></span>
         </Link>

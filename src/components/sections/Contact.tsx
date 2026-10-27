@@ -36,7 +36,7 @@ export function Contact() {
 
     if (lang === "es") {
       const text = `Hola Kano Dev! Mi nombre es ${name}. Correo: ${email}. Proyecto: ${projectType}. Mensaje: ${message}`;
-      window.open(`https://wa.me/59169991245?text=${encodeURIComponent(text)}`, "_blank");
+      window.open(`https://wa.me/59175806998?text=${encodeURIComponent(text)}`, "_blank");
     }
   };
 
@@ -99,12 +99,12 @@ export function Contact() {
                 {lang === "es" ? "WhatsApp Directo" : "Direct Phone / Mobile"}
               </div>
               <a
-                href={lang === "es" ? "https://wa.me/59169991245" : "tel:+59169991245"}
+                href={lang === "es" ? "https://wa.me/59175806998" : "tel:+59175806998"}
                 target={lang === "es" ? "_blank" : undefined}
                 rel={lang === "es" ? "noopener noreferrer" : undefined}
                 className="font-bold text-[#0C4651] hover:text-[#0C4651]/80 transition-colors text-base"
               >
-                +591 69991245
+                +591 75806998
               </a>
             </div>
           </div>

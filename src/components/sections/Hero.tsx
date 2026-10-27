@@ -90,7 +90,9 @@ export function Hero() {
           transition={{ duration: 0.4 }}
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0C4651] text-white text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase mb-1.5 sm:mb-3 shadow-xs border border-[#145C6A]"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#E6FF2A]" />
+          <span className="w-4 h-4 rounded-full bg-[#E6FF2A] text-[#0C4651] font-black text-[10px] flex items-center justify-center font-mono leading-none shrink-0 select-none">
+            K
+          </span>
           <span>{lang === "es" ? "Estudio de Software & Web" : "Product & Web Studio"}</span>
           <span className="text-[#E6FF2A]">✦</span>
         </motion.div>

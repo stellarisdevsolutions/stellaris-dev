@@ -71,7 +71,7 @@ export function MarketplaceDetailView({
 
   const getWhatsAppBuyLink = () => {
     const message = `¡Hola Kano Dev! Me interesa adquirir el sistema "${title}" (${product.price}). ¿Cuáles son los métodos de pago y el proceso de entrega del repositorio y despliegue?`;
-    return `https://wa.me/59169991245?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/59175806998?text=${encodeURIComponent(message)}`;
   };
 
   // English purchase modal state
